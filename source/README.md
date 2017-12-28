@@ -4,7 +4,7 @@
 
 ##### 克隆代码库
 ``` bash
-git clone git@github.com:gauseen/vue-prod-test.git
+git clone https://github.com/gauseen/gauseen.github.io.git
 ```
 
 ##### 安装依赖资源
