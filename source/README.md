@@ -32,5 +32,10 @@ hexo s
 hexo d
 ```
 
+#### 新增页面
+```base
+hexo new <title>
+```
+
 ##### 我的博客地址：
 [https://gauseen.github.io](https://gauseen.github.io/)
