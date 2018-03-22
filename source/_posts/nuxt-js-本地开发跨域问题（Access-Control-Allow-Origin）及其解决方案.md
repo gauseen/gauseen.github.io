@@ -24,9 +24,10 @@ nodejs 中间件 [http-proxy-middleware api](https://github.com/chimurai/http-pr
 ```
 npm install --save-dev @gauseen/nuxt-proxy
 ```
-二、 添加 ```@gauseen/nuxt-proxy``` 资源至 ```nuxt.config.js``` 文件的 ```modules``` 对象之下
+二、 添加 @gauseen/nuxt-proxy 资源至 nuxt.config.js 文件的 modules 对象之下
 
 #### 举个栗子：
+
 ```
 // nuxt.config.js
 
@@ -38,12 +39,15 @@ proxyTable: {
 	'/api': { target: 'http://example.com', ws: false }
 },
 ```
+
 #### 注：
+
 ```
 /api   |—————— 每个接口特定标识字段 [String]
 target |—————— 目标代理服务 [String]
 ws     |—————— 是否支持 websocket 代理 [Boolean]
 ```
+
 - 欢迎访问我的个人博客 [攻城狮传送门](https://gauseen.github.io)，
 - 未经作者允许，禁止转载，谢谢！
 - 欢迎留言、评论！
