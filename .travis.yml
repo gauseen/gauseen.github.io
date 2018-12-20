@@ -9,7 +9,7 @@ install:
 script: true
 branches:
   only:
-    - master
+    - blog
 before_deploy:
   yarn clean
   yarn generate
@@ -20,4 +20,4 @@ deploy:
   keep-history: true
   skip-cleanup: true
   on:
-    branch: master
+    branch: blog
