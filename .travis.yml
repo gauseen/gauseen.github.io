@@ -13,10 +13,9 @@ branches:
 before_deploy:
   yarn clean
   yarn generate
-#   yarn deploy
 deploy:
   provider: pages
-  local-dir: public/
+  local-dir: public
   target-branch: master
   github-token: $GITHUB_TOKEN
   keep-history: true
