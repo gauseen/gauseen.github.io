@@ -79,7 +79,7 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:gauseen/gauseen.github.io.git
-  branch: master
+  branch: gh-pages
 
 # 博客、图表
 social:

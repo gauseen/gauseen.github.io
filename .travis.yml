@@ -8,13 +8,12 @@ install:
   - yarn install
 scripts:
   yarn clean
-  yarn generate
 branches:
   only:
     - master
-
 before_deploy:
-  yarn deploy
+  yarn generate
+#   yarn deploy
 deploy:
   provider: pages
   email: $NPM_EMAIL
