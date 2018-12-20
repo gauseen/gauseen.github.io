@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,html,setTimeout," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0. 关于 JavaScriptJavaScript 是单线程语言，其他所谓的“多线程”都是模拟出来的。 1. JavaScript 事件循环 为了解决 js 单线程在执行大量耗时代码时的问题，程序员将 js 的任务分为两大类： 同步任务 进入主线程执行   异步任务 进入Event Table执行 当指定的事件完成时，Event Table会将这个回调函数移入Event Queue 主线程内的任">
+<meta name="keywords" content="js,html,setTimeout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js 代码运行机制，宏任务、微任务">
+<meta property="og:url" content="http://yoursite.com/2018/12/08/js 代码运行机制，宏任务、微任务/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="0. 关于 JavaScriptJavaScript 是单线程语言，其他所谓的“多线程”都是模拟出来的。 1. JavaScript 事件循环 为了解决 js 单线程在执行大量耗时代码时的问题，程序员将 js 的任务分为两大类： 同步任务 进入主线程执行   异步任务 进入Event Table执行 当指定的事件完成时，Event Table会将这个回调函数移入Event Queue 主线程内的任">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-20T14:21:58.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js 代码运行机制，宏任务、微任务">
+<meta name="twitter:description" content="0. 关于 JavaScriptJavaScript 是单线程语言，其他所谓的“多线程”都是模拟出来的。 1. JavaScript 事件循环 为了解决 js 单线程在执行大量耗时代码时的问题，程序员将 js 的任务分为两大类： 同步任务 进入主线程执行   异步任务 进入Event Table执行 当指定的事件完成时，Event Table会将这个回调函数移入Event Queue 主线程内的任">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/08/js 代码运行机制，宏任务、微任务/"/>
+
+
+
+
+
+  <title>js 代码运行机制，宏任务、微任务 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/js 代码运行机制，宏任务、微任务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js 代码运行机制，宏任务、微任务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T18:28:10+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/08/js 代码运行机制，宏任务、微任务/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/08/js 代码运行机制，宏任务、微任务/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="0-关于-JavaScript"><a href="#0-关于-JavaScript" class="headerlink" title="0. 关于 JavaScript"></a>0. 关于 JavaScript</h3><p>JavaScript 是<strong>单线程</strong>语言，其他所谓的“多线程”都是模拟出来的。</p>
+<h3 id="1-JavaScript-事件循环"><a href="#1-JavaScript-事件循环" class="headerlink" title="1. JavaScript 事件循环"></a>1. JavaScript 事件循环</h3><ul>
+<li>为了解决 js 单线程在执行大量耗时代码时的问题，程序员将 js 的任务分为两大类：<ul>
+<li>同步任务<ul>
+<li>进入主线程执行</li>
+</ul>
+</li>
+<li>异步任务<ul>
+<li>进入<code>Event Table</code>执行</li>
+<li>当指定的事件完成时，<code>Event Table</code>会将这个回调函数移入<code>Event Queue</code></li>
+<li>主线程内的任务执行完毕为空，会去<code>Event Queue</code>读取对应的函数，进入主线程执行</li>
+<li>上述过程会不断重复，也就是常说的Event Loop(事件循环)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-macro-task-宏任务-、micro-task-微任务"><a href="#2-macro-task-宏任务-、micro-task-微任务" class="headerlink" title="2 macro-task(宏任务)、micro-task(微任务)"></a>2 macro-task(宏任务)、micro-task(微任务)</h3><ul>
+<li>除了广义的同步任务和异步任务，其实对任务还有更细致的划分<ul>
+<li>macro-task(宏任务)：包括整体代码 <code>script</code>，<code>setTimeout</code>，<code>setInterval</code></li>
+<li>micro-task(微任务)：<code>Promise</code>，<code>process.nextTick</code></li>
+</ul>
+</li>
+</ul>
+<p><code>js</code> 事件循环机制，决定了代码执行顺序。</p>
+<p><strong>第一步</strong>：<code>js</code> 解释器识别所有 <code>js</code> 代码，将同步的代码放到主线程执行；异步的代码放到<code>Event Table</code>执行。这也是第一次宏任务执行完毕！</p>
+<p><strong>第二步</strong>：接下来执行所有的微任务。  </p>
+<p>之后一直循环一、二步骤</p>
+<h3 id="3-举个栗子-chestnut"><a href="#3-举个栗子-chestnut" class="headerlink" title="3. 举个栗子 :chestnut:"></a>3. 举个栗子 :chestnut:</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>), <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">todo1</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'todo1-await-above'</span>)</span><br><span class="line">	<span class="keyword">await</span> <span class="built_in">Promise</span>.resolve(<span class="number">99</span>)</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'todo1-await-under'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">todo1()</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'promise-1'</span>)</span><br><span class="line">	resolve()</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'promise-then-1'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这段代码作为<strong>宏任务</strong>，进入主线程</li>
+<li>先遇到 <code>setTimeout</code> ， 等待 <code>0 ms</code> 后，将其回调函数注入到<strong>宏任务</strong><code>Event Queue</code></li>
+<li>接下来遇到 <code>todo1</code> 函数，没调用，就当看不到 :bowtie:</li>
+<li>调用 <code>todo1</code> 函数</li>
+<li>遇到 <code>console.log(&#39;todo1-await-above&#39;)</code> 立即执行并输出</li>
+<li>遇到 <code>await promise</code> 将等待 <code>promise</code> 执行结束后再继续执行，这里将执行权交给<code>todo1</code>函数外部继续执行</li>
+<li>遇到 <code>new Promise</code> 立即执行 <code>console.log(&#39;promise-1&#39;)</code> 并输出，之后执行 <code>resolve()</code>，将<code>then</code> 的回调函数注入到<strong>微任务</strong><code>Event Queue</code></li>
+<li>遇到 <code>console.log(&#39;end&#39;)</code> ，立即执行并输出</li>
+<li><strong>注意</strong>代码还有<code>console.log(&#39;todo1-await-under&#39;)</code>没有执行，在这里执行并放到<strong>微任务</strong><code>Event Queue</code>【作者译：因为<code>await</code>后面跟着状态不确定的<code>promise</code>】</li>
+<li>好了，整体代码<code>&lt;script&gt;</code>作为第一轮的宏任务执行结束，接下来按照先进先出原则，执行<strong>微任务队列</strong>事件。</li>
+<li>执行并输出<code>promise-then-1</code></li>
+<li>执行并输出<code>todo1-await-under</code></li>
+<li>检查宏任务队列，这时还有<code>setTimeout</code>回调函数需要执行</li>
+<li>执行并输出<code>setTimeout-1</code></li>
+<li>最后再次检查微任务队列，没有啦。再检查宏任务队列，也没啦。</li>
+<li>到此结束！</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// todo1-await-above</span></span><br><span class="line"><span class="comment">// promise-1</span></span><br><span class="line"><span class="comment">// end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// promise-then-1</span></span><br><span class="line"><span class="comment">// todo1-await-under</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// setTimeout-1</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>接下来我们稍微改变一下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'setTimeout-1'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">todo1</span> (<span class="params">params</span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'todo1-await-above'</span>)</span><br><span class="line">	<span class="comment">// await Promise.resolve(99)</span></span><br><span class="line">	<span class="keyword">await</span> <span class="number">123</span>  <span class="comment">// 改变啦</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'todo1-await-under'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">todo1()</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'promise-1'</span>)</span><br><span class="line">	resolve()</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'promise-then-1'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'end'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>上面这段代码做了稍微的改动，将<code>todo1</code>函数中的<code>await Promise.resolve(99)</code>更改为<code>await 123</code></p>
+<ul>
+<li>老规矩，这段代码作为<strong>宏任务</strong>，进入主线程</li>
+<li>先遇到 <code>setTimeout</code> ， 等待 <code>0 ms</code> 后，将其回调函数注入到<strong>宏任务</strong><code>Event Queue</code></li>
+<li>接下来遇到 <code>todo1</code> 函数，没调用，就当看不到 :bowtie:</li>
+<li>调用 <code>todo1</code> 函数</li>
+<li>遇到 <code>console.log(&#39;todo1-await-above&#39;)</code> 立即执行并输出</li>
+<li>遇到 <code>await 123</code> 因为这里await一个具体值，状态是明确的，所以继续向下执行，将<code>console.log(&#39;todo1-await-under&#39;)</code>放到<strong>微任务队列</strong></li>
+<li>遇到 <code>new Promise</code> 立即执行 <code>console.log(&#39;promise-1&#39;)</code> 并输出，之后执行 <code>resolve()</code>，将 <code>then</code> 的回调函数注入到<strong>微任务</strong><code>Event Queue</code></li>
+<li>遇到 <code>console.log(&#39;end&#39;)</code> ，立即执行并输出</li>
+<li>好了，整体代码<code>&lt;script&gt;</code>作为第一轮的宏任务执行结束，接下来按照先进先出原则，先执行<strong>微任务队列</strong>事件。</li>
+<li>执行并输出<code>todo1-await-under</code></li>
+<li>执行并输出<code>promise-then-1</code></li>
+<li>检查宏任务队列，这时还有<code>setTimeout</code>回调函数需要执行</li>
+<li>执行并输出<code>setTimeout-1</code></li>
+<li>最后再次检查微任务队列，没有啦。再检查宏任务队列，也没啦。</li>
+<li>到此结束！</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输出：</span></span><br><span class="line"><span class="comment">// todo1-await-above</span></span><br><span class="line"><span class="comment">// promise-1</span></span><br><span class="line"><span class="comment">// end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// todo1-await-under</span></span><br><span class="line"><span class="comment">// promise-then-1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// setTimeout-1</span></span><br></pre></td></tr></table></figure>
+<p><strong>声明：以上结果在 Google Chrome, 70.0.3538.110 版本 中运行得出</strong></p>
+<h5 id="我的眼界有限，有什么不对的地方欢迎指正，谢谢！"><a href="#我的眼界有限，有什么不对的地方欢迎指正，谢谢！" class="headerlink" title="我的眼界有限，有什么不对的地方欢迎指正，谢谢！"></a>我的眼界有限，有什么不对的地方欢迎指正，谢谢！</h5><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://juejin.im/post/59e85eebf265da430d571f89" target="_blank" rel="noopener">这一次，彻底弄懂 JavaScript 执行机制</a>  </p>
+<p><a href="https://segmentfault.com/a/1190000007535316" target="_blank" rel="noopener">理解 JavaScript 的 async/await</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/html/" rel="tag"><i class="fa fa-tag"></i> html</a>
+          
+            <a href="/tags/setTimeout/" rel="tag"><i class="fa fa-tag"></i> setTimeout</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/05/Vue-编码风格探讨/" rel="next" title="Vue 编码风格探讨">
+                <i class="fa fa-chevron-left"></i> Vue 编码风格探讨
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/08/从 Chrome 的开发者工具调试 Android 微信 Web 网页/" rel="prev" title="从 Chrome 的开发者工具调试 Android 微信 Web 网页">
+                从 Chrome 的开发者工具调试 Android 微信 Web 网页 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/12/08/js 代码运行机制，宏任务、微任务/"
+           data-title="js 代码运行机制，宏任务、微任务" data-url="http://yoursite.com/2018/12/08/js 代码运行机制，宏任务、微任务/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-关于-JavaScript"><span class="nav-number">1.</span> <span class="nav-text">0. 关于 JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JavaScript-事件循环"><span class="nav-number">2.</span> <span class="nav-text">1. JavaScript 事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-macro-task-宏任务-、micro-task-微任务"><span class="nav-number">3.</span> <span class="nav-text">2 macro-task(宏任务)、micro-task(微任务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-举个栗子-chestnut"><span class="nav-number">4.</span> <span class="nav-text">3. 举个栗子 :chestnut:</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#我的眼界有限，有什么不对的地方欢迎指正，谢谢！"><span class="nav-number">4.0.1.</span> <span class="nav-text">我的眼界有限，有什么不对的地方欢迎指正，谢谢！</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">4.1.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共11.8k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
