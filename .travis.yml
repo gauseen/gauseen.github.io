@@ -6,12 +6,12 @@ node_js:
   - "9"
 install:
   - yarn install
-scripts:
-  yarn clean
+script: true
 branches:
   only:
     - master
 before_deploy:
+  yarn clean
   yarn generate
 #   yarn deploy
 deploy:
