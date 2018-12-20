@@ -16,6 +16,7 @@ before_deploy:
 #   yarn deploy
 deploy:
   provider: pages
+  target-branch: master
   github-token: $GITHUB_TOKEN
   keep-history: true
   skip-cleanup: true
