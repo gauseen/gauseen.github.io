@@ -680,6 +680,7 @@ hexo-bunyan@^1.0.0:
 hexo-cli@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hexo-cli/-/hexo-cli-1.1.0.tgz#496d238d4646dbfd1cf047b6dc5271bfb5cb798f"
+  integrity sha512-IWQPppwgmj1iBUcP5mpcMg3Tre6a8Qlr8ejXw6naZiJNSepSgh4mS3KiNPKDa2qQIgPDqJYJzNVFLw+RLA9CkA==
   dependencies:
     abbrev "^1.0.7"
     bluebird "^3.4.0"

@@ -1,7 +1,14 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "blog",
+  "version": "0.1.0",
   "private": true,
+  "author": "gauseen",
+  "scripts": {
+    "dev": "hexo server",
+    "clean": "hexo clean",
+    "generate": "hexo g",
+    "deploy": "hexo d"
+  },
   "hexo": {
     "version": "3.7.1"
   },
@@ -18,5 +25,8 @@
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0",
     "hexo-wordcount": "^3.0.2"
+  },
+  "devDependencies": {
+    "hexo-cli": "^1.1.0"
   }
 }
