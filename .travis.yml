@@ -16,7 +16,6 @@ before_deploy:
 #   yarn deploy
 deploy:
   provider: pages
-  email: $NPM_EMAIL
   github-token: $GITHUB_TOKEN
   keep-history: true
   skip-cleanup: true
