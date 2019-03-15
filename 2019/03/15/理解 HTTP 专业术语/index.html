@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,ajax,http,HTTP 专业术语,缓存," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="客户端 user-agent 是什么？user-agent 就是任何能够为用户发起行为的工具。这个角色通常都是由浏览器来扮演。一些例外情况，比如是开发者使用的程序，以及 Web 开发者调试应用程序。  http 是什么？超文本传输​​协议（HTTP）,它通常被用于Web浏览器和Web服务器之间的通信  服务器资源是什么？网络上的一切内容都是资源，无论是静态的文件，还是动态生成的文件  媒体类型是">
+<meta name="keywords" content="js,ajax,http,HTTP 专业术语,缓存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解 HTTP 专业术语">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/理解 HTTP 专业术语/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="客户端 user-agent 是什么？user-agent 就是任何能够为用户发起行为的工具。这个角色通常都是由浏览器来扮演。一些例外情况，比如是开发者使用的程序，以及 Web 开发者调试应用程序。  http 是什么？超文本传输​​协议（HTTP）,它通常被用于Web浏览器和Web服务器之间的通信  服务器资源是什么？网络上的一切内容都是资源，无论是静态的文件，还是动态生成的文件  媒体类型是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-15T10:41:27.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解 HTTP 专业术语">
+<meta name="twitter:description" content="客户端 user-agent 是什么？user-agent 就是任何能够为用户发起行为的工具。这个角色通常都是由浏览器来扮演。一些例外情况，比如是开发者使用的程序，以及 Web 开发者调试应用程序。  http 是什么？超文本传输​​协议（HTTP）,它通常被用于Web浏览器和Web服务器之间的通信  服务器资源是什么？网络上的一切内容都是资源，无论是静态的文件，还是动态生成的文件  媒体类型是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/15/理解 HTTP 专业术语/"/>
+
+
+
+
+
+  <title>理解 HTTP 专业术语 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/15/理解 HTTP 专业术语/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">理解 HTTP 专业术语</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-15T16:10:10+08:00">
+                2019-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/15/理解 HTTP 专业术语/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/15/理解 HTTP 专业术语/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p><strong>客户端 <code>user-agent</code> 是什么？</strong><br><code>user-agent</code> 就是任何能够为用户发起行为的工具。这个角色通常都是由浏览器来扮演。一些例外情况，比如是开发者使用的程序，以及 <code>Web</code> 开发者调试应用程序。</p>
+</li>
+<li><p><strong><code>http</code> 是什么？</strong><br>超文本传输​​协议（<code>HTTP</code>）,它通常被用于<code>Web</code>浏览器和<code>Web</code>服务器之间的通信</p>
+</li>
+<li><p><strong>服务器资源是什么？</strong><br>网络上的一切内容都是资源，无论是静态的文件，还是动态生成的文件</p>
+</li>
+<li><p><strong>媒体类型是什么？</strong><br>就是一种数据类型的标记，用来表示传输的数据是什么类型的，好让接收端知道，接收到的是什么类型的数据，这样接收端好处理该数据。<br>常见的标记方式是[<code>MIME</code>][0_0]，<code>MIME</code> 描述了文件的主要类型以及特定子类型，如<code>Content-Type: text/html</code>，<code>text</code> 描述文件的主要类型是文本，而子类型是 <code>html</code> 文档。<br>浏览器通常使用<code>MIME</code>类型（而不是文件扩展名）来确定如何处理文档；因此服务器设置正确的<code>MIME</code>类型附加到响应对象的头部是非常重要的。</p>
+</li>
+<li><p><strong><code>URI</code> 是什么？</strong><br>首先<code>URI</code>从其概念来说是统一资源标识符，它的作用就是在网络上唯一确定一个资源，就好比，在中国，身份证能唯一确定一个人一样！知道身份证号，就一定能确定一个人姓甚名谁一样！它有两个子集：<code>URL</code>(统一资源定位符)和<code>URN</code>(统一资源名)，首先不特别声明，我们所说的<code>URI</code>就是指<code>URL</code>，<code>URL</code>是跟资源其在网络上的位置有关！而<code>URN</code>是指资源跟其名字有关。</p>
+</li>
+<li><p><strong>请求方法指什么？</strong><br>客户端向服务器发起请求的方式。常见的方法有：<code>get、post、delete、put</code></p>
+</li>
+<li><p><strong>状态码是什么？？</strong><br><code>HTTP</code>响应状态码指示<code>HTTP</code>请求是否已成功完成。响应分为五类：信息响应，成功响应，重定向，客户端错误和服务器错误。</p>
+</li>
+<li><p><strong>报文是什么？</strong><br><code>HTTP</code>报文分为：请求报文、响应报文。两种报文都具有类似的结构，分别由三个部分构成：起始行、首部、主体，起始行描述报文干了什么。首部描述报文传输的具体细节。主体描述传输的实际内容。</p>
+</li>
+<li><p><strong>从 <code>URL</code> 输入到页面显示，经历了什么过程？</strong>  </p>
+<ul>
+<li><p>浏览器地址栏输入时联想提示</p>
+</li>
+<li><p><code>URL</code> 解析，<code>URL</code> 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 <code>ASCII</code> 集的。若有非 <code>ASCII</code> 的字符（中文等），就会先通过转义处理。</p>
+</li>
+<li><p><code>DNS (Domain Name System)</code> 解析</p>
+<ul>
+<li>为什么要 <code>DNS</code> 解析<br>因为 http 是基于 tcp 连接的，而 tcp 则是通过 ip 地址去识别的。DNS 解析就是域名转化成 ip 地址的过程</li>
+<li>浏览器 <code>DNS</code> 解析优先级<br>查看浏览器内部缓存 —&gt; 系统缓存(<code>host</code> 文件) —&gt; 路由器缓存、<code>ISP</code> 缓存 —&gt; 本地 <code>DNS</code> 服务器(可无) —&gt; <code>DNS</code> 服务器 —&gt; 找不到服务器地址</li>
+</ul>
+</li>
+<li><p>浏览器建立一条与web服务器的 <code>TCP</code> 连接（<code>TCP</code> 三次握手）</p>
+</li>
+<li><p>浏览器向服务器发送一条 <code>http</code> 请求报文</p>
+</li>
+<li><p>服务器向浏览器回送一条 <code>http</code> 响应报文</p>
+</li>
+<li><p>浏览器解析渲染文档</p>
+</li>
+<li>关闭连（<code>TCP</code> 四次握手）</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、HTTP-报文"><a href="#二、HTTP-报文" class="headerlink" title="二、HTTP 报文"></a>二、<code>HTTP</code> 报文</h3><p><code>HTTP/1.1</code> 以及更早的 <code>HTTP</code> 协议报文都是语义可读的。在 <code>HTTP/2</code> 中，这些报文被嵌入到了一个新的二进制结构，帧。报文分请求报文、响应报文。都由三个部分组成，起始行、首部、主体。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请求报文</span></span><br><span class="line"></span><br><span class="line">&lt;method&gt; &lt;request-URL&gt; &lt;protocol/version&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line">&lt;method&gt; 请求方法</span><br><span class="line">&lt;request-URL&gt; 请求 URL</span><br><span class="line">&lt;protocol/version&gt; http 协议版本号</span><br><span class="line">&lt;headers&gt; 请求头（首部）</span><br><span class="line">&lt;entity-body&gt; 请求参数</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 响应报文</span></span><br><span class="line"></span><br><span class="line">&lt;protocol/version&gt; &lt;status&gt; &lt;reason-phrase&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line">&lt;protocol/version&gt; http 协议版本号</span><br><span class="line">&lt;status&gt; 状态码</span><br><span class="line">&lt;reason-phrase&gt; 状态信息（这个信息是非权威的状态码描述信息，可以由服务端自行设定）</span><br><span class="line">&lt;headers&gt; 响应头（首部）</span><br><span class="line">&lt;entity-body&gt; 响应数据</span><br></pre></td></tr></table></figure>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><ul>
+<li><a href="https://github.com/woai30231/http" target="_blank" rel="noopener">HTTP</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/ajax/" rel="tag"><i class="fa fa-tag"></i> ajax</a>
+          
+            <a href="/tags/http/" rel="tag"><i class="fa fa-tag"></i> http</a>
+          
+            <a href="/tags/HTTP-专业术语/" rel="tag"><i class="fa fa-tag"></i> HTTP 专业术语</a>
+          
+            <a href="/tags/缓存/" rel="tag"><i class="fa fa-tag"></i> 缓存</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/探索前端路由模式 hash、 history/" rel="next" title="探索前端路由模式 hash、 history">
+                <i class="fa fa-chevron-left"></i> 探索前端路由模式 hash、 history
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/15/理解浏览器 HTTP 缓存/" rel="prev" title="理解浏览器 HTTP 缓存">
+                理解浏览器 HTTP 缓存 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/03/15/理解 HTTP 专业术语/"
+           data-title="理解 HTTP 专业术语" data-url="http://yoursite.com/2019/03/15/理解 HTTP 专业术语/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#二、HTTP-报文"><span class="nav-number">1.</span> <span class="nav-text">二、HTTP 报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考文章"><span class="nav-number">1.1.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共14.0k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
