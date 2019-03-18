@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,vue,style,guide,代码规范," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="推荐细读 Vue 官方文档 JavaScript Standard  代码规范 Clean Code JavaScript 精选 JavaScript 片段   什么是组件？ 组件是可复用的 Vue 实例，且带有一个名字。  组件衡量维度： 现在被很多地方使用 将来有很大可能性被复用  组件命名： 有意义的：见名知意 简短: 1 到 3 个单词（不包含组件前缀命名空间） 具有可读性: 组件名应该倾">
+<meta name="keywords" content="js,vue,style,guide,代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 编码风格探讨">
+<meta property="og:url" content="http://yoursite.com/2018/12/05/Vue-编码风格探讨/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="推荐细读 Vue 官方文档 JavaScript Standard  代码规范 Clean Code JavaScript 精选 JavaScript 片段   什么是组件？ 组件是可复用的 Vue 实例，且带有一个名字。  组件衡量维度： 现在被很多地方使用 将来有很大可能性被复用  组件命名： 有意义的：见名知意 简短: 1 到 3 个单词（不包含组件前缀命名空间） 具有可读性: 组件名应该倾">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-18T02:17:58.210Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 编码风格探讨">
+<meta name="twitter:description" content="推荐细读 Vue 官方文档 JavaScript Standard  代码规范 Clean Code JavaScript 精选 JavaScript 片段   什么是组件？ 组件是可复用的 Vue 实例，且带有一个名字。  组件衡量维度： 现在被很多地方使用 将来有很大可能性被复用  组件命名： 有意义的：见名知意 简短: 1 到 3 个单词（不包含组件前缀命名空间） 具有可读性: 组件名应该倾">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/05/Vue-编码风格探讨/"/>
+
+
+
+
+
+  <title>Vue 编码风格探讨 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/Vue-编码风格探讨/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue 编码风格探讨</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T17:28:11+00:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/05/Vue-编码风格探讨/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/12/05/Vue-编码风格探讨/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="推荐细读"><a href="#推荐细读" class="headerlink" title="推荐细读"></a>推荐细读</h4><ul>
+<li><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">Vue 官方文档</a></li>
+<li>JavaScript Standard  <a href="https://github.com/gauseen/standard/blob/master/README.md" target="_blank" rel="noopener">代码规范</a></li>
+<li><a href="https://github.com/ryanmcdermott/clean-code-javascript" target="_blank" rel="noopener">Clean Code JavaScript</a></li>
+<li><a href="https://github.com/30-seconds/30-seconds-of-code" target="_blank" rel="noopener">精选 JavaScript 片段</a></li>
+</ul>
+<hr>
+<h4 id="什么是组件？"><a href="#什么是组件？" class="headerlink" title="什么是组件？"></a>什么是组件？</h4><ul>
+<li>组件是可复用的 Vue 实例，且带有一个名字。</li>
+</ul>
+<h4 id="组件衡量维度："><a href="#组件衡量维度：" class="headerlink" title="组件衡量维度："></a>组件衡量维度：</h4><ul>
+<li>现在被很多地方使用</li>
+<li>将来有很大可能性被复用</li>
+</ul>
+<h4 id="组件命名："><a href="#组件命名：" class="headerlink" title="组件命名："></a>组件命名：</h4><ul>
+<li>有意义的：见名知意</li>
+<li>简短: 1 到 3 个单词（不包含组件前缀命名空间）</li>
+<li>具有可读性: 组件名应该倾向于完整单词而不是缩写，以便于沟通交流</li>
+<li><code>SH</code> 前缀作为命名空间（前缀可自定义）：这样可以防止命名冲突，方便其它项目复用</li>
+<li>多个单词必须符合<a href="https://www.zhangxinxu.com/wordpress/2018/03/htmlunknownelement-html5-custom-elements" target="_blank" rel="noopener">自定义元素规范</a> <a href="https://cn.vuejs.org/v2/style-guide/#%E6%A8%A1%E6%9D%BF%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%90%8D%E5%A4%A7%E5%B0%8F%E5%86%99-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90" target="_blank" rel="noopener">vue code style</a>: 对于绝大多数项目来说，在单文件组件文件名应该总是 <code>PascalCase</code> 的 —— 但是在模板中引用应该是 <code>kebab-case</code> 的</li>
+</ul>
+<h4 id="为什么？"><a href="#为什么？" class="headerlink" title="为什么？"></a>为什么？</h4><ul>
+<li>组件是 Vue 主要功能之一，用的地方多，所以命名需要简短、见名知意（具有可读性）</li>
+</ul>
+<h4 id="组件分类"><a href="#组件分类" class="headerlink" title="组件分类"></a>组件分类</h4><ul>
+<li><p><a href="https://cn.vuejs.org/v2/style-guide/#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%E5%90%8D-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90" target="_blank" rel="noopener">基础组件—无状态</a>：<code>el-button、el-icon</code>。</p>
+<ul>
+<li>只是展示类的</li>
+<li>无业务、无第三方依赖</li>
+<li>无状态，只接受<code>props</code>，无 <code>data () {}</code></li>
+<li>基础组件根据不同的<code>props</code>展现出不同的样式，并且会抛出事件来通知父级组件。</li>
+</ul>
+</li>
+<li><p>基础组件—有状态：<code>vue-lazyload、el-upload</code></p>
+<ul>
+<li>有自己维护的 data 数据（状态）</li>
+<li>可复用的逻辑组件</li>
+</ul>
+</li>
+<li><p><a href="https://youzan.github.io/vant/#/zh-CN/address-list" target="_blank" rel="noopener">业务组件</a>：<code>van-address-list(地址列表)、van-submit-bar(提交订单栏)、print-net(网络打印)</code></p>
+<ul>
+<li>根据项目类型封装定制化组件</li>
+</ul>
+</li>
+<li><p>二次封装组件</p>
+<ul>
+<li>基于第三方 UI 组件库再次封装的组件</li>
+</ul>
+</li>
+<li><p><a href="https://cn.vuejs.org/v2/style-guide/#%E7%B4%A7%E5%AF%86%E8%80%A6%E5%90%88%E7%9A%84%E7%BB%84%E4%BB%B6%E5%90%8D-%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90" target="_blank" rel="noopener">紧密耦合的组件命名规则</a>：如：<code>SideBar、SideBarItem</code></p>
+<ul>
+<li>和父组件紧密耦合的子组件应该以父组件名作为前缀命名</li>
+</ul>
+</li>
+</ul>
+<h4 id="组件表达式简单化"><a href="#组件表达式简单化" class="headerlink" title="组件表达式简单化"></a>组件表达式简单化</h4><p>组件内的表达式非常便利，但是设计它们的初衷是用于简单运算的。</p>
+<ul>
+<li>复杂行内表达式可读性差，不利于二次开发</li>
+<li>不能复用，可能导致重复编码</li>
+</ul>
+<p>所以，对于任何复杂逻辑，都应当使用计算属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 避免 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    &#123;&#123; message.split('').reverse().join('') &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 推荐 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; reversedMessage &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="undefined">      data: &#123;</span></span><br><span class="line"><span class="javascript">        message: <span class="string">'Hello'</span></span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      computed: &#123;</span></span><br><span class="line"><span class="undefined">        reversedMessage () &#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">return</span> <span class="keyword">this</span>.message.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>)</span></span><br><span class="line"><span class="undefined">        &#125;,</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="props-定义应该尽量详细"><a href="#props-定义应该尽量详细" class="headerlink" title="props 定义应该尽量详细"></a>props 定义应该尽量详细</h4><ul>
+<li>更容易的看懂组件的用法</li>
+<li>在开发环境下，如果向一个组件提供格式不正确的 prop，Vue 将会告警，以帮助捕获潜在的错误来源</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 避免</span></span><br><span class="line">props: [<span class="string">'status'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐</span></span><br><span class="line">props: &#123;</span><br><span class="line">  status: &#123;</span><br><span class="line">    type: <span class="built_in">String</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>props 名大小写<br>在声明 prop 的时候，其命名应该始终使用 camelCase<br>我们单纯的遵循每个语言的约定。在 JavaScript 中更自然的是 camelCase。而在 HTML 中则是 kebab-case。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 避免</span></span><br><span class="line">props: &#123;</span><br><span class="line">  <span class="string">'greeting-text'</span>: <span class="built_in">String</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;welcome-message greetingText=<span class="string">"hi"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">welcome-message</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// 推荐</span></span><br><span class="line"><span class="xml">props: &#123;</span></span><br><span class="line"><span class="xml">  greetingText: String,</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line">&lt;welcome-message greeting-text="hi"&gt;&lt;/welcome-message&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="避免-v-if-和-v-for-用在一起"><a href="#避免-v-if-和-v-for-用在一起" class="headerlink" title="避免 v-if 和 v-for 用在一起"></a>避免 v-if 和 v-for 用在一起</h4><p>永远不要把 v-if 和 v-for 同时用在同一个元素上<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 避免 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-for</span>=<span class="string">"user in users"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-if</span>=<span class="string">"user.isActive"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"user.id"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-for</span>=<span class="string">"user in users"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-if</span>=<span class="string">"isShowUsers"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"user.id"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 推荐 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-for</span>=<span class="string">"user in activeUsers"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"user.id"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  data () &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="undefined">      users: [...],</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined">  computed: &#123;</span></span><br><span class="line"><span class="undefined">    activeUsers () &#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="keyword">this</span>.users.filter(<span class="function"><span class="params">user</span> =&gt;</span> user.isActive)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;,</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">v-if</span>=<span class="string">"isShowUsers"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-for</span>=<span class="string">"user in users"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:key</span>=<span class="string">"user.id"</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">    &#123;&#123; user.name &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="组件结构化"><a href="#组件结构化" class="headerlink" title="组件结构化"></a>组件结构化</h4><p>按照一定的结构组织，组件易于团队阅读、理解</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">lang</span>=<span class="string">"html"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"todo-list"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// name 属性，全局感知</span></span></span><br><span class="line"><span class="javascript">    name: <span class="string">'todo-list'</span>,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 使用组件 mixins 共享通用功能</span></span></span><br><span class="line"><span class="undefined">    mixins: [],</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 禁用子组件根元素 继承 父组件属性（不影响 class 和 style 绑定）</span></span></span><br><span class="line"><span class="javascript">    inheritAttrs: <span class="literal">false</span>,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 组件属性、变量</span></span></span><br><span class="line"><span class="undefined">    props: &#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 按字母顺序</span></span></span><br><span class="line"><span class="undefined">      bar: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">      foo: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">      fooBar: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 变量</span></span></span><br><span class="line"><span class="undefined">    data() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    computed: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 模板依赖 (模板内使用的资源)</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 使用其它组件</span></span></span><br><span class="line"><span class="undefined">    components: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    directives: &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    filters: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 事件 (通过响应式事件触发的回调)</span></span></span><br><span class="line"><span class="undefined">    watch: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 生命周期钩子 (按照它们被调用的顺序)</span></span></span><br><span class="line"><span class="undefined">    beforeCreate() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    created() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    beforeMount() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    mounted() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    beforeUpdate() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    updated() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    activated() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    deactivated() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    beforeDestroy() &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    destroyed() &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 非响应式的属性 (不依赖响应系统的实例属性)</span></span></span><br><span class="line"><span class="undefined">    methods: &#123;&#125;,</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 渲染 (组件输出的声明式描述)</span></span></span><br><span class="line"><span class="javascript">    template: <span class="string">``</span>,</span></span><br><span class="line"><span class="undefined">    render (h) &#123;&#125;,</span></span><br><span class="line"><span class="undefined">    renderError (h, err) &#123;&#125;,</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  .todo-list &#123; /* ... */ &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="代码注释"><a href="#代码注释" class="headerlink" title="代码注释"></a>代码注释</h4><ul>
+<li>单行注释 尽量独占一行。<code>//</code> 后跟一个空格，缩进与下一行被注释说明的代码一致。</li>
+</ul>
+<p>便于编辑器 快捷键 删除、修改</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 避免</span></span><br><span class="line"><span class="keyword">if</span> (status === <span class="number">1</span>) &#123; <span class="comment">// status: 1 成功，0 失败</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 推荐</span></span><br><span class="line"><span class="comment">// status: 1 成功，0 失败</span></span><br><span class="line"><span class="keyword">if</span> (status === <span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CSS-作用域"><a href="#CSS-作用域" class="headerlink" title="CSS 作用域"></a>CSS 作用域</h4><ul>
+<li>什么是 CSS 作用域？  </li>
+</ul>
+<p>当 <code>&lt;style&gt;</code> 标签有 <code>scoped</code> 属性时，它的 <code>CSS</code> 只作用于当前组件中的元素，也就是说，该样式只能适用于当前组件元素，也就实现了组件之间 <code>CSS</code> 样式隔离  </p>
+<ul>
+<li>原理<br><code>Vue</code> 中的 <code>scoped</code> 属性的效果主要通过<code>PostCSS</code>转译实现，<code>PostCSS</code>给一个组件中的所有<code>dom</code>添加了一个独一无二的动态属性，然后在<code>CSS</code>选择器中添加一个对应值的属性选择器，这样就实现了组件之间的样式隔离</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- PostCSS 转译前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"not-found"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"not-found__text"</span>&gt;</span>404<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.not-found__text &#123;</span></span><br><span class="line"><span class="undefined">  color: red;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- PostCSS 转译后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-32a7c634</span> <span class="attr">class</span>=<span class="string">"not-found"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-32a7c634</span> <span class="attr">class</span>=<span class="string">"not-found__text"</span>&gt;</span>404<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">.not-found__text[data-v-32a7c634] &#123;</span></span><br><span class="line"><span class="undefined">  color: red;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="父组件层叠（覆盖）子组件样式"><a href="#父组件层叠（覆盖）子组件样式" class="headerlink" title="父组件层叠（覆盖）子组件样式"></a>父组件层叠（覆盖）子组件样式</h4><ul>
+<li><p>全局样式  </p>
+<ul>
+<li>缺点：容易污染其他组件样式<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line"><span class="comment">/* 全局样式 */</span></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>深度作用选择器  </p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- PostCSS 转译前 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"not-found"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">svg-icon</span> <span class="attr">name</span>=<span class="string">"404"</span> <span class="attr">class</span>=<span class="string">"not-found__svg"</span>&gt;</span><span class="tag">&lt;/<span class="name">svg-icon</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="comment">/* 深度作用选择器 */</span></span></span><br><span class="line"><span class="css"><span class="selector-class">.not-found</span> &gt;&gt;&gt; <span class="selector-class">.not-found__svg</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">font-size</span>: 3<span class="selector-class">.6rem</span>;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-class">.not-found</span> <span class="selector-class">.not-found__svg</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">font-size</span>: 3<span class="selector-class">.6rem</span>;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- PostCSS 转译后 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">data-v-32a7c634</span> <span class="attr">class</span>=<span class="string">"not-found"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">svg</span> <span class="attr">data-v-6ba02d72</span> <span class="attr">data-v-32a7c634</span> <span class="attr">name</span>=<span class="string">"404"</span> <span class="attr">class</span>=<span class="string">"not-found__svg"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">use</span> <span class="attr">data-v-6ba02d72</span>&gt;</span>...<span class="tag">&lt;/<span class="name">use</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="comment">/* 深度作用选择器 */</span></span></span><br><span class="line"><span class="css"><span class="selector-class">.not-found</span><span class="selector-attr">[data-v-32a7c634]</span> <span class="selector-class">.not-found__svg</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">font-size</span>: 3<span class="selector-class">.6rem</span>;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="comment">/* 非深度作用选择器 */</span></span></span><br><span class="line"><span class="css"><span class="selector-class">.not-found</span> <span class="selector-class">.not-found__svg</span><span class="selector-attr">[data-v-32a7c634]</span> &#123;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">font-size</span>: 3<span class="selector-class">.6rem</span>;</span></span><br><span class="line"><span class="css">  <span class="selector-tag">color</span>: <span class="selector-id">#fff</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="动态生成的内容"><a href="#动态生成的内容" class="headerlink" title="动态生成的内容"></a>动态生成的内容</h4><p>通过<code>v-html</code>创建的<code>DOM</code>内容不受作用域内的样式影响，但是你仍然可以通过深度作用选择器来为他们设置样式。</p>
+<h4 id="元素-标签-选择器应该避免在-CSS-中出现"><a href="#元素-标签-选择器应该避免在-CSS-中出现" class="headerlink" title="元素(标签)选择器应该避免在 CSS 中出现"></a>元素(标签)选择器应该避免在 CSS 中出现</h4><p>类选择器比元素选择器更好，因为大量使用元素选择器很慢！</p>
+<h4 id="单文件组件的顶级元素顺序（所有项目应保持统一）"><a href="#单文件组件的顶级元素顺序（所有项目应保持统一）" class="headerlink" title="单文件组件的顶级元素顺序（所有项目应保持统一）"></a>单文件组件的顶级元素顺序（所有项目应保持统一）</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- todo.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span>...<span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"><span class="comment">/* ... */</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"><span class="comment">/* ... */</span></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="元素-包括组件-特性应该有统一的顺序【非必须】"><a href="#元素-包括组件-特性应该有统一的顺序【非必须】" class="headerlink" title="元素(包括组件)特性应该有统一的顺序【非必须】"></a>元素(包括组件)特性应该有统一的顺序【非必须】</h4><ul>
+<li><p>定义(提供组件的选项)</p>
+<ul>
+<li><code>is</code></li>
+</ul>
+</li>
+<li><p>列表渲染(创建多个变化的相同元素)</p>
+<ul>
+<li><code>v-for</code></li>
+</ul>
+</li>
+<li><p>条件渲染 (元素是否渲染/显示)</p>
+<ul>
+<li><code>v-if</code></li>
+<li><code>v-else-if</code></li>
+<li><code>v-else</code></li>
+<li><code>v-show</code></li>
+<li><code>v-cloak</code></li>
+</ul>
+</li>
+<li>渲染方式 (改变元素的渲染方式)<ul>
+<li><code>v-pre</code></li>
+<li><code>v-once</code></li>
+</ul>
+</li>
+<li>唯一的特性 (需要唯一值的特性)<ul>
+<li><code>ref</code></li>
+<li><code>key</code></li>
+<li><code>slot</code></li>
+</ul>
+</li>
+<li>双向绑定 (把绑定和事件结合起来)<ul>
+<li><code>v-model</code></li>
+</ul>
+</li>
+<li>其它特性 (所有普通的绑定或未绑定的特性 calss style)</li>
+<li>事件 (组件事件监听器)<ul>
+<li><code>v-on</code></li>
+</ul>
+</li>
+<li>内容 (覆写元素的内容)<ul>
+<li><code>v-html</code></li>
+<li><code>v-text</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://cn.vuejs.org/v2/style-guide/" target="_blank" rel="noopener">vue-style-guide</a><br><a href="https://github.com/pablohpsilva/vuejs-component-style-guide/blob/master/README-CN.md" target="_blank" rel="noopener">vuejs-component-style-guide</a></p>
+<!-- 引用文献 -->
+<!-- 参考文献 -->
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/style/" rel="tag"><i class="fa fa-tag"></i> style</a>
+          
+            <a href="/tags/guide/" rel="tag"><i class="fa fa-tag"></i> guide</a>
+          
+            <a href="/tags/代码规范/" rel="tag"><i class="fa fa-tag"></i> 代码规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/22/创建本地服务，及服务代理-解决跨域-，支持热更新，针对老项目设计/" rel="next" title="创建本地服务，及服务代理(解决跨域)，支持热更新，针对老项目设计">
+                <i class="fa fa-chevron-left"></i> 创建本地服务，及服务代理(解决跨域)，支持热更新，针对老项目设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/08/从 Chrome 的开发者工具调试 Android 微信 Web 网页/" rel="prev" title="从 Chrome 的开发者工具调试 Android 微信 Web 网页">
+                从 Chrome 的开发者工具调试 Android 微信 Web 网页 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/12/05/Vue-编码风格探讨/"
+           data-title="Vue 编码风格探讨" data-url="http://yoursite.com/2018/12/05/Vue-编码风格探讨/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#推荐细读"><span class="nav-number">1.</span> <span class="nav-text">推荐细读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是组件？"><span class="nav-number">2.</span> <span class="nav-text">什么是组件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件衡量维度："><span class="nav-number">3.</span> <span class="nav-text">组件衡量维度：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件命名："><span class="nav-number">4.</span> <span class="nav-text">组件命名：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么？"><span class="nav-number">5.</span> <span class="nav-text">为什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件分类"><span class="nav-number">6.</span> <span class="nav-text">组件分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件表达式简单化"><span class="nav-number">7.</span> <span class="nav-text">组件表达式简单化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#props-定义应该尽量详细"><span class="nav-number">8.</span> <span class="nav-text">props 定义应该尽量详细</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免-v-if-和-v-for-用在一起"><span class="nav-number">9.</span> <span class="nav-text">避免 v-if 和 v-for 用在一起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组件结构化"><span class="nav-number">10.</span> <span class="nav-text">组件结构化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码注释"><span class="nav-number">11.</span> <span class="nav-text">代码注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSS-作用域"><span class="nav-number">12.</span> <span class="nav-text">CSS 作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父组件层叠（覆盖）子组件样式"><span class="nav-number">13.</span> <span class="nav-text">父组件层叠（覆盖）子组件样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态生成的内容"><span class="nav-number">14.</span> <span class="nav-text">动态生成的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素-标签-选择器应该避免在-CSS-中出现"><span class="nav-number">15.</span> <span class="nav-text">元素(标签)选择器应该避免在 CSS 中出现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单文件组件的顶级元素顺序（所有项目应保持统一）"><span class="nav-number">16.</span> <span class="nav-text">单文件组件的顶级元素顺序（所有项目应保持统一）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素-包括组件-特性应该有统一的顺序【非必须】"><span class="nav-number">17.</span> <span class="nav-text">元素(包括组件)特性应该有统一的顺序【非必须】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">18.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共14.0k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
