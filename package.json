@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "hexo server",
     "clean": "hexo clean",
-    "new": "hexo new 123",
     "generate": "hexo g",
     "deploy": "hexo d"
   },
