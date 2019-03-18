@@ -1,39 +1,37 @@
-#### 0. master分支，博客对外显示分支，内容是hexo g 构建后的内容（不可用于博客开发）
-#### 1. git-pages分支，可用于博客开发
-#### 2. 使用步骤
+### 使用步骤
 
-##### 克隆代码库
+#### 克隆代码库
 ``` bash
 git clone https://github.com/gauseen/gauseen.github.io.git
 ```
 
-##### 安装依赖资源
-``` bash
-npm install
+#### 安装依赖资源
+```sh
+yarn install
 ```
 
-##### 清空 hexo 构建文件
-``` bash
-hexo clean
+#### 清空 hexo 构建文件
+```sh
+yarn clean
 ```
 
-##### hexo 构建项目
-``` bash
-hexo g
+#### hexo 构建项目
+```sh
+yarn generate
 ```
 
-##### 本地运行代码
-``` bash
-hexo s
+#### 本地运行代码
+```sh
+yarn dev
 ```
 
-##### 部署到 github
-``` bash
-hexo d
+#### 部署到 github
+```sh
+yarn deploy
 ```
 
 #### 新增页面
-```base
+```sh
 hexo new <title>
 ```
 

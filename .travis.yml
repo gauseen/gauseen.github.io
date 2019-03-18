@@ -1,0 +1,24 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+node_js:
+  - "9"
+install:
+  - yarn install
+script: true
+branches:
+  only:
+    - blog
+before_deploy:
+  yarn clean
+  yarn generate
+deploy:
+  provider: pages
+  # local-dir: ./public
+  target-branch: master
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  skip-cleanup: true
+  on:
+    branch: blog
