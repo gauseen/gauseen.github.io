@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="A new way to explore the world">
 <meta property="og:description" content="0. 创建项目12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve   1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-25T08:01:44.874Z">
+<meta property="og:updated_time" content="2019-03-25T08:08:06.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue-项目从本地搭建到线上部署">
 <meta name="twitter:description" content="0. 创建项目12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve   1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
@@ -387,22 +387,21 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 <ul>
 <li>在 <code>JavaScript</code> 被导入或在 <code>template/CSS</code> 中通过相对路径被引用。这类引用会被 <code>webpack</code> 处理。</li>
 <li>放置在 <code>public</code> 目录下或通过绝对路径被引用。这类资源将会直接被拷贝，而不会经过 <code>webpack</code> 的处理。</li>
-<li><p><code>URL</code> 转换规则</p>
-<ul>
+<li><code>URL</code> 转换规则<ul>
 <li>如果 <code>URL</code> 是一个绝对路径 (例如 /images/foo.png)，它将会被保留不变。</li>
 <li>如果 <code>URL</code> 以 <code>.</code> 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析。</li>
 <li>如果 <code>URL</code> 以 <code>~</code> 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源：</li>
-<li><p>如果 <code>URL</code> 以 <code>@</code> 开头，它也会作为一个模块请求被解析。它的用处在于 <code>Vue CLI</code> 默认会设置一个指向 <code>&lt;projectRoot&gt;/src</code> 的别名 <code>@</code></p>
+<li>如果 <code>URL</code> 以 <code>@</code> 开头，它也会作为一个模块请求被解析。它的用处在于 <code>Vue CLI</code> 默认会设置一个指向 <code>&lt;projectRoot&gt;/src</code> 的别名 <code>@</code></li>
+</ul>
+</li>
+</ul>
 <blockquote>
 <h4 id="2-public-文件夹"><a href="#2-public-文件夹" class="headerlink" title="2. public 文件夹"></a>2. <code>public</code> 文件夹</h4></blockquote>
-</li>
-<li><p>任何放置在 <code>public</code> 文件夹的静态资源都会被复制到 <code>outputDir</code> 对应值的目录下（默认 <code>&#39;dist&#39;</code>）。  </p>
-</li>
+<ul>
+<li>任何放置在 <code>public</code> 文件夹的静态资源都会被复制到 <code>outputDir</code> 对应值的目录下（默认 <code>&#39;dist&#39;</code>）。  </li>
 <li>如果用绝对路径来引用，不会被 <code>webpack</code> 处理(<strong>资源只存在 1 份</strong>)；  </li>
 <li>如果用相对路径来引用，会被 <code>webpack</code> 处理，将图片重新打包到 <code>&lt;outputDir&gt;/&lt;assetsDir&gt;/img/</code> 目录下，并给图片加 <code>hash</code> 值，以便更好的控制缓存。<strong>资源会存在 2 份</strong>(还有第一条复制的 1 份)</li>
 <li>所以引用 <code>public</code> 文件夹的静态资源建议使用绝对路径，注意配置路径 <code>publicPath</code> 前缀</li>
-</ul>
-</li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"`$&#123;publicPath&#125;logo.png`"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicPath: process.env.BASE_URL,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
@@ -424,8 +423,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS loader 相关配置</span></span><br><span class="line">css: &#123;</span><br><span class="line">  loaderOptions: &#123;</span><br><span class="line">    stylus: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack 其它配置</span></span><br><span class="line">chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 配置别名</span></span><br><span class="line">    config.resolve.alias</span><br><span class="line">      .set(<span class="string">'rootDir'</span>, path.join(__dirname))</span><br><span class="line">    config.module</span><br><span class="line">    <span class="comment">// 添加一个具名规则 方便后期修改</span></span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .test(<span class="regexp">/\.js$/</span>)</span><br><span class="line">        .include</span><br><span class="line">          .add(<span class="string">'src'</span>)</span><br><span class="line">          .end()</span><br><span class="line">        <span class="comment">// 甚至可以创建具名 loader，方便后期修改</span></span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">        .loader(<span class="string">'babel-loader'</span>)</span><br><span class="line">        .options(&#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [<span class="string">'@babel/preset-env'</span>, &#123; <span class="attr">modules</span>: <span class="literal">false</span> &#125;]</span><br><span class="line">          ]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改具名 loader</span></span><br><span class="line">    config.module</span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">          .tap(<span class="function"><span class="params">options</span> =&gt;</span> newOptions)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="4-webpack-配置检查"><a href="#4-webpack-配置检查" class="headerlink" title="4. webpack 配置检查"></a>4. webpack 配置检查</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue inspect &gt; output.js # 输出开发模式下 webpack 配置信息</span><br><span class="line">vue inspect --mode production &gt; output.js # 输出生产模式下 webpack 配置信息</span><br></pre></td></tr></table></figure>
-</blockquote>
+<h4 id="4-webpack-配置检查"><a href="#4-webpack-配置检查" class="headerlink" title="4. webpack 配置检查"></a>4. webpack 配置检查</h4></blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue inspect &gt; output.js # 输出开发模式下 webpack 配置信息</span><br><span class="line">vue inspect --mode production &gt; output.js # 输出生产模式下 webpack 配置信息</span><br></pre></td></tr></table></figure>
 <blockquote>
 <h4 id="5-开发规范"><a href="#5-开发规范" class="headerlink" title="5. 开发规范"></a>5. 开发规范</h4></blockquote>
 <ul>
@@ -456,8 +455,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </li>
 </ul>
 <blockquote>
-<h4 id="7-mock-数据之-api-接口管理工具"><a href="#7-mock-数据之-api-接口管理工具" class="headerlink" title="7. mock 数据之 api 接口管理工具"></a>7. mock 数据之 api 接口管理工具</h4><p>前后端分离式开发已经很常见了，为了前后端并行开发，<code>mock</code> 数据(造假数据) 已经是个不可避免的问题。 对前端来说 <code>mock</code> 数据的方式有很多种：</p>
-</blockquote>
+<h4 id="7-mock-数据之-api-接口管理工具"><a href="#7-mock-数据之-api-接口管理工具" class="headerlink" title="7. mock 数据之 api 接口管理工具"></a>7. mock 数据之 api 接口管理工具</h4></blockquote>
+<p>前后端分离式开发已经很常见了，为了前后端并行开发，<code>mock</code> 数据(造假数据) 已经是个不可避免的问题。 对前端来说 <code>mock</code> 数据的方式有很多种：</p>
 <ul>
 <li><p><a href="https://github.com/nuysoft/Mock" target="_blank" rel="noopener">Mock.js</a> 模拟数据生成器</p>
 <ul>
