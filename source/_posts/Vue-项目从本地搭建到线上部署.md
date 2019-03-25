@@ -29,6 +29,8 @@ yarn serve
   - 如果 `URL` 以 `.` 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析。
   - 如果 `URL` 以 `~` 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源：
   - 如果 `URL` 以 `@` 开头，它也会作为一个模块请求被解析。它的用处在于 `Vue CLI` 默认会设置一个指向 `<projectRoot>/src` 的别名 `@`
+
+
 > #### 2. `public` 文件夹
 
   - 任何放置在 `public` 文件夹的静态资源都会被复制到 `outputDir` 对应值的目录下（默认 `'dist'`）。  
@@ -46,7 +48,9 @@ data () {
   }
 },
 ```
+
 > #### 3. vue.config.js
+
 <font style="color: #ff9966;">
 注：有些 webpack 选项是基于 vue.config.js 中的值设置的，所以不能直接修改。如：你应该修改 vue.config.js 中的 publicPath 选项而不是修改 output.publicPath
 </font>  
@@ -105,6 +109,7 @@ chainWebpack: config => {
 ```
 
 > #### 4. webpack 配置检查
+
 ```
 vue inspect > output.js # 输出开发模式下 webpack 配置信息
 vue inspect --mode production > output.js # 输出生产模式下 webpack 配置信息
@@ -147,6 +152,7 @@ vue inspect --mode production > output.js # 输出生产模式下 webpack 配置
 - 运行 `yarn build:preview` 打包编译即可
 
 > #### 7. mock 数据之 api 接口管理工具
+
 前后端分离式开发已经很常见了，为了前后端并行开发，`mock` 数据(造假数据) 已经是个不可避免的问题。 对前端来说 `mock` 数据的方式有很多种：
 
 - [Mock.js][0_7] 模拟数据生成器
