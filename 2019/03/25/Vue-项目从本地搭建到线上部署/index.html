@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,guide,deploy,开发,部署," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0. 创建项目12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve   1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+<meta name="keywords" content="vue,guide,deploy,开发,部署">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-项目从本地搭建到线上部署">
+<meta property="og:url" content="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="0. 创建项目12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve   1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T08:01:44.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue-项目从本地搭建到线上部署">
+<meta name="twitter:description" content="0. 创建项目12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve   1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/"/>
+
+
+
+
+
+  <title>Vue-项目从本地搭建到线上部署 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Vue-项目从本地搭建到线上部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T15:58:11+00:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/25/Vue-项目从本地搭建到线上部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/25/Vue-项目从本地搭建到线上部署/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h4 id="0-创建项目"><a href="#0-创建项目" class="headerlink" title="0. 创建项目"></a>0. 创建项目</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 安装 vue cli</span><br><span class="line">yarn global add @vue/cli</span><br><span class="line"></span><br><span class="line"># 初始化项目</span><br><span class="line">vue create hello-world-3x</span><br><span class="line"></span><br><span class="line">cd hello-world-3x</span><br><span class="line"></span><br><span class="line"># 本地运行项目</span><br><span class="line">yarn serve</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h4 id="1-静态资源"><a href="#1-静态资源" class="headerlink" title="1. 静态资源"></a>1. 静态资源</h4></blockquote>
+<p>静态资源可以通过两种方式进行处理：</p>
+<ul>
+<li>在 <code>JavaScript</code> 被导入或在 <code>template/CSS</code> 中通过相对路径被引用。这类引用会被 <code>webpack</code> 处理。</li>
+<li>放置在 <code>public</code> 目录下或通过绝对路径被引用。这类资源将会直接被拷贝，而不会经过 <code>webpack</code> 的处理。</li>
+<li><p><code>URL</code> 转换规则</p>
+<ul>
+<li>如果 <code>URL</code> 是一个绝对路径 (例如 /images/foo.png)，它将会被保留不变。</li>
+<li>如果 <code>URL</code> 以 <code>.</code> 开头，它会作为一个相对模块请求被解释且基于你的文件系统中的目录结构进行解析。</li>
+<li>如果 <code>URL</code> 以 <code>~</code> 开头，其后的任何内容都会作为一个模块请求被解析。这意味着你甚至可以引用 Node 模块中的资源：</li>
+<li><p>如果 <code>URL</code> 以 <code>@</code> 开头，它也会作为一个模块请求被解析。它的用处在于 <code>Vue CLI</code> 默认会设置一个指向 <code>&lt;projectRoot&gt;/src</code> 的别名 <code>@</code></p>
+<blockquote>
+<h4 id="2-public-文件夹"><a href="#2-public-文件夹" class="headerlink" title="2. public 文件夹"></a>2. <code>public</code> 文件夹</h4></blockquote>
+</li>
+<li><p>任何放置在 <code>public</code> 文件夹的静态资源都会被复制到 <code>outputDir</code> 对应值的目录下（默认 <code>&#39;dist&#39;</code>）。  </p>
+</li>
+<li>如果用绝对路径来引用，不会被 <code>webpack</code> 处理(<strong>资源只存在 1 份</strong>)；  </li>
+<li>如果用相对路径来引用，会被 <code>webpack</code> 处理，将图片重新打包到 <code>&lt;outputDir&gt;/&lt;assetsDir&gt;/img/</code> 目录下，并给图片加 <code>hash</code> 值，以便更好的控制缓存。<strong>资源会存在 2 份</strong>(还有第一条复制的 1 份)</li>
+<li>所以引用 <code>public</code> 文件夹的静态资源建议使用绝对路径，注意配置路径 <code>publicPath</code> 前缀</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"`$&#123;publicPath&#125;logo.png`"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicPath: process.env.BASE_URL,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="3-vue-config-js"><a href="#3-vue-config-js" class="headerlink" title="3. vue.config.js"></a>3. vue.config.js</h4></blockquote>
+<font style="color: #ff9966;"><br>注：有些 webpack 选项是基于 vue.config.js 中的值设置的，所以不能直接修改。如：你应该修改 vue.config.js 中的 publicPath 选项而不是修改 output.publicPath<br></font>  
+
+<ul>
+<li><p><strong>publicPath、baseUrl(vue cli 3.3 弃用)</strong></p>
+<p>作用：设置所有经过 webpack 处理的静态资源路径前缀（不包括用绝对路径引用的资源）</p>
+<p>默认：<code>&#39;/&#39;</code></p>
+<p>默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上，如：<code>https://domain.com，publicPath</code> 不需要刻意设置。<br>如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径，如：<code>https://domain.com/my-app/</code>，那么 <code>publicPath</code> 为 <code>/my-app/</code>。  </p>
+</li>
+</ul>
+<ul>
+<li><p><strong>webpack 配置</strong><br>vue cli 内部配置，是通过 <a href="https://github.com/neutrinojs/webpack-chain" target="_blank" rel="noopener">webpack-chain</a> 维护的，使 webpack 的配置在后期修改起来更方便、简单。  </p>
+<p>对于 CSS 相关 loader 来说，我们推荐使用 css.loaderOptions 而不是直接链式指定 loader。这是因为每种 CSS 文件类型都有多个规则，而 css.loaderOptions 可以确保你通过一个地方影响所有的规则</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS loader 相关配置</span></span><br><span class="line">css: &#123;</span><br><span class="line">  loaderOptions: &#123;</span><br><span class="line">    stylus: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack 其它配置</span></span><br><span class="line">chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 配置别名</span></span><br><span class="line">    config.resolve.alias</span><br><span class="line">      .set(<span class="string">'rootDir'</span>, path.join(__dirname))</span><br><span class="line">    config.module</span><br><span class="line">    <span class="comment">// 添加一个具名规则 方便后期修改</span></span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .test(<span class="regexp">/\.js$/</span>)</span><br><span class="line">        .include</span><br><span class="line">          .add(<span class="string">'src'</span>)</span><br><span class="line">          .end()</span><br><span class="line">        <span class="comment">// 甚至可以创建具名 loader，方便后期修改</span></span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">        .loader(<span class="string">'babel-loader'</span>)</span><br><span class="line">        .options(&#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [<span class="string">'@babel/preset-env'</span>, &#123; <span class="attr">modules</span>: <span class="literal">false</span> &#125;]</span><br><span class="line">          ]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改具名 loader</span></span><br><span class="line">    config.module</span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">          .tap(<span class="function"><span class="params">options</span> =&gt;</span> newOptions)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="4-webpack-配置检查"><a href="#4-webpack-配置检查" class="headerlink" title="4. webpack 配置检查"></a>4. webpack 配置检查</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue inspect &gt; output.js # 输出开发模式下 webpack 配置信息</span><br><span class="line">vue inspect --mode production &gt; output.js # 输出生产模式下 webpack 配置信息</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<h4 id="5-开发规范"><a href="#5-开发规范" class="headerlink" title="5. 开发规范"></a>5. 开发规范</h4></blockquote>
+<ul>
+<li><a href="https://github.com/gauseen/standard/blob/master/README.md" target="_blank" rel="noopener">JavaScript Standard</a></li>
+<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-code-style.md" target="_blank" rel="noopener">Vue 编码风格规范</a></li>
+<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-project-directory-style.md" target="_blank" rel="noopener">项目目录规范</a></li>
+</ul>
+<blockquote>
+<h4 id="6-支持多环境模式打包"><a href="#6-支持多环境模式打包" class="headerlink" title="6. 支持多环境模式打包"></a>6. 支持多环境模式打包</h4></blockquote>
+<p>场景：有 <code>development、test、preview、production</code> 多种线上环境，每个环境用到的变量值都不同，该怎么用程序解决？</p>
+<p><code>vue-cli 3.x</code> 支持多种环境模式变量配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.env                # 在所有的环境中被载入</span><br><span class="line">.env.local          # 在所有的环境中被载入，但会被 git 忽略</span><br><span class="line">.env.[mode]         # 只在指定的模式中被载入</span><br><span class="line">.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略</span><br></pre></td></tr></table></figure>
+<p>环境变量优先级：环境变量的文件名 <code>.</code> 越多优先级越高。如：<code>.env.production &gt; .env</code></p>
+<p>默认情况下 <code>vue-cli 3.x</code> 只支持 <code>3</code> 种模式，分别为:   </p>
+<ul>
+<li><code>development 模式用于 vue-cli-service serve</code></li>
+<li><code>production 模式用于 vue-cli-service build</code>  </li>
+<li><code>test 模式用于 vue-cli-service test:unit 和 vue-cli-service test:e2e</code></li>
+</ul>
+<p>那如何新加模式呢？  </p>
+<p>可以通过传递 <code>--mode</code> 选项参数为命令行 <code>vue-cli-service</code> 指定具体环境模式。如：新加 <code>preview</code> 模式  </p>
+<ul>
+<li>项目根目录新增 <code>.env.preview</code> 文件，因为每个模式默认都会将 <code>NODE_ENV</code> 的值设置为模式的名称，所以要添加 <code>NODE_ENV=production</code> 变量(<code>preview</code> 模式也是需要打包上传服务器的)。</li>
+<li><p><code>package.json scripts</code> 文件新增脚本命令</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"build:preview": "vue-cli-service build --mode preview"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行 <code>yarn build:preview</code> 打包编译即可</p>
+</li>
+</ul>
+<blockquote>
+<h4 id="7-mock-数据之-api-接口管理工具"><a href="#7-mock-数据之-api-接口管理工具" class="headerlink" title="7. mock 数据之 api 接口管理工具"></a>7. mock 数据之 api 接口管理工具</h4><p>前后端分离式开发已经很常见了，为了前后端并行开发，<code>mock</code> 数据(造假数据) 已经是个不可避免的问题。 对前端来说 <code>mock</code> 数据的方式有很多种：</p>
+</blockquote>
+<ul>
+<li><p><a href="https://github.com/nuysoft/Mock" target="_blank" rel="noopener">Mock.js</a> 模拟数据生成器</p>
+<ul>
+<li>需要前端手动去写 <code>mock</code> 数据代码，比较麻烦</li>
+<li>每个项目都要有一套 <code>mock</code> 代码，复用率底</li>
+<li>没有 <code>GUI</code> 可视化界面，不方便后端开发查看接口、字段等 <code>api</code> 信息</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/easy-mock/easy-mock" target="_blank" rel="noopener">easy-mock</a> 是一个可视化，并且能快速生成模拟数据的持久化服务</p>
+<ul>
+<li>支持可视化界面</li>
+<li>支持协同编辑</li>
+<li>支持 <code>swagger</code>，可基于 <code>swagger</code> 快速创建项目接口</li>
+<li>支持 <code>Mock.js</code> 语法</li>
+<li>支持接口预览，等等</li>
+<li>免费开源，私有化部署简单</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/thx/RAP" target="_blank" rel="noopener">RAP</a> 和 <a href="https://github.com/thx/rap2-delos" target="_blank" rel="noopener">RAP2</a> 阿里妈妈出品，开源接口管理工具 <code>RAP</code> 第一代和二代</p>
+<ul>
+<li>支持可视化界面</li>
+<li>支持协同编辑</li>
+<li>支持 <code>Mock.js</code> 语法</li>
+<li>不支持 <code>swagger</code> 数据导入，但支持 <code>JSON</code> 格式数据的导入导出</li>
+<li>免费开源，但私有化部署相对繁琐</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/YMFE/yapi" target="_blank" rel="noopener">YApi</a> 是一个可本地部署的、打通前后端及 QA 的、可视化的接口管理平台</p>
+<ul>
+<li>支持可视化界面</li>
+<li>支持协同编辑</li>
+<li>支持自动化测试, 对 <code>Response</code> 断言 :star:</li>
+<li>基于 <code>Json5</code> 和 <code>Mockjs</code> 定义接口返回数据的结构和文档</li>
+<li>支持 <code>swagger、postman、json、har</code> 数据导入</li>
+<li>免费开源，私有化部署简单</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h4 id="8-vue-项目中使用-api-接口管理平台"><a href="#8-vue-项目中使用-api-接口管理平台" class="headerlink" title="8. vue 项目中使用 api 接口管理平台"></a>8. vue 项目中使用 api 接口管理平台</h4></blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础地址</span></span><br><span class="line"><span class="keyword">const</span> baseApi = <span class="string">'/api'</span></span><br><span class="line"><span class="comment">// YApi 项目 ID (YApi 创建项目所得)</span></span><br><span class="line"><span class="keyword">const</span> mockProjectId = <span class="string">'66666'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 代理</span></span><br><span class="line">  devServer: &#123;</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="comment">// 开发环境代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/(?!mock)`</span>]: &#123;</span><br><span class="line">        target: process.env.VUE_APP_DOMAIN || <span class="string">'http://preview.domain.com'</span>, <span class="comment">// 测试环境</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// mock 数据代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: &#123;</span><br><span class="line">        target: <span class="string">'http://yapi.demo.qunar.com'</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: <span class="string">`/mock/<span class="subst">$&#123;mockProjectId&#125;</span><span class="subst">$&#123;baseApi&#125;</span>`</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="9-本地预览打包代码"><a href="#9-本地预览打包代码" class="headerlink" title="9. 本地预览打包代码"></a>9. 本地预览打包代码</h4></blockquote>
+<p><a href="https://github.com/indexzero/http-server" target="_blank" rel="noopener">http-server</a> 是一个基于 <code>node</code>，零配置命令行 <code>http</code> 服务器。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">yarn add -D http-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 package.json scripts</span></span><br><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"preview"</span>: <span class="string">"http-server ./ -P"</span>,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包产出</span></span><br><span class="line">yarn build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改文件名 dist/ ===&gt; my-app/(与 publicPath 保持一致)</span></span><br><span class="line">mv -rf dist/ my-app/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览(http://ip:port 可选, 为代理服务)</span></span><br><span class="line">yarn preview &lt;http://ip:port&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 浏览器打开连接访问即可</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<h4 id="10-线上部署"><a href="#10-线上部署" class="headerlink" title="10. 线上部署"></a>10. 线上部署</h4></blockquote>
+<p>这里主要讲述前后端分离式线上部署  </p>
+<p>当前应用路由模式分<code>2</code>种，<code>hash</code> 和 <code>history</code> 模式</p>
+<ul>
+<li><p><code>hash</code> 模式</p>
+<ul>
+<li>样式比较丑，不太符合人的 “审美”</li>
+<li>浏览器地址栏 <code>URL</code> 有 <code>#</code> (如：<code>http://localhost:3000/#/a</code>)</li>
+<li><code>#</code> 后面的内容不会传给服务端</li>
+<li>改变浏览器地址栏 <code>URL #</code> 后面的值，<strong>不会引起</strong>网页重载</li>
+</ul>
+</li>
+<li><p><code>history</code> 模式</p>
+<ul>
+<li><code>HTML5</code> 新特性，样式比较优雅</li>
+<li>浏览器地址没有 <code>#</code> (如：<code>http://localhost:3000/a</code>)</li>
+<li>没有 <code>#</code> ，所有 <code>domain</code> 后面的内容都会传给服务端</li>
+<li>改变浏览器地址栏 <code>URL</code> <strong>会</strong>网页重载，再次请求服务器，并向 <code>history</code> 栈中插入一条记录  </li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/gauseen/blog/issues/7" target="_blank" rel="noopener">具体区别看这里</a></p>
+<ul>
+<li><code>web</code> 服务器</li>
+</ul>
+<p>前端页面需要跑在 <code>web</code> 服务器里面，主要包括 <code>Nginx，Apache，IIS</code> 等，主要处理一些静态资源。我们公司使用 <code>Nginx</code>，下面介绍前端应用部署时 <code>Nginx</code> 的一些配置：</p>
+<ul>
+<li><code>hash</code> 模式配置</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span><span class="regexp"> ^~</span> /pos2/</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">root</span> /data/www/webproject;</span><br><span class="line">  <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>history</code> 模式配置<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span><span class="regexp"> ^~</span> /crmwap/</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">root</span> /data/www/webproject;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /crmwap/index.html =<span class="number">404</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 已知: $document_root = root = /data/www/webproject</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 若: try_files $uri $uri/ /crmwap/index.html =404; fall back 如下:</span></span><br><span class="line">  <span class="comment"># $document_root$uri --&gt; $document_root$uri/ --&gt;  $document_root/crmwap/index.html --&gt; nginx 404</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 若：try_files $uri $uri/ /crmwap/index.html; fall back 如下:</span></span><br><span class="line">  <span class="comment"># $document_root$uri --&gt; $document_root$uri/ --&gt; http://domain.com/crmwap/index.html</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>注：</strong><a href="http://www.nginx.cn/279.html" target="_blank" rel="noopener">try_files</a> 的最后一个位置（fall back）是特殊的，它会发出一个内部 “子请求” 而非直接在文件系统里查找这个文件。<br>在不更改 <code>Nginx</code> 配置文件的情况下，前端页面迭代发布，不需要重启 <code>Nginx</code> 服务。</p>
+<!-- 引用链接 -->
+<!-- javascript standard -->
+<!-- [0_3]: http://10.211.62.41:82/18110026/code-style-guide/blob/master/docs/vue-code-style.md -->
+<!-- mock -->
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/guide/" rel="tag"><i class="fa fa-tag"></i> guide</a>
+          
+            <a href="/tags/deploy/" rel="tag"><i class="fa fa-tag"></i> deploy</a>
+          
+            <a href="/tags/开发/" rel="tag"><i class="fa fa-tag"></i> 开发</a>
+          
+            <a href="/tags/部署/" rel="tag"><i class="fa fa-tag"></i> 部署</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/15/理解浏览器 HTTP 缓存/" rel="next" title="理解浏览器 HTTP 缓存">
+                <i class="fa fa-chevron-left"></i> 理解浏览器 HTTP 缓存
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/03/25/Vue-项目从本地搭建到线上部署/"
+           data-title="Vue-项目从本地搭建到线上部署" data-url="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-创建项目"><span class="nav-number">1.</span> <span class="nav-text">0. 创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-静态资源"><span class="nav-number">2.</span> <span class="nav-text">1. 静态资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-public-文件夹"><span class="nav-number">3.</span> <span class="nav-text">2. public 文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-vue-config-js"><span class="nav-number">4.</span> <span class="nav-text">3. vue.config.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-webpack-配置检查"><span class="nav-number">5.</span> <span class="nav-text">4. webpack 配置检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-开发规范"><span class="nav-number">6.</span> <span class="nav-text">5. 开发规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-支持多环境模式打包"><span class="nav-number">7.</span> <span class="nav-text">6. 支持多环境模式打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-mock-数据之-api-接口管理工具"><span class="nav-number">8.</span> <span class="nav-text">7. mock 数据之 api 接口管理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-vue-项目中使用-api-接口管理平台"><span class="nav-number">9.</span> <span class="nav-text">8. vue 项目中使用 api 接口管理平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-本地预览打包代码"><span class="nav-number">10.</span> <span class="nav-text">9. 本地预览打包代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-线上部署"><span class="nav-number">11.</span> <span class="nav-text">10. 线上部署</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共16.2k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
