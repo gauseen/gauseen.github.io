@@ -6,6 +6,7 @@ author: gauseen
 ---
 
 > #### 0. 创建项目
+
 ```
 # 安装 vue cli
 yarn global add @vue/cli
