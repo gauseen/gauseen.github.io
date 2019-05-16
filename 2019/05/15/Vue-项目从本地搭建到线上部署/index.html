@@ -103,18 +103,18 @@
 
 
 
-<meta name="description" content="0. 创建项目 12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve  1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+<meta name="description" content="0. 关于 Vuejs  简介：Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架，易用、灵活、高效。 生态系统     项目 介绍     awesome-vue Vue.js 相关很棒的工具集   vue-router Vue.js 官方的路由管理器   vuex Vue.js 应用的状态管理工具   vue-cli 一键式快速构建 Vue.js 应用开发环">
 <meta name="keywords" content="vue,guide,deploy,开发,部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vue-项目从本地搭建到线上部署">
-<meta property="og:url" content="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/Vue-项目从本地搭建到线上部署/index.html">
 <meta property="og:site_name" content="A new way to explore the world">
-<meta property="og:description" content="0. 创建项目 12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve  1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+<meta property="og:description" content="0. 关于 Vuejs  简介：Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架，易用、灵活、高效。 生态系统     项目 介绍     awesome-vue Vue.js 相关很棒的工具集   vue-router Vue.js 官方的路由管理器   vuex Vue.js 应用的状态管理工具   vue-cli 一键式快速构建 Vue.js 应用开发环">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-25T08:08:48.569Z">
+<meta property="og:updated_time" content="2019-05-16T07:31:41.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue-项目从本地搭建到线上部署">
-<meta name="twitter:description" content="0. 创建项目 12345678910# 安装 vue cliyarn global add @vue/cli# 初始化项目vue create hello-world-3xcd hello-world-3x# 本地运行项目yarn serve  1. 静态资源 静态资源可以通过两种方式进行处理：  在 JavaScript 被导入或在 template/CSS 中通过相对路径被引用。这类引用会">
+<meta name="twitter:description" content="0. 关于 Vuejs  简介：Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架，易用、灵活、高效。 生态系统     项目 介绍     awesome-vue Vue.js 相关很棒的工具集   vue-router Vue.js 官方的路由管理器   vuex Vue.js 应用的状态管理工具   vue-cli 一键式快速构建 Vue.js 应用开发环">
 
 
 
@@ -144,7 +144,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/15/Vue-项目从本地搭建到线上部署/"/>
 
 
 
@@ -291,7 +291,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/Vue-项目从本地搭建到线上部署/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="gauseen">
@@ -320,8 +320,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T15:58:11+00:00">
-                2019-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T18:58:11+00:00">
+                2019-05-15
               </time>
             
 
@@ -349,8 +349,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/25/Vue-项目从本地搭建到线上部署/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/25/Vue-项目从本地搭建到线上部署/" itemprop="commentCount"></span>
+                <a href="/2019/05/15/Vue-项目从本地搭建到线上部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/05/15/Vue-项目从本地搭建到线上部署/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,10 +379,65 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 
       
         <blockquote>
-<h4 id="0-创建项目"><a href="#0-创建项目" class="headerlink" title="0. 创建项目"></a>0. 创建项目</h4></blockquote>
+<h4 id="0-关于-Vuejs"><a href="#0-关于-Vuejs" class="headerlink" title="0. 关于 Vuejs"></a>0. 关于 <code>Vuejs</code></h4></blockquote>
+<ul>
+<li>简介：<code>Vue</code> (读音 <code>/vjuː/</code>，类似于 <code>view</code>) 是一套用于构建用户界面的渐进式框架，易用、灵活、高效。</li>
+<li>生态系统</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></td>
+<td><code>Vue.js</code> 相关很棒的工具集</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue-router" target="_blank" rel="noopener">vue-router</a></td>
+<td><code>Vue.js</code> 官方的路由管理器</td>
+</tr>
+<tr>
+<td><a href="vue-loaderhttps://github.com/vuejs/vuex" target="_blank" rel="noopener">vuex</a></td>
+<td><code>Vue.js</code> 应用的状态管理工具</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue-cli" target="_blank" rel="noopener">vue-cli</a></td>
+<td>一键式快速构建 <code>Vue.js</code> 应用开发环境</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue-loader" target="_blank" rel="noopener">vue-loader</a></td>
+<td><code>webpack</code> 的 <code>loader</code>，解析 <code>.vue</code> 文件，它允许你以一种名为单文件组件 (SFCs)的格式撰写 <code>Vue</code> 组件</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue/tree/dev/packages/vue-server-renderer" target="_blank" rel="noopener">vue-server-renderer</a></td>
+<td>服务端渲染(<code>ssr</code>)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue-rx" target="_blank" rel="noopener">vue-rx</a></td>
+<td>集成 <a href="https://cn.rx.js.org/manual/overview.html" target="_blank" rel="noopener">RxJS</a> (处理事件的工具)</td>
+</tr>
+<tr>
+<td><a href="https://github.com/vuejs/vue-devtools" target="_blank" rel="noopener">vue-devtools</a></td>
+<td><code>Vue.js</code> 开发调试工具浏览器插件</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h4 id="1-开发规范"><a href="#1-开发规范" class="headerlink" title="1. 开发规范"></a>1. 开发规范</h4></blockquote>
+<ul>
+<li><a href="https://github.com/gauseen/standard/blob/master/README.md" target="_blank" rel="noopener">JavaScript Standard</a></li>
+<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-code-style.md" target="_blank" rel="noopener">Vue 编码风格规范</a></li>
+<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-project-directory-style.md" target="_blank" rel="noopener">项目目录规范</a></li>
+</ul>
+<blockquote>
+<h4 id="2-创建项目"><a href="#2-创建项目" class="headerlink" title="2. 创建项目"></a>2. 创建项目</h4></blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 安装 vue cli</span><br><span class="line">yarn global add @vue/cli</span><br><span class="line"></span><br><span class="line"># 初始化项目</span><br><span class="line">vue create hello-world-3x</span><br><span class="line"></span><br><span class="line">cd hello-world-3x</span><br><span class="line"></span><br><span class="line"># 本地运行项目</span><br><span class="line">yarn serve</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="1-静态资源"><a href="#1-静态资源" class="headerlink" title="1. 静态资源"></a>1. 静态资源</h4></blockquote>
+<h4 id="3-静态资源"><a href="#3-静态资源" class="headerlink" title="3. 静态资源"></a>3. 静态资源</h4></blockquote>
 <p>静态资源可以通过两种方式进行处理：</p>
 <ul>
 <li>在 <code>JavaScript</code> 被导入或在 <code>template/CSS</code> 中通过相对路径被引用。这类引用会被 <code>webpack</code> 处理。</li>
@@ -396,7 +451,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </li>
 </ul>
 <blockquote>
-<h4 id="2-public-文件夹"><a href="#2-public-文件夹" class="headerlink" title="2. public 文件夹"></a>2. <code>public</code> 文件夹</h4></blockquote>
+<h4 id="4-public-文件夹"><a href="#4-public-文件夹" class="headerlink" title="4. public 文件夹"></a>4. <code>public</code> 文件夹</h4></blockquote>
 <ul>
 <li>任何放置在 <code>public</code> 文件夹的静态资源都会被复制到 <code>outputDir</code> 对应值的目录下（默认 <code>&#39;dist&#39;</code>）。  </li>
 <li>如果用绝对路径来引用，不会被 <code>webpack</code> 处理(<strong>资源只存在 1 份</strong>)；  </li>
@@ -406,11 +461,11 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">:src</span>=<span class="string">"`$&#123;publicPath&#125;logo.png`"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data () &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    publicPath: process.env.BASE_URL,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="3-vue-config-js"><a href="#3-vue-config-js" class="headerlink" title="3. vue.config.js"></a>3. vue.config.js</h4></blockquote>
+<h4 id="5-vue-config-js"><a href="#5-vue-config-js" class="headerlink" title="5. vue.config.js"></a>5. vue.config.js</h4></blockquote>
 <font style="color: #ff9966;"><br>注：有些 webpack 选项是基于 vue.config.js 中的值设置的，所以不能直接修改。如：你应该修改 vue.config.js 中的 publicPath 选项而不是修改 output.publicPath<br></font>  
 
 <ul>
-<li><p><strong>publicPath、baseUrl(vue cli 3.3 弃用)</strong></p>
+<li><p><strong>publicPath(同 baseUrl, vue cli 3.3 弃用)</strong></p>
 <p>作用：设置所有经过 webpack 处理的静态资源路径前缀（不包括用绝对路径引用的资源）</p>
 <p>默认：<code>&#39;/&#39;</code></p>
 <p>默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上，如：<code>https://domain.com，publicPath</code> 不需要刻意设置。<br>如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径，如：<code>https://domain.com/my-app/</code>，那么 <code>publicPath</code> 为 <code>/my-app/</code>。  </p>
@@ -423,17 +478,10 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </ul>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// CSS loader 相关配置</span></span><br><span class="line">css: &#123;</span><br><span class="line">  loaderOptions: &#123;</span><br><span class="line">    stylus: &#123;&#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack 其它配置</span></span><br><span class="line">chainWebpack: <span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 配置别名</span></span><br><span class="line">    config.resolve.alias</span><br><span class="line">      .set(<span class="string">'rootDir'</span>, path.join(__dirname))</span><br><span class="line">    config.module</span><br><span class="line">    <span class="comment">// 添加一个具名规则 方便后期修改</span></span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .test(<span class="regexp">/\.js$/</span>)</span><br><span class="line">        .include</span><br><span class="line">          .add(<span class="string">'src'</span>)</span><br><span class="line">          .end()</span><br><span class="line">        <span class="comment">// 甚至可以创建具名 loader，方便后期修改</span></span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">        .loader(<span class="string">'babel-loader'</span>)</span><br><span class="line">        .options(&#123;</span><br><span class="line">          presets: [</span><br><span class="line">            [<span class="string">'@babel/preset-env'</span>, &#123; <span class="attr">modules</span>: <span class="literal">false</span> &#125;]</span><br><span class="line">          ]</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 修改具名 loader</span></span><br><span class="line">    config.module</span><br><span class="line">      .rule(<span class="string">'compile'</span>)</span><br><span class="line">        .use(<span class="string">'babel'</span>)</span><br><span class="line">          .tap(<span class="function"><span class="params">options</span> =&gt;</span> newOptions)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="4-webpack-配置检查"><a href="#4-webpack-配置检查" class="headerlink" title="4. webpack 配置检查"></a>4. webpack 配置检查</h4></blockquote>
+<h4 id="6-webpack-配置检查"><a href="#6-webpack-配置检查" class="headerlink" title="6. webpack 配置检查"></a>6. webpack 配置检查</h4></blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vue inspect &gt; output.js # 输出开发模式下 webpack 配置信息</span><br><span class="line">vue inspect --mode production &gt; output.js # 输出生产模式下 webpack 配置信息</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="5-开发规范"><a href="#5-开发规范" class="headerlink" title="5. 开发规范"></a>5. 开发规范</h4></blockquote>
-<ul>
-<li><a href="https://github.com/gauseen/standard/blob/master/README.md" target="_blank" rel="noopener">JavaScript Standard</a></li>
-<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-code-style.md" target="_blank" rel="noopener">Vue 编码风格规范</a></li>
-<li><a href="https://github.com/gauseen/code-style-guide/blob/master/docs/vue-project-directory-style.md" target="_blank" rel="noopener">项目目录规范</a></li>
-</ul>
-<blockquote>
-<h4 id="6-支持多环境模式打包"><a href="#6-支持多环境模式打包" class="headerlink" title="6. 支持多环境模式打包"></a>6. 支持多环境模式打包</h4></blockquote>
+<h4 id="7-支持多环境模式打包"><a href="#7-支持多环境模式打包" class="headerlink" title="7. 支持多环境模式打包"></a>7. 支持多环境模式打包</h4></blockquote>
 <p>场景：有 <code>development、test、preview、production</code> 多种线上环境，每个环境用到的变量值都不同，该怎么用程序解决？</p>
 <p><code>vue-cli 3.x</code> 支持多种环境模式变量配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.env                # 在所有的环境中被载入</span><br><span class="line">.env.local          # 在所有的环境中被载入，但会被 git 忽略</span><br><span class="line">.env.[mode]         # 只在指定的模式中被载入</span><br><span class="line">.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略</span><br></pre></td></tr></table></figure>
@@ -455,7 +503,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </li>
 </ul>
 <blockquote>
-<h4 id="7-mock-数据之-api-接口管理工具"><a href="#7-mock-数据之-api-接口管理工具" class="headerlink" title="7. mock 数据之 api 接口管理工具"></a>7. mock 数据之 api 接口管理工具</h4></blockquote>
+<h4 id="8-mock-数据之-api-接口管理工具"><a href="#8-mock-数据之-api-接口管理工具" class="headerlink" title="8. mock 数据之 api 接口管理工具"></a>8. mock 数据之 api 接口管理工具</h4></blockquote>
 <p>前后端分离式开发已经很常见了，为了前后端并行开发，<code>mock</code> 数据(造假数据) 已经是个不可避免的问题。 对前端来说 <code>mock</code> 数据的方式有很多种：</p>
 <ul>
 <li><p><a href="https://github.com/nuysoft/Mock" target="_blank" rel="noopener">Mock.js</a> 模拟数据生成器</p>
@@ -496,14 +544,14 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </li>
 </ul>
 <blockquote>
-<h4 id="8-vue-项目中使用-api-接口管理平台"><a href="#8-vue-项目中使用-api-接口管理平台" class="headerlink" title="8. vue 项目中使用 api 接口管理平台"></a>8. vue 项目中使用 api 接口管理平台</h4></blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础地址</span></span><br><span class="line"><span class="keyword">const</span> baseApi = <span class="string">'/api'</span></span><br><span class="line"><span class="comment">// YApi 项目 ID (YApi 创建项目所得)</span></span><br><span class="line"><span class="keyword">const</span> mockProjectId = <span class="string">'66666'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 代理</span></span><br><span class="line">  devServer: &#123;</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="comment">// 开发环境代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/(?!mock)`</span>]: &#123;</span><br><span class="line">        target: process.env.VUE_APP_DOMAIN || <span class="string">'http://preview.domain.com'</span>, <span class="comment">// 测试环境</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// mock 数据代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: &#123;</span><br><span class="line">        target: <span class="string">'http://yapi.demo.qunar.com'</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: <span class="string">`/mock/<span class="subst">$&#123;mockProjectId&#125;</span><span class="subst">$&#123;baseApi&#125;</span>`</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="9-vue-项目中使用-api-接口管理平台"><a href="#9-vue-项目中使用-api-接口管理平台" class="headerlink" title="9. vue 项目中使用 api 接口管理平台"></a>9. vue 项目中使用 api 接口管理平台</h4></blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础地址</span></span><br><span class="line"><span class="keyword">const</span> baseApi = <span class="string">'/api'</span></span><br><span class="line"><span class="comment">// YApi 项目 ID (YApi 创建项目所得)</span></span><br><span class="line"><span class="keyword">const</span> mockProjectId = <span class="string">'66666'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// 代理</span></span><br><span class="line">  devServer: &#123;</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="comment">// 开发环境代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/(?!mock)`</span>]: &#123;</span><br><span class="line">        target: process.env.VUE_APP_DOMAIN || <span class="string">'http://test.domain.com'</span>, <span class="comment">// 测试环境</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// mock 数据代理</span></span><br><span class="line">      [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: &#123;</span><br><span class="line">        target: <span class="string">'http://yapi.demo.qunar.com'</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          [<span class="string">`<span class="subst">$&#123;baseApi&#125;</span>/mock`</span>]: <span class="string">`/mock/<span class="subst">$&#123;mockProjectId&#125;</span><span class="subst">$&#123;baseApi&#125;</span>`</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="9-本地预览打包代码"><a href="#9-本地预览打包代码" class="headerlink" title="9. 本地预览打包代码"></a>9. 本地预览打包代码</h4></blockquote>
+<h4 id="10-本地预览打包代码"><a href="#10-本地预览打包代码" class="headerlink" title="10. 本地预览打包代码"></a>10. 本地预览打包代码</h4></blockquote>
 <p><a href="https://github.com/indexzero/http-server" target="_blank" rel="noopener">http-server</a> 是一个基于 <code>node</code>，零配置命令行 <code>http</code> 服务器。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">yarn add -D http-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 package.json scripts</span></span><br><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"preview"</span>: <span class="string">"http-server ./ -P"</span>,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包产出</span></span><br><span class="line">yarn build</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改文件名 dist/ ===&gt; my-app/(与 publicPath 保持一致)</span></span><br><span class="line">mv -rf dist/ my-app/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本地预览(http://ip:port 可选, 为代理服务)</span></span><br><span class="line">yarn preview &lt;http://ip:port&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 浏览器打开连接访问即可</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<h4 id="10-线上部署"><a href="#10-线上部署" class="headerlink" title="10. 线上部署"></a>10. 线上部署</h4></blockquote>
+<h4 id="11-线上部署"><a href="#11-线上部署" class="headerlink" title="11. 线上部署"></a>11. 线上部署</h4></blockquote>
 <p>这里主要讲述前后端分离式线上部署  </p>
 <p>当前应用路由模式分<code>2</code>种，<code>hash</code> 和 <code>history</code> 模式</p>
 <ul>
@@ -537,8 +585,16 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 <li><code>history</code> 模式配置<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span><span class="regexp"> ^~</span> /crmwap/</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attribute">root</span> /data/www/webproject;</span><br><span class="line">  <span class="attribute">try_files</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /crmwap/index.html =<span class="number">404</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 已知: $document_root = root = /data/www/webproject</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 若: try_files $uri $uri/ /crmwap/index.html =404; fall back 如下:</span></span><br><span class="line">  <span class="comment"># $document_root$uri --&gt; $document_root$uri/ --&gt;  $document_root/crmwap/index.html --&gt; nginx 404</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 若：try_files $uri $uri/ /crmwap/index.html; fall back 如下:</span></span><br><span class="line">  <span class="comment"># $document_root$uri --&gt; $document_root$uri/ --&gt; http://domain.com/crmwap/index.html</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>注：</strong><a href="http://www.nginx.cn/279.html" target="_blank" rel="noopener">try_files</a> 的最后一个位置（fall back）是特殊的，它会发出一个内部 “子请求” 而非直接在文件系统里查找这个文件。<br>在不更改 <code>Nginx</code> 配置文件的情况下，前端页面迭代发布，不需要重启 <code>Nginx</code> 服务。</p>
+<p><code>Nginx</code> 常用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 启动</span><br><span class="line">start nginx</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">nginx -s reload</span><br><span class="line"></span><br><span class="line"># 关闭</span><br><span class="line">nginx -s stop</span><br></pre></td></tr></table></figure>
+<p><strong>注：</strong><a href="http://www.nginx.cn/279.html" target="_blank" rel="noopener">try_files</a> 的最后一个位置（fall back）是特殊的（仅限 <code>root</code>），它会发出一个内部 “子请求” 而非直接在文件系统里查找这个文件。<br>在不更改 <code>Nginx</code> 配置文件的情况下，前端页面迭代发布，不需要重启 <code>Nginx</code> 服务。</p>
+<blockquote>
+<h4 id="12-自动化构建工具"><a href="#12-自动化构建工具" class="headerlink" title="12. 自动化构建工具"></a>12. 自动化构建工具</h4></blockquote>
+<ul>
+<li><a href="https://jenkins.io/zh/" target="_blank" rel="noopener">Jenkins</a></li>
+</ul>
 <!-- 引用链接 -->
+<!-- vuejs -->
 <!-- javascript standard -->
 <!-- [0_3]: http://10.211.62.41:82/18110026/code-style-guide/blob/master/docs/vue-code-style.md -->
 <!-- mock -->
@@ -629,8 +685,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2019/03/25/Vue-项目从本地搭建到线上部署/"
-           data-title="Vue-项目从本地搭建到线上部署" data-url="http://yoursite.com/2019/03/25/Vue-项目从本地搭建到线上部署/">
+      <div class="ds-thread" data-thread-key="2019/05/15/Vue-项目从本地搭建到线上部署/"
+           data-title="Vue-项目从本地搭建到线上部署" data-url="http://yoursite.com/2019/05/15/Vue-项目从本地搭建到线上部署/">
       </div>
     </div>
 
@@ -772,7 +828,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-创建项目"><span class="nav-number">1.</span> <span class="nav-text">0. 创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-静态资源"><span class="nav-number">2.</span> <span class="nav-text">1. 静态资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-public-文件夹"><span class="nav-number">3.</span> <span class="nav-text">2. public 文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-vue-config-js"><span class="nav-number">4.</span> <span class="nav-text">3. vue.config.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-webpack-配置检查"><span class="nav-number">5.</span> <span class="nav-text">4. webpack 配置检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-开发规范"><span class="nav-number">6.</span> <span class="nav-text">5. 开发规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-支持多环境模式打包"><span class="nav-number">7.</span> <span class="nav-text">6. 支持多环境模式打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-mock-数据之-api-接口管理工具"><span class="nav-number">8.</span> <span class="nav-text">7. mock 数据之 api 接口管理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-vue-项目中使用-api-接口管理平台"><span class="nav-number">9.</span> <span class="nav-text">8. vue 项目中使用 api 接口管理平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-本地预览打包代码"><span class="nav-number">10.</span> <span class="nav-text">9. 本地预览打包代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-线上部署"><span class="nav-number">11.</span> <span class="nav-text">10. 线上部署</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#0-关于-Vuejs"><span class="nav-number">1.</span> <span class="nav-text">0. 关于 Vuejs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-开发规范"><span class="nav-number">2.</span> <span class="nav-text">1. 开发规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-创建项目"><span class="nav-number">3.</span> <span class="nav-text">2. 创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-静态资源"><span class="nav-number">4.</span> <span class="nav-text">3. 静态资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-public-文件夹"><span class="nav-number">5.</span> <span class="nav-text">4. public 文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-vue-config-js"><span class="nav-number">6.</span> <span class="nav-text">5. vue.config.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-webpack-配置检查"><span class="nav-number">7.</span> <span class="nav-text">6. webpack 配置检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-支持多环境模式打包"><span class="nav-number">8.</span> <span class="nav-text">7. 支持多环境模式打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-mock-数据之-api-接口管理工具"><span class="nav-number">9.</span> <span class="nav-text">8. mock 数据之 api 接口管理工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-vue-项目中使用-api-接口管理平台"><span class="nav-number">10.</span> <span class="nav-text">9. vue 项目中使用 api 接口管理平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-本地预览打包代码"><span class="nav-number">11.</span> <span class="nav-text">10. 本地预览打包代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-线上部署"><span class="nav-number">12.</span> <span class="nav-text">11. 线上部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-自动化构建工具"><span class="nav-number">13.</span> <span class="nav-text">12. 自动化构建工具</span></a></li></ol></div>
             
 
           </div>
@@ -810,7 +866,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
       本站总访问量<span id="busuanzi_value_site_pv"></span>次
     </span>
     | 
-    <span class="post-count">博客全站共16.2k字</span>
+    <span class="post-count">博客全站共16.5k字</span>
  </div>
 
 
