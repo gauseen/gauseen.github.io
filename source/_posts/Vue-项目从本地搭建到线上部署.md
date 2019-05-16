@@ -1,11 +1,33 @@
 ---
 title: Vue-项目从本地搭建到线上部署
-date: 2019-03-25 15:58:11
+date: 2019-05-15 18:58:11
 tags: [vue,deploy,guide,开发,部署]
 author: gauseen
 ---
 
-> #### 0. 创建项目
+> #### 0. 关于 `Vuejs`
+
+- 简介：`Vue` (读音 `/vjuː/`，类似于 `view`) 是一套用于构建用户界面的渐进式框架，易用、灵活、高效。
+- 生态系统
+
+| 项目 | 介绍 |
+| ---------- | -----------|
+| [awesome-vue][awesome-vue] | `Vue.js` 相关很棒的工具集 |
+| [vue-router][vue-router] | `Vue.js` 官方的路由管理器 |
+| [vuex][vuex] | `Vue.js` 应用的状态管理工具 |
+| [vue-cli][vue-cli] | 一键式快速构建 `Vue.js` 应用开发环境 |
+| [vue-loader][vue-loader] | `webpack` 的 `loader`，解析 `.vue` 文件，它允许你以一种名为单文件组件 (SFCs)的格式撰写 `Vue` 组件 |
+| [vue-server-renderer][vue-server-renderer] | 服务端渲染(`ssr`) |
+| [vue-rx][vue-rx] | 集成 [RxJS][rxjs] (处理事件的工具) |
+| [vue-devtools][vue-devtools] | `Vue.js` 开发调试工具浏览器插件 |
+
+> #### 1. 开发规范
+
+- [JavaScript Standard][0_2]
+- [Vue 编码风格规范][0_3]
+- [项目目录规范][0_4]
+
+> #### 2. 创建项目
 
 ```
 # 安装 vue cli
@@ -20,7 +42,7 @@ cd hello-world-3x
 yarn serve
 ```
 
-> #### 1. 静态资源
+> #### 3. 静态资源
 
 静态资源可以通过两种方式进行处理：
 - 在 `JavaScript` 被导入或在 `template/CSS` 中通过相对路径被引用。这类引用会被 `webpack` 处理。
@@ -32,7 +54,7 @@ yarn serve
   - 如果 `URL` 以 `@` 开头，它也会作为一个模块请求被解析。它的用处在于 `Vue CLI` 默认会设置一个指向 `<projectRoot>/src` 的别名 `@`
 
 
-> #### 2. `public` 文件夹
+> #### 4. `public` 文件夹
 
   - 任何放置在 `public` 文件夹的静态资源都会被复制到 `outputDir` 对应值的目录下（默认 `'dist'`）。  
   - 如果用绝对路径来引用，不会被 `webpack` 处理(**资源只存在 1 份**)；  
@@ -50,13 +72,13 @@ data () {
 },
 ```
 
-> #### 3. vue.config.js
+> #### 5. vue.config.js
 
 <font style="color: #ff9966;">
 注：有些 webpack 选项是基于 vue.config.js 中的值设置的，所以不能直接修改。如：你应该修改 vue.config.js 中的 publicPath 选项而不是修改 output.publicPath
 </font>  
 
-- **publicPath、baseUrl(vue cli 3.3 弃用)**
+- **publicPath(同 baseUrl, vue cli 3.3 弃用)**
 
   作用：设置所有经过 webpack 处理的静态资源路径前缀（不包括用绝对路径引用的资源）
 
@@ -109,21 +131,14 @@ chainWebpack: config => {
           .tap(options => newOptions)
 ```
 
-> #### 4. webpack 配置检查
+> #### 6. webpack 配置检查
 
 ```
 vue inspect > output.js # 输出开发模式下 webpack 配置信息
 vue inspect --mode production > output.js # 输出生产模式下 webpack 配置信息
 ```
 
-
-> #### 5. 开发规范
-
-- [JavaScript Standard][0_2]
-- [Vue 编码风格规范][0_3]
-- [项目目录规范][0_4]
-
-> #### 6. 支持多环境模式打包
+> #### 7. 支持多环境模式打包
 
 场景：有 `development、test、preview、production` 多种线上环境，每个环境用到的变量值都不同，该怎么用程序解决？
 
@@ -152,7 +167,7 @@ vue inspect --mode production > output.js # 输出生产模式下 webpack 配置
   ```
 - 运行 `yarn build:preview` 打包编译即可
 
-> #### 7. mock 数据之 api 接口管理工具
+> #### 8. mock 数据之 api 接口管理工具
 
 前后端分离式开发已经很常见了，为了前后端并行开发，`mock` 数据(造假数据) 已经是个不可避免的问题。 对前端来说 `mock` 数据的方式有很多种：
 
@@ -184,7 +199,7 @@ vue inspect --mode production > output.js # 输出生产模式下 webpack 配置
   - 支持 `swagger、postman、json、har` 数据导入
   - 免费开源，私有化部署简单
 
-> #### 8. vue 项目中使用 api 接口管理平台
+> #### 9. vue 项目中使用 api 接口管理平台
 
 ```js
 // vue.config.js
@@ -200,7 +215,7 @@ module.exports = {
     proxy: {
       // 开发环境代理
       [`${baseApi}/(?!mock)`]: {
-        target: process.env.VUE_APP_DOMAIN || 'http://preview.domain.com', // 测试环境
+        target: process.env.VUE_APP_DOMAIN || 'http://test.domain.com', // 测试环境
         changeOrigin: true,
       },
       // mock 数据代理
@@ -215,7 +230,7 @@ module.exports = {
   },
 }
 ```
-> #### 9. 本地预览打包代码
+> #### 10. 本地预览打包代码
 
 [http-server][0_1] 是一个基于 `node`，零配置命令行 `http` 服务器。
 
@@ -240,7 +255,7 @@ yarn preview <http://ip:port>
 # 浏览器打开连接访问即可
 ```
 
-> #### 10. 线上部署
+> #### 11. 线上部署
 
 这里主要讲述前后端分离式线上部署  
 
@@ -290,10 +305,25 @@ location ^~ /crmwap/
 }
 ```
 
-**注：**[try_files][0_6] 的最后一个位置（fall back）是特殊的，它会发出一个内部 “子请求” 而非直接在文件系统里查找这个文件。  
+`Nginx` 常用命令
+
+```
+# 启动
+start nginx
+
+# 重启
+nginx -s reload
+
+# 关闭
+nginx -s stop
+```
+
+**注：**[try_files][0_6] 的最后一个位置（fall back）是特殊的（仅限 `root`），它会发出一个内部 “子请求” 而非直接在文件系统里查找这个文件。  
 在不更改 `Nginx` 配置文件的情况下，前端页面迭代发布，不需要重启 `Nginx` 服务。
 
+> #### 12. 自动化构建工具
 
+- [Jenkins][jenkins]
 
 
 
@@ -303,6 +333,19 @@ location ^~ /crmwap/
 <!-- 引用链接 -->
 [0_0]: https://github.com/neutrinojs/webpack-chain
 [0_1]: https://github.com/indexzero/http-server
+
+<!-- vuejs -->
+[awesome-vue]: https://github.com/vuejs/awesome-vue
+[vue-router]: https://github.com/vuejs/vue-router
+[vuex]: vue-loaderhttps://github.com/vuejs/vuex
+[vue-cli]: https://github.com/vuejs/vue-cli
+[vue-loader]: https://github.com/vuejs/vue-loader
+[vue-server-renderer]: https://github.com/vuejs/vue/tree/dev/packages/vue-server-renderer
+[vue-class-component]: https://github.com/vuejs/vue-class-component
+[vue-rx]: https://github.com/vuejs/vue-rx
+[vue-devtools]: https://github.com/vuejs/vue-devtools
+[rxjs]: https://cn.rx.js.org/manual/overview.html
+
 <!-- javascript standard -->
 [0_2]: https://github.com/gauseen/standard/blob/master/README.md
 [0_3]: https://github.com/gauseen/code-style-guide/blob/master/docs/vue-code-style.md
@@ -310,6 +353,8 @@ location ^~ /crmwap/
 <!-- [0_3]: http://10.211.62.41:82/18110026/code-style-guide/blob/master/docs/vue-code-style.md -->
 [0_5]: https://github.com/gauseen/blog/issues/7
 [0_6]: http://www.nginx.cn/279.html
+
+[jenkins]: https://jenkins.io/zh/
 
 <!-- mock -->
 [0_7]: https://github.com/nuysoft/Mock
