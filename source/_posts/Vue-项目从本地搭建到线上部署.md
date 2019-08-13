@@ -337,7 +337,7 @@ nginx -s stop
 <!-- vuejs -->
 [awesome-vue]: https://github.com/vuejs/awesome-vue
 [vue-router]: https://github.com/vuejs/vue-router
-[vuex]: vue-loaderhttps://github.com/vuejs/vuex
+[vuex]: https://github.com/vuejs/vuex
 [vue-cli]: https://github.com/vuejs/vue-cli
 [vue-loader]: https://github.com/vuejs/vue-loader
 [vue-server-renderer]: https://github.com/vuejs/vue/tree/dev/packages/vue-server-renderer
