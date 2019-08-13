@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,web,安全," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一、XSS 攻击XSS (Cross Site Script)，跨站脚本攻击，因为缩写和 CSS (Cascading Style Sheets) 重叠，所以叫 XSS   非持久型 XSS（反射型 XSS ）什么是非持久型 XSS 攻击？   非持久型 XSS 攻击，一般是 URL 参数上带有恶意脚本代码，当用户点击该 URL 时，恶意代码参数被脚本解析、执行 XSS 攻击代码演示   如下代码">
+<meta name="keywords" content="js,web,安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见 Web 安全攻防">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/常见 Web 安全攻防/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="一、XSS 攻击XSS (Cross Site Script)，跨站脚本攻击，因为缩写和 CSS (Cascading Style Sheets) 重叠，所以叫 XSS   非持久型 XSS（反射型 XSS ）什么是非持久型 XSS 攻击？   非持久型 XSS 攻击，一般是 URL 参数上带有恶意脚本代码，当用户点击该 URL 时，恶意代码参数被脚本解析、执行 XSS 攻击代码演示   如下代码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/CSRF.png">
+<meta property="og:updated_time" content="2019-08-13T13:05:32.445Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见 Web 安全攻防">
+<meta name="twitter:description" content="一、XSS 攻击XSS (Cross Site Script)，跨站脚本攻击，因为缩写和 CSS (Cascading Style Sheets) 重叠，所以叫 XSS   非持久型 XSS（反射型 XSS ）什么是非持久型 XSS 攻击？   非持久型 XSS 攻击，一般是 URL 参数上带有恶意脚本代码，当用户点击该 URL 时，恶意代码参数被脚本解析、执行 XSS 攻击代码演示   如下代码">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/CSRF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/常见 Web 安全攻防/"/>
+
+
+
+
+
+  <title>常见 Web 安全攻防 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/常见 Web 安全攻防/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常见 Web 安全攻防</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T21:08:21+00:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/13/常见 Web 安全攻防/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/08/13/常见 Web 安全攻防/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一、XSS-攻击"><a href="#一、XSS-攻击" class="headerlink" title="一、XSS 攻击"></a>一、XSS 攻击</h3><p><code>XSS (Cross Site Script)</code>，跨站脚本攻击，因为缩写和 <code>CSS (Cascading Style Sheets)</code> 重叠，所以叫 <code>XSS</code>  </p>
+<h4 id="非持久型-XSS（反射型-XSS-）"><a href="#非持久型-XSS（反射型-XSS-）" class="headerlink" title="非持久型 XSS（反射型 XSS ）"></a>非持久型 XSS（反射型 XSS ）</h4><p><strong>什么是非持久型 XSS 攻击？</strong>  </p>
+<p>非持久型 <code>XSS</code> 攻击，一般是 <strong>URL 参数上带有恶意脚本代码</strong>，当用户点击该 <code>URL</code> 时，<strong>恶意代码参数</strong>被脚本解析、执行</p>
+<p><strong>XSS 攻击代码演示</strong>  </p>
+<p>如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    const searchParams = new URLSearchParams(location.search)</span><br><span class="line">    const queryVal = searchParams.get(&apos;query&apos;) // 获取 url query 参数值</span><br><span class="line">    eval(queryVal)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>当用户访问 <code>http://xxx.com/xx?query=alert(&#39;xss&#39;)</code> 时，<code>query</code> 参数值 <code>alert(&#39;xss&#39;)</code> 就会被浏览器解析并执行，这就是所谓的 <code>XSS</code> 攻击  </p>
+<p><strong>预防非持久型 XSS 攻击</strong>  </p>
+<ul>
+<li><code>Web</code> 页面渲染的数据源尽量来自服务器端</li>
+<li>尽量不要使用可执行字符串的方法，如： <code>eval()、new Function()、document.write()、window.setInterval()、window.setTimeout()、innerHTML、document.createElement()</code></li>
+<li>如果上述方法无法避免，有关 <code>dom</code> 渲染的方法传入的字符串参数做 <code>escape</code> 转义处理</li>
+<li>前端渲染的时候对任何的字段都需要做 <code>escape</code> 转义处理</li>
+</ul>
+<h4 id="持久型-XSS（存储型-XSS）"><a href="#持久型-XSS（存储型-XSS）" class="headerlink" title="持久型 XSS（存储型 XSS）"></a>持久型 XSS（存储型 XSS）</h4><p><strong>什么是持久型 XSS 攻击？</strong>  </p>
+<p>持久型 <code>XSS</code> 攻击，一般存在于 <code>form</code> 表单提交功能，如评论、留言等更改服务器端资源功能的地方。<strong>将带有恶意脚本代码</strong>提交到服务器并长期存储。当前端页面渲染获取到的后端数据时，恶意脚本代码恰好被解析、执行。  </p>
+<p><strong>预防持久型 XSS 攻击</strong>  </p>
+<ul>
+<li>后端在入库前应该将所有的字段统一进行转义处理</li>
+<li>后端在输出给前端数据统一进行转义处理</li>
+<li>前端在渲染 <code>DOM</code> 之前，应该将所有字符做转义处理</li>
+</ul>
+<p>这里持久型攻击，跟非持久型攻击很类似，都是利用编写代码时的缺陷，解析并执行了本不该执行的<strong>带有恶意脚本代码</strong>。只不过持久型 <code>XSS</code> 攻击将恶意代码片段存储在了服务器上。</p>
+<h3 id="二、CSRF-攻击"><a href="#二、CSRF-攻击" class="headerlink" title="二、CSRF 攻击"></a>二、CSRF 攻击</h3><p><code>CSRF(Cross Site Request Forgery)</code>，是跨站点请求伪造攻击，它利用用户登录的身份信息（如：<code>cookie</code>），以用户的身份完成非法操作  </p>
+<p><strong>CSRF 攻击原理</strong>  </p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/CSRF.png" alt=""></p>
+<p><strong>CSRF 攻击代码演示</strong>  </p>
+<p><code>web A</code> 网站伪代码：  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line"></span><br><span class="line"><span class="comment">// cors 允许跨域</span></span><br><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.header(<span class="string">'Access-Control-Allow-Origin'</span>, <span class="string">'http://localhost:3001'</span>)</span><br><span class="line">  res.header(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="literal">true</span>)</span><br><span class="line">  res.header(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'Origin, X-Requested-With, Content-Type, Accept'</span>)</span><br><span class="line">  res.header(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'GET, POST, PUT, DELETE, OPTIONS'</span>)</span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/login'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  res.cookie(<span class="string">'sessionId'</span>, <span class="string">'cookie-web-A'</span>) <span class="comment">// 设置 cookie 值</span></span><br><span class="line"></span><br><span class="line">  res.send(<span class="string">`登录成功`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转账接口 伪逻辑</span></span><br><span class="line">app.get(<span class="string">'/transfer'</span>, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(req.headers.cookie)</span><br><span class="line">  <span class="comment">// 验证 cookie 是否有效</span></span><br><span class="line">  <span class="keyword">if</span> (req.headers.cookie === <span class="string">'sessionId=cookie-web-A'</span>) &#123;</span><br><span class="line">    res.send(<span class="string">`cookie 有效, 转账成功`</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    res.send(<span class="string">`无效 cookie, 转账失败`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'done A'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><code>web B</code> <strong>恶意网站</strong>伪代码：  </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest()</span><br><span class="line">  xhr.withCredentials = <span class="literal">true</span> <span class="comment">// cors 跨域携带 cookie</span></span><br><span class="line"></span><br><span class="line">  xhr.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState === <span class="number">4</span>) &#123;</span><br><span class="line">      alert(xhr.responseText)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 请求 A 网站的转账接口，进行 CSRF 恶意攻击</span></span><br><span class="line">  xhr.open(<span class="string">'GET'</span>, <span class="string">'http://localhost:3000/transfer'</span>, <span class="literal">true</span>)</span><br><span class="line">  xhr.send(<span class="literal">null</span>)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>完成 CSRF 攻击必须要条件：</strong>  </p>
+<ul>
+<li>用户登录了 <code>A</code> 网站，并在本地存储了 <code>cookie</code></li>
+<li>在用户没有退出 <code>A</code> 网站的情况下，即 <code>A</code> 网站 <code>cookie</code> 生效条件下，打开了 <code>B</code> 恶意网站</li>
+<li><code>A</code> 网站没有做任何 <code>CSRF</code> 防御措施（如：允许了跨域请求）</li>
+</ul>
+<p><strong>预防 CSRF 攻击</strong>  </p>
+<ul>
+<li>不让第三方网站访问到用户 <code>cookie</code></li>
+<li>阻止第三方网站请求接口（禁止跨域请求）</li>
+<li>禁止 <code>GET</code> 请求对数据进行修改</li>
+</ul>
+<h3 id="三、SQL-注入攻击"><a href="#三、SQL-注入攻击" class="headerlink" title="三、SQL 注入攻击"></a>三、SQL 注入攻击</h3><p><code>SQL</code> 注入攻击，就是通过 <code>form</code> 表单输入恶意的 <code>SQL</code> 语句，来修改后台 <code>SQL</code>，服务端又解析、执行了修改后的 <code>SQL</code> 语句，从而达到攻击的目的  </p>
+<p><strong>SQL 注入攻击代码演示</strong>  </p>
+<p>后端的 <code>SQL</code> 语句可能是如下这样的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let querySQL = `</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> <span class="keyword">user</span></span><br><span class="line">    <span class="keyword">WHERE</span> username=<span class="string">'$&#123;username&#125;'</span></span><br><span class="line">    <span class="keyword">AND</span> psw=<span class="string">'$&#123;password&#125;'</span></span><br><span class="line"><span class="string">`;</span></span><br></pre></td></tr></table></figure></p>
+<p>这段 <code>SQL</code> 目的就是根据用户输入的 <code>username</code> 和 <code>password</code> 字段值来查询具体用户。正常使用没什么问题，但是当用户输入恶意 <code>SQL</code> 语句时就会有问题<br>如：<code>username = &#39;gauseen&#39; --&#39;</code>，<code>password=任意字符</code>  </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们预想的 SQL:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username=<span class="string">'gauseen'</span> <span class="keyword">AND</span> psw=<span class="string">'xxx'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 注入攻击后的 SQL 语句为:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username=<span class="string">'gauseen'</span> <span class="comment">-- AND psw='xxxx'</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>SQL</code> 中 <code>--</code> 是注释的意思，所以 <code>SQL</code> 语句实际为:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username=<span class="string">'gauseen'</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就可以在不需要知道密码的情况下，登录任何你想登录的账户。  </p>
+<p><strong>预防 SQL 注入攻击</strong>  </p>
+<ul>
+<li>后端代码检查输入的数据是否合法</li>
+<li>对进入数据库的特殊字符 <code>&#39;，&quot;，\，&lt;，&gt;，&amp;，*，;</code> 等进行转义处理</li>
+<li>所有的查询语句建议使用数据库提供的参数化查询接口</li>
+</ul>
+<h3 id="四、DDOS-攻击："><a href="#四、DDOS-攻击：" class="headerlink" title="四、DDOS 攻击："></a>四、DDOS 攻击：</h3><p><code>DDoS(Distributed Denial of Service)</code>，是分布式拒绝服务攻击，指攻击者利用“肉鸡”对目标网站在较短的时间内发起大量请求，大规模消耗目标网站的主机资源，使服务器超负荷，让它无法正常服务  </p>
+<p><strong>预防 DDOS 攻击</strong>  </p>
+<ul>
+<li>黑名单，对有嫌疑的流量限制访问，但有阻挡正常流量的风险</li>
+<li><code>DDoS</code> 清洗，对用户请求数据进行实时监控，及时发现 <code>DOS</code> 攻击等异常流量，并清洗掉这些异常流量</li>
+</ul>
+<p>参考资料  </p>
+<p><a href="https://zoumiaojiang.com/article/common-web-security/" target="_blank" rel="noopener">常见 Web 安全攻防总结</a><br><a href="https://www.zhihu.com/question/22259175" target="_blank" rel="noopener">什么是 DDoS 攻击？</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+          
+            <a href="/tags/安全/" rel="tag"><i class="fa fa-tag"></i> 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/15/Vue-项目从本地搭建到线上部署/" rel="next" title="Vue-项目从本地搭建到线上部署">
+                <i class="fa fa-chevron-left"></i> Vue-项目从本地搭建到线上部署
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/08/13/常见 Web 安全攻防/"
+           data-title="常见 Web 安全攻防" data-url="http://yoursite.com/2019/08/13/常见 Web 安全攻防/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、XSS-攻击"><span class="nav-number">1.</span> <span class="nav-text">一、XSS 攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非持久型-XSS（反射型-XSS-）"><span class="nav-number">1.1.</span> <span class="nav-text">非持久型 XSS（反射型 XSS ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久型-XSS（存储型-XSS）"><span class="nav-number">1.2.</span> <span class="nav-text">持久型 XSS（存储型 XSS）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、CSRF-攻击"><span class="nav-number">2.</span> <span class="nav-text">二、CSRF 攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、SQL-注入攻击"><span class="nav-number">3.</span> <span class="nav-text">三、SQL 注入攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、DDOS-攻击："><span class="nav-number">4.</span> <span class="nav-text">四、DDOS 攻击：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共17.9k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
