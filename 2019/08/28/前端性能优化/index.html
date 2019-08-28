@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web,FE,performance,优化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据的从无到有，再到显示在页面上，整个过程前端是离用户最贴近的“一道关卡”。关于前端的性能优化，主要从 URL 输入到页面显示，经历的整个过程来讨论。 先来回顾一下从 URL 输入到页面显示，经历了什么过程？  ‘✔’ 代表该过程在前端可进行优化   浏览器地址栏输入时联想提示 URL 解析，URL 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 ASCII 集的。若有非 AS">
+<meta name="keywords" content="web,FE,performance,优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/前端性能优化/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="数据的从无到有，再到显示在页面上，整个过程前端是离用户最贴近的“一道关卡”。关于前端的性能优化，主要从 URL 输入到页面显示，经历的整个过程来讨论。 先来回顾一下从 URL 输入到页面显示，经历了什么过程？  ‘✔’ 代表该过程在前端可进行优化   浏览器地址栏输入时联想提示 URL 解析，URL 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 ASCII 集的。若有非 AS">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/perf-long-tasks.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/render-tree-construction.png">
+<meta property="og:updated_time" content="2019-08-28T05:49:34.370Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端性能优化">
+<meta name="twitter:description" content="数据的从无到有，再到显示在页面上，整个过程前端是离用户最贴近的“一道关卡”。关于前端的性能优化，主要从 URL 输入到页面显示，经历的整个过程来讨论。 先来回顾一下从 URL 输入到页面显示，经历了什么过程？  ‘✔’ 代表该过程在前端可进行优化   浏览器地址栏输入时联想提示 URL 解析，URL 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 ASCII 集的。若有非 AS">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/perf-long-tasks.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/28/前端性能优化/"/>
+
+
+
+
+
+  <title>前端性能优化 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/前端性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-28T13:03:32+00:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/28/前端性能优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/08/28/前端性能优化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>数据的从无到有，再到显示在页面上，整个过程前端是离用户最贴近的“一道关卡”。关于前端的性能优化，主要从 <code>URL</code> 输入到页面显示，经历的整个过程来讨论。</p>
+<p>先来回顾一下<strong>从 URL 输入到页面显示，经历了什么过程？</strong></p>
+<blockquote>
+<p>‘✔’ 代表该过程在前端可进行优化</p>
+</blockquote>
+<ul>
+<li>浏览器地址栏输入时联想提示</li>
+<li><code>URL</code> 解析，<code>URL</code> 为了在不同协议不同传输机制都可以安全的运送信息，采用的字符都是符合 <code>ASCII</code> 集的。若有非 <code>ASCII</code> 的字符（中文等），就会先通过转义处理</li>
+<li>客户端（浏览器）缓存机制 ✔</li>
+<li><code>DNS (Domain Name System)</code> 解析 ✔</li>
+<li>浏览器建立一条与 <code>web</code> 服务器的 <code>TCP</code> 连接（<code>TCP</code> 三次握手） ✔</li>
+<li>浏览器向服务器发送一条 <code>http</code> 请求报文 ✔</li>
+<li>服务器向浏览器回送一条 <code>http</code> 响应报文</li>
+<li>浏览器判断缓存 ✔</li>
+<li>浏览器接收、解析、渲染资源 ✔</li>
+<li>关闭连接（<code>TCP</code> 四次握手）</li>
+</ul>
+<h3 id="优化之浏览器缓存机制"><a href="#优化之浏览器缓存机制" class="headerlink" title="优化之浏览器缓存机制"></a>优化之浏览器缓存机制</h3><hr>
+<p>为了减少客户端（浏览器）向服务端请求次数和带宽，可借助浏览器缓存机制进行优化处理，进而提升网页的访问速度</p>
+<p>浏览器缓存也包含很多种类：</p>
+<ul>
+<li><p>本地缓存</p>
+<ul>
+<li>localStorage</li>
+<li>sessionStorage</li>
+<li>indexedDB</li>
+<li>cookie</li>
+</ul>
+</li>
+<li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API#%E8%A7%84%E8%8C%83" target="_blank" rel="noopener">Service Worker</a></p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API#%E8%A7%84%E8%8C%83" target="_blank" rel="noopener">什么是 Service Worker</a></li>
+</ul>
+</li>
+<li><p><a href="https://github.com/gauseen/blog/issues/8" target="_blank" rel="noopener">HTTP 缓存</a></p>
+<ul>
+<li>强缓存<ul>
+<li>优先级高于协商缓存</li>
+<li>浏览器一旦命中强缓存，直接使用缓存，不会和服务器发生交互</li>
+<li>响应头控制字段：<code>Expires</code>、<code>Cache-Control</code></li>
+</ul>
+</li>
+<li>协商缓存<ul>
+<li>优先级底</li>
+<li>协商缓存不管是否命中都要和服务器端发生交互</li>
+<li>响应头控制字段：<code>Last-Modified &amp;&amp; If-Modified-Since</code>、<code>ETag &amp;&amp; If-None-Match</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="优化之-DNS-预解析"><a href="#优化之-DNS-预解析" class="headerlink" title="优化之 DNS 预解析"></a>优化之 <a href="https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching" target="_blank" rel="noopener"><code>DNS</code> 预解析</a></h3><hr>
+<p><code>DNS(Domain Name System)</code>，即域名系统，就是根据域名查出 <code>IP</code> 地址。查询域名对应的 <code>IP</code> 地址需要时间，前端能做的就是减少域名解析的时间，<code>DNS</code> 预解析就可以做到这一点。</p>
+<p><code>X-DNS-Prefetch-Control</code> 头控制着浏览器的 <code>DNS</code> 预读取功能。 <code>DNS</code> 预读取是一项使浏览器主动去执行域名解析的功能，其范围包括文档的所有链接，无论是图片的，<code>CSS</code> 的，还是 <code>JavaScript</code> 等其他用户能够点击的 <code>URL</code>。</p>
+<p>因为预读取会在后台执行，所以 <code>DNS</code> 很可能在链接对应的东西出现之前就已经解析完毕。这能够减少用户点击链接时的延迟。</p>
+<p>代码实现如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 打开和关闭 DNS 预读取 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"x-dns-prefetch-control"</span> <span class="attr">content</span>=<span class="string">"on"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 强制查询特定主机名 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过使用 rel 属性值为 link type 中的 dns-prefetch 的 &lt;link&gt; 标签来对特定域名进行预读取 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"dns-prefetch"</span> <span class="attr">href</span>=<span class="string">"//www.domain.com/"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="加载静态资源优化原则"><a href="#加载静态资源优化原则" class="headerlink" title="加载静态资源优化原则"></a>加载静态资源优化原则</h3><hr>
+<ul>
+<li>减少首屏内容大小</li>
+<li>减少 <code>HPPT</code> 请求次数</li>
+<li>减少资源包体积大小</li>
+<li>异步加载</li>
+<li>利用浏览器缓存</li>
+</ul>
+<h4 id="优化之减少首屏内容大小"><a href="#优化之减少首屏内容大小" class="headerlink" title="优化之减少首屏内容大小"></a>优化之减少首屏内容大小</h4><p>如果所需的数据量超出了<a href="https://tylercipriani.com/blog/2016/09/25/the-14kb-in-the-tcp-initial-window/" target="_blank" rel="noopener">初始拥塞窗口</a>的限制（通常是 <code>14.6kB</code> 压缩后大小），系统就需要在服务器和用户的浏览器之间进行更多次的往返。如果用户使用的是延迟时间较长的网络（如移动网络），该问题可能会显著拖慢网页加载速度</p>
+<p>为提高网页加载速度，请限制用于呈现网页首屏内容的数据（<code>HTML</code> 标签、图片、<code>CSS</code> 和 <code>JavaScript</code>）的大小</p>
+<h4 id="优化之减少资源包体积大小（启用压缩功能）"><a href="#优化之减少资源包体积大小（启用压缩功能）" class="headerlink" title="优化之减少资源包体积大小（启用压缩功能）"></a>优化之减少资源包体积大小（启用压缩功能）</h4><p>所有现代浏览器都支持 <code>gzip</code> 压缩，启用 <code>gzip</code> 压缩可大幅缩减传输资源大小，从而缩短资源下载时间，减少首次白屏时间，提升用户体验</p>
+<ul>
+<li><code>zip</code> 像是一个打包器，能把多个多件打包压缩到一个 <code>.zip</code> 文件包中</li>
+<li><code>gzip(GNU zip)</code> 一次只对一个文件压缩</li>
+</ul>
+<p><code>zip</code> 和 <code>gzip(gz)</code> 不兼容</p>
+<p><code>gzip</code> 对基于文本格式文件的压缩效果最好（如：<code>CSS</code>、<code>JavaScript</code> 和 <code>HTML</code>），在压缩较大文件时往往可实现高达 <code>70-90%</code> 的压缩率，对已经压缩过的资源（如：图片）进行 <code>gzip</code> 压缩处理，效果很不好。</p>
+<p>所以我们应该启用 <code>gzip</code> 压缩，<code>gzip</code> 压缩需要在静态服务器做简单配置，具体可参考<a href="https://github.com/h5bp/server-configs" target="_blank" rel="noopener">这里</a></p>
+<h3 id="优化之-JavaScript"><a href="#优化之-JavaScript" class="headerlink" title="优化之 JavaScript"></a>优化之 JavaScript</h3><hr>
+<h4 id="异步加载资源"><a href="#异步加载资源" class="headerlink" title="异步加载资源"></a>异步加载资源</h4><p>默认情况下，浏览器是同步加载 <code>JavaScript</code> 脚本，解析 <code>html</code> 过程中，遇到 <code>&lt;script&gt;</code> 标签就会停下来，等脚本下载、解析、执行完后，再继续向下解析渲染。</p>
+<p>如果 <code>js</code> 文件体积比较大，下载时间就会很长，容易造成浏览器堵塞，浏览器页面会呈现出“白屏”效果，用户会感觉浏览器“卡死了”，没有响应。浏览器允许脚本异步加载、执行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"path/to/home.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"path/to/home.js"</span> <span class="attr">async</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面代码中，<code>&lt;script&gt;</code> 标签分别有 <code>defer</code> 和 <code>async</code> 属性，浏览器识别到这 <code>2</code> 个属性时 <code>js</code> 就会异步加载。也就是说，浏览器不会等待这个脚本下载、执行完毕后再向后执行，而是直接继续向后执行</p>
+<p><code>defer</code> 与 <code>async</code> 区别:</p>
+<ul>
+<li><code>defer</code>：<code>DOM</code> 结构完全生成，以及其他脚本执行完成，才会执行（渲染完再执行）。有多个 <code>defer</code> 脚本时，会按照页面出现的顺序依次加载、执行</li>
+<li><code>async</code>：一旦下载完成，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染（下载完就执行）。有多个 <code>async</code> 脚本时，不能保证按照页面出现顺序加载、执行</li>
+</ul>
+<h4 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h4><p>在访问的页面只加载需要的资源（<code>js、css、html 等</code>），这样可以减少带宽，加快页面响应速度</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> importModule = <span class="function">(<span class="params">url</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>)</span><br><span class="line">  script.src = url</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">'body'</span>).appendChild(script)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">importModule(<span class="string">'path/to/home.js'</span>)</span><br></pre></td></tr></table></figure>
+<p>如上代码便实现了按需加载 <code>js</code> 功能，在需要的时候调用 <code>importModule()</code> 即可加载对应的 <code>js</code> 资源</p>
+<p>当打包构建应用时，<code>JavaScript</code> 包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了</p>
+<p>在实际工作中我们常用动态导入 <a href="https://github.com/tc39/proposal-dynamic-import" target="_blank" rel="noopener">import()</a> 来实现按需加载，<code>vuejs</code> 项目中，我们通常以路由为维度，进行代码分割，进行按需加载。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vuejs router 片段</span></span><br><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'/about'</span>,</span><br><span class="line">  name: <span class="string">'about'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'@/pages/About.vue'</span>),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，就实现了按需加载对应页面资源，从而提升了首屏加载速度，提高了用户体验</p>
+<h4 id="减少代码体积"><a href="#减少代码体积" class="headerlink" title="减少代码体积"></a>减少代码体积</h4><ul>
+<li>压缩</li>
+<li>去除无用代码</li>
+</ul>
+<h4 id="避免-Long-Task"><a href="#避免-Long-Task" class="headerlink" title="避免 Long Task"></a>避免 Long Task</h4><p><a href="https://github.com/w3c/longtasks" target="_blank" rel="noopener">Long Tasks</a> 是指执行时间超过 <code>50</code> 毫秒的任务，这些 <code>Long Tasks</code> 在很长一段时间内独占 <code>UI</code> 线程并阻止其他关键任务执行（如：点击、输入行为），阻塞了主线程，严重影响用户体验。</p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/perf-long-tasks.png" alt=""></p>
+<p>对用户而言，任务耗时较长表现为页面卡顿（反应慢），所以应该避免 <code>Long Tasks</code> 任务</p>
+<h3 id="优化之-CSS"><a href="#优化之-CSS" class="headerlink" title="优化之 CSS"></a>优化之 CSS</h3><hr>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/render-tree-construction.png" alt=""></p>
+<p>如上图所示，浏览器渲染的主要步骤可分为：</p>
+<ul>
+<li>处理 <code>HTML</code> 标记并构建 <code>DOM</code> 树</li>
+<li>处理 <code>CSS</code> 标记并构建 <code>CSSOM</code> 树</li>
+<li>将 <code>DOM</code> 与 <code>CSSOM</code> 合并成一个渲染树</li>
+<li>根据渲染树来布局，以计算每个节点的几何信息</li>
+<li>在多个层上绘制各个元素的内容、边框、颜色、图像等</li>
+<li>合成，由于页面的各部分可能被绘制到多层上面，需要合成来确保按正确顺序绘制到屏幕上，以便正确渲染页面</li>
+</ul>
+<h4 id="内联首屏关键-CSS"><a href="#内联首屏关键-CSS" class="headerlink" title="内联首屏关键 CSS"></a>内联首屏关键 CSS</h4><p>在 <code>&lt;head&gt;</code> 标签 <code>&lt;style&gt;</code> 中，内联 <code>CSS</code> 能使浏览器开始渲染时间提前。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">  <span class="selector-class">.main-container</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background-color</span>: <span class="selector-id">#ccc</span>;</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码，这种方式并不适用于内联较大的 <code>CSS</code> 文件。因为我们要遵守【减少首屏内容大小】优化原则</p>
+<h4 id="异步加载-CSS"><a href="#异步加载-CSS" class="headerlink" title="异步加载 CSS"></a>异步加载 CSS</h4><p>默认情况下，<code>CSS</code> 阻塞浏览器渲染，这意味着未加载完毕 <code>CSS</code> 资源之前，浏览器将不会渲染任何已处理的内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DOM-tree(html) + CSSOM-tree(css) = Render-tree</span><br></pre></td></tr></table></figure>
+<p>从上面的公式可知，<code>HTML</code> 和 <code>CSS</code> 都是阻塞渲染的资源，HTML 是必不可少的，因为它承载着网页的内容，但 CSS 的必要性相对来说没有那么重（首屏关键 CSS 除外）。我们可以采用非关键性 CSS 异步加载的方式，来加快渲染树的构建。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"style/bigger.css"</span> <span class="attr">as</span>=<span class="string">"style"</span> <span class="attr">onload</span>=<span class="string">"this.rel='stylesheet'"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码，在支持 <code>rel=&quot;preload&quot;</code> 属性的浏览器中，<code>rel</code> 属性会让浏览器获取样式，但加载完样式不会应用它。所以需要 <code>onload=&quot;this.rel=&#39;stylesheet&#39;&quot;</code>，也就是加载完后应用 <code>CSS</code>。</p>
+<p>注：preload 有兼容性问题，可在<a href="https://caniuse.com/#search=preload" target="_blank" rel="noopener">这里查看</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- media 属性可以为其它任意值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"style/bigger.css"</span> <span class="attr">media</span>=<span class="string">"backup"</span> <span class="attr">onload</span>=<span class="string">"this.media = 'all'"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码，通过 <code>&lt;link&gt;</code> 标签更改 <code>media=&quot;backup&quot;</code> 属性，浏览器会异步加载该样式但不会去应用，也就是说不会阻塞渲染树的构建，从而加快浏览器渲染。</p>
+<p>注意：加载完后通过 <code>onload=&quot;this.media = &#39;all&#39;&quot;</code>，将 <code>media</code> 属性值设置为 <code>all</code>，让浏览器后续解析、渲染。</p>
+<p><strong>二者区别：</strong><code>rel=&quot;preload&quot;</code> 比 <code>media=&quot;backup&quot;</code> 加载优先级要高</p>
+<h4 id="减少重排、重绘"><a href="#减少重排、重绘" class="headerlink" title="减少重排、重绘"></a>减少重排、重绘</h4><p>关于影响 <code>CSS</code> 重排、重绘的属性有很多，具体可参考<a href="https://csstriggers.com" target="_blank" rel="noopener">这里</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DOM-tree(html)  |</span><br><span class="line">      +         | =&gt; Render-tree =&gt; Layout(布局) =&gt; Paint(绘制) =&gt; Composite(合成)</span><br><span class="line">CSSOM-tree(css) |</span><br></pre></td></tr></table></figure>
+<p>如上为浏览器渲染关键步骤</p>
+<ul>
+<li><p>减少重排（Layout），又叫回流</p>
+<p>如果改变了元素的几何属性（如：<code>width、height、margin</code> 等等），影响页面布局，浏览器就会重新检查所有元素，然后自动<strong>重排</strong>页面</p>
+</li>
+<li><p>减少重绘（Paint）</p>
+<p>如果改变了不会影响页面布局的属性（如：<code>color、background-image 等等</code>），浏览器就跳过布局步骤，然后自动<strong>重绘</strong>页面</p>
+</li>
+</ul>
+<h3 id="优化之图片"><a href="#优化之图片" class="headerlink" title="优化之图片"></a>优化之图片</h3><h4 id="压缩图片"><a href="#压缩图片" class="headerlink" title="压缩图片"></a>压缩图片</h4><p><code>GIF</code>、<code>PNG</code> 和 <code>JPEG</code> 格式在整个互联网的图片流量中占 <code>96%</code>。请确保部署到生产之前，对图片资源进行压缩处理，有个很好用的图片压缩网站 <a href="https://tinypng.com" target="_blank" rel="noopener">TinyPNG</a>，当然也有 <code>Google</code> 开源的 <a href="https://github.com/GoogleChromeLabs/squoosh" target="_blank" rel="noopener">Squoosh</a> 压缩工具。<code>SVG</code> 矢量图属于 <code>XML</code> 文本类型，所以可以进行 <code>gzip</code> 压缩后再使用。</p>
+<h4 id="雪碧图（Sprite）"><a href="#雪碧图（Sprite）" class="headerlink" title="雪碧图（Sprite）"></a>雪碧图（Sprite）</h4><p>一种网页图片应用处理方式，将一个页面涉及到的所有小型图片或者图标都合并到一张大图里面，这样就只需要加载这个一个图片，而不是很多个图片了，这样就减少了很多 <code>http</code> 的请求，从而提高性能</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 通过 background-position 属性控制图片显示位置，从而显示雪碧图中指定区域 */</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.demo</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'path/to/sprite.png'</span>) no-repeat;</span><br><span class="line">  <span class="attribute">background-position</span>: <span class="number">10px</span>, <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="内嵌-base64"><a href="#内嵌-base64" class="headerlink" title="内嵌 base64"></a>内嵌 base64</h4><p>先将图片转为 <code>base64</code> 字符串，将其内嵌到页面中，这样可以减少 <code>http</code> 请求次数。但是图片转成 <code>base64</code> 体积会增大将近 <code>1/3</code>，增大了 <code>html、css</code> 的体积，同时也失去了浏览器的缓存能力。一般用于首屏加载的小图标</p>
+<h4 id="图片懒加载"><a href="#图片懒加载" class="headerlink" title="图片懒加载"></a>图片懒加载</h4><p>图片只加载视口内可看到的图片，视口外的其它图片先不加载，这样就可以大大减少带宽、流量。加快渲染速度，提高用户体验</p>
+<p>可使用 <code>IntersectionObserver api</code> 实现图片懒加载，但只有<a href="https://caniuse.com/#search=IntersectionObserver" target="_blank" rel="noopener">主流浏览器支持</a>，还是可以接受的。这里有阮老师的<a href="http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html" target="_blank" rel="noopener">具体讲解</a></p>
+<p>如果需要兼容一些老的浏览器，可使用 <a href="https://github.com/Paul-Browne/lazyestload.js" target="_blank" rel="noopener">lazyestload</a>，它是一个小而精巧的开源库，推荐使用</p>
+<h3 id="优化之-字体"><a href="#优化之-字体" class="headerlink" title="优化之 字体"></a>优化之 字体</h3><p>目前（<code>2019-08</code>）网络上使用的字体格式主要有： <code>EOT、 TTF/OTF、 WOFF</code> 和 <code>WOFF2</code></p>
+<ul>
+<li><code>WOFF</code> <a href="https://caniuse.com/#search=woff" target="_blank" rel="noopener">比较广泛的支持</a>（推荐使用）</li>
+<li><code>WOFF2</code> <a href="https://caniuse.com/#search=woff2" target="_blank" rel="noopener">只有现代浏览器支持</a>（推荐使用）</li>
+<li><code>EOT</code> <a href="https://caniuse.com/#feat=eot" target="_blank" rel="noopener">只有 IE 支持（IE9 以下）</a></li>
+<li><code>TTF/OTF</code> <a href="https://caniuse.com/#search=ttf" target="_blank" rel="noopener">部分 IE 、主流浏览器支持</a></li>
+<li><code>SVG</code> 字体<a href="https://caniuse.com/#feat=svg-fonts" target="_blank" rel="noopener">兼容性很差</a>，现在 Chrome 也放弃了对其支持，可忽略</li>
+</ul>
+<h4 id="预加载网页字体资源"><a href="#预加载网页字体资源" class="headerlink" title="预加载网页字体资源"></a>预加载网页字体资源</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"preload"</span> <span class="attr">href</span>=<span class="string">"fonts/awesome.woff2"</span> <span class="attr">as</span>=<span class="string">"font"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如上代码，可预加载网页字体资源。<code>&lt;link rel=&quot;preload&quot;&gt;</code> 用于“提示”浏览器尽快加载指定资源，但不会告知浏览器如何使用该资源。需要与 <code>@font-face</code> 配合使用，才能让浏览器知道如何解析处理给定的字体资源。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>:<span class="string">'Awesome Font'</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">local</span>(<span class="string">'Awesome Font'</span>),</span><br><span class="line">       <span class="built_in">url</span>(<span class="string">'fonts/awesome.woff2'</span>) <span class="built_in">format</span>(<span class="string">'woff2'</span>),</span><br><span class="line">       <span class="built_in">url</span>(<span class="string">'fonts/awesome.woff'</span>) <span class="built_in">format</span>(<span class="string">'woff'</span>),</span><br><span class="line">       <span class="built_in">url</span>(<span class="string">'fonts/awesome.ttf'</span>) <span class="built_in">format</span>(<span class="string">'truetype'</span>),</span><br><span class="line">       <span class="built_in">url</span>(<span class="string">'fonts/awesome.eot'</span>) <span class="built_in">format</span>(<span class="string">'embedded-opentype'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上代码，在 <code>src</code> 中优先列出 <code>local(&#39;Your Font Name&#39;)</code> 可确保不会针对已安装的字体发出多余的 <code>HTTP</code> 请求</p>
+<h4 id="压缩字体"><a href="#压缩字体" class="headerlink" title="压缩字体"></a>压缩字体</h4><p>因为默认情况下不会对字体进行压缩处理，所以在部署生产之前，请确保字体已经过 <code>gzip</code> 压缩处理。</p>
+<h4 id="缓存字体"><a href="#缓存字体" class="headerlink" title="缓存字体"></a>缓存字体</h4><p>字体资源比较稳定，非常适合使用<strong>缓存策略</strong>来减少带宽，优化体验</p>
+<h3 id="优化之-视频"><a href="#优化之-视频" class="headerlink" title="优化之 视频"></a>优化之 视频</h3><h4 id="移除不必要的视频"><a href="#移除不必要的视频" class="headerlink" title="移除不必要的视频"></a>移除不必要的视频</h4><p>如一个响应式网站，在移动端和 PC 端都可以很好的展示页面。那就要考虑真的需要在移动端加载视频吗？！如若不需要可以使用如下方式解决：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 视口小于 650px 时，不加载对应 class 选择器的视频 */</span></span><br><span class="line">@<span class="keyword">media</span> screen and (max-width: <span class="number">650px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.video_ele</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="压缩视频"><a href="#压缩视频" class="headerlink" title="压缩视频"></a>压缩视频</h4><p>可以使用 <a href="https://www.ffmpeg.org" target="_blank" rel="noopener">FFmpeg</a> 工具对视频进行压缩、转换等处理。如果播放的视频不需要声音，可以去掉音轨信息减少文件体积。</p>
+<h4 id="按需加载-1"><a href="#按需加载-1" class="headerlink" title="按需加载"></a>按需加载</h4><p>与图片一样，视频也可以按需加载，即在可视区域内时，再加载对应视频资源</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- poster 占位符，视频播放之前展示 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">autoplay</span> <span class="attr">lazy</span> <span class="attr">poster</span>=<span class="string">"poster-image.jpg"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">data-src</span>=<span class="string">"awesome.webm"</span> <span class="attr">type</span>=<span class="string">"video/webm"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">data-src</span>=<span class="string">"awesome.mp4"</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> lazyVideos = [].slice.call(<span class="built_in">document</span>.querySelectorAll(<span class="string">'video.lazy'</span>))</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="string">'IntersectionObserver'</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> lazyVideoObserver = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="keyword">function</span> (<span class="params">entries, observer</span>) </span>&#123;</span><br><span class="line">      entries.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">video</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (video.isIntersecting) &#123;</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> source <span class="keyword">in</span> video.target.children) &#123;</span><br><span class="line">            <span class="keyword">var</span> videoSource = video.target.children[source]</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> videoSource.tagName === <span class="string">'string'</span> &amp;&amp; videoSource.tagName === <span class="string">'SOURCE'</span>) &#123;</span><br><span class="line">              videoSource.src = videoSource.dataset.src</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          video.target.load()</span><br><span class="line">          video.target.classList.remove(<span class="string">'lazy'</span>)</span><br><span class="line">          lazyVideoObserver.unobserve(video.target)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    lazyVideos.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">lazyVideo</span>) </span>&#123;</span><br><span class="line">      lazyVideoObserver.observe(lazyVideo)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><a href="https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video" target="_blank" rel="noopener">如上代码</a>，用 <a href="http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html" target="_blank" rel="noopener">IntersectionObserver api</a> 简单实现了视频按需加载功能。跟图片懒加载类似，将可视区域的 <code>&lt;video&gt;</code> 元素的 <code>data-src</code> 属性更改为 <code>src</code> 属性。然后再调用 <code>load</code> 方法即可触发视频加载，当然需要有 <code>autoplay</code> 属性的支持。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Controlling_DNS_prefetching" target="_blank" rel="noopener">DNS 预读取</a></li>
+<li><a href="https://github.com/alienzhou/fe-performance-journey" target="_blank" rel="noopener">前端性能优化之旅</a></li>
+<li><a href="https://github.com/creeperyang/blog/issues/1" target="_blank" rel="noopener">雅虎前端优化 35 条规则</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/module-loader#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8A%A0%E8%BD%BD" target="_blank" rel="noopener">ECMAScript 6 入门</a></li>
+<li><a href="https://developers.google.com/speed/docs/insights/EnableCompression" target="_blank" rel="noopener">PageSpeed Insights</a></li>
+</ul>
+<!-- 链接 -->
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"><i class="fa fa-tag"></i> web</a>
+          
+            <a href="/tags/FE/" rel="tag"><i class="fa fa-tag"></i> FE</a>
+          
+            <a href="/tags/performance/" rel="tag"><i class="fa fa-tag"></i> performance</a>
+          
+            <a href="/tags/优化/" rel="tag"><i class="fa fa-tag"></i> 优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/13/常见 Web 安全攻防/" rel="next" title="常见 Web 安全攻防">
+                <i class="fa fa-chevron-left"></i> 常见 Web 安全攻防
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/08/28/前端性能优化/"
+           data-title="前端性能优化" data-url="http://yoursite.com/2019/08/28/前端性能优化/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之浏览器缓存机制"><span class="nav-number">1.</span> <span class="nav-text">优化之浏览器缓存机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之-DNS-预解析"><span class="nav-number">2.</span> <span class="nav-text">优化之 DNS 预解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载静态资源优化原则"><span class="nav-number">3.</span> <span class="nav-text">加载静态资源优化原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优化之减少首屏内容大小"><span class="nav-number">3.1.</span> <span class="nav-text">优化之减少首屏内容大小</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化之减少资源包体积大小（启用压缩功能）"><span class="nav-number">3.2.</span> <span class="nav-text">优化之减少资源包体积大小（启用压缩功能）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之-JavaScript"><span class="nav-number">4.</span> <span class="nav-text">优化之 JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#异步加载资源"><span class="nav-number">4.1.</span> <span class="nav-text">异步加载资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按需加载"><span class="nav-number">4.2.</span> <span class="nav-text">按需加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少代码体积"><span class="nav-number">4.3.</span> <span class="nav-text">减少代码体积</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#避免-Long-Task"><span class="nav-number">4.4.</span> <span class="nav-text">避免 Long Task</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之-CSS"><span class="nav-number">5.</span> <span class="nav-text">优化之 CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内联首屏关键-CSS"><span class="nav-number">5.1.</span> <span class="nav-text">内联首屏关键 CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异步加载-CSS"><span class="nav-number">5.2.</span> <span class="nav-text">异步加载 CSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#减少重排、重绘"><span class="nav-number">5.3.</span> <span class="nav-text">减少重排、重绘</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之图片"><span class="nav-number">6.</span> <span class="nav-text">优化之图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩图片"><span class="nav-number">6.1.</span> <span class="nav-text">压缩图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#雪碧图（Sprite）"><span class="nav-number">6.2.</span> <span class="nav-text">雪碧图（Sprite）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内嵌-base64"><span class="nav-number">6.3.</span> <span class="nav-text">内嵌 base64</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#图片懒加载"><span class="nav-number">6.4.</span> <span class="nav-text">图片懒加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之-字体"><span class="nav-number">7.</span> <span class="nav-text">优化之 字体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#预加载网页字体资源"><span class="nav-number">7.1.</span> <span class="nav-text">预加载网页字体资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩字体"><span class="nav-number">7.2.</span> <span class="nav-text">压缩字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存字体"><span class="nav-number">7.3.</span> <span class="nav-text">缓存字体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化之-视频"><span class="nav-number">8.</span> <span class="nav-text">优化之 视频</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#移除不必要的视频"><span class="nav-number">8.1.</span> <span class="nav-text">移除不必要的视频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩视频"><span class="nav-number">8.2.</span> <span class="nav-text">压缩视频</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#按需加载-1"><span class="nav-number">8.3.</span> <span class="nav-text">按需加载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共21.7k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
