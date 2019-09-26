@@ -521,6 +521,10 @@ discount
 ```
 
 
+欢迎关注**无广告文章**公众号：**学前端**
+
+![](https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg)
+
 
 
 

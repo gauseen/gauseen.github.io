@@ -19,7 +19,7 @@ author: gauseen
 
 #####**那么问题来了，这种验证是如何实现的呢？！**
 
-请确保已经安装了： node | npm | git 
+请确保已经安装了： node | npm | git
 安装传送门：[node](http://www.runoob.com/nodejs/nodejs-install-setup.html) | [npm](http://www.runoob.com/nodejs/nodejs-npm.html) | [git](https://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git)
 
 先说一下我的目录结构：
@@ -78,13 +78,13 @@ D:\pre-commit\src\test.js:2:19: Extra semicolon.
     npm init                                    // 将 pre-commit 项目设置为 npm 项目
     npm install --save-dev eslint               // 安装 eslint 规范
     npm install --save-dev husky@next           // 安装 husky git 钩子
-    
+
     注意，执行命令：
     $ ./node_modules/.bin/eslint --init         // 生成 .eslintrc.js 文件，可自定义代码风格
  ```
     注：eslint 自定义代码规范详情 [传送门](https://segmentfault.com/a/1190000011451121)；.eslintrc.js配置详解[传送门](https://juejin.im/entry/59a43c86f265da246c4a28c0)
-    
-    
+
+
  - 安装好依赖资源后，更改 package.json 文件
  ```
  // package.json
@@ -120,9 +120,11 @@ D:\fe\pre-commit\src\test.js
 
 声明：有任何问题欢迎留言！未经作者同意禁止转载！谢谢！
 
-欢迎访问我的 git 博客：[传送门][1]
 
- 
+欢迎关注**无广告文章**公众号：**学前端**
+
+![](https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg)
+
 
 
   [1]: https://github.com/gauseen

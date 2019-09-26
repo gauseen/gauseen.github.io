@@ -107,20 +107,20 @@ console.log('listening on port 3000')
 ctx:  http://localhost:3000/ 1
 ```
 
-**情景一**：分别点击 `hash` 模式下的 `a, b, c/d` 文字，可以看到浏览器地址栏改变，但是终端访问记录依然不变。  
+**情景一**：分别点击 `hash` 模式下的 `a, b, c/d` 文字，可以看到浏览器地址栏改变，但是终端访问记录依然不变。
 
 **说明**：浏览器地址栏 `hash` 改变，**并不会**向后端发起请求
 
 -------------------------------------------------------------------
 
 **情景二**：点击 `history` 模式下的 `a` 文字，可以看到浏览器地址栏改变，同时终端访问记录也会增加 `1` 条
-如下所示：  
+如下所示：
 ```sh
 ctx:  http://localhost:3000/ 1
 ctx:  http://localhost:3000/a 2
 ```
 
-但是浏览器报 `404` 错误，这是因为浏览器地址改变时，它会向服务器发送一条 `GET` 请求，默认寻找 `http://localhost:3000 服务下 a 文件夹下的 index.html 、 index.htm、index.jsp 文件` 
+但是浏览器报 `404` 错误，这是因为浏览器地址改变时，它会向服务器发送一条 `GET` 请求，默认寻找 `http://localhost:3000 服务下 a 文件夹下的 index.html 、 index.htm、index.jsp 文件`
 
 **说明**：`history` 模式下，浏览器地址栏改变，**会**向后端发起请求
 
@@ -151,11 +151,11 @@ export default new Router({
   routes,
 })
 ```
-yarn build 操作后，将 dist 文件夹拷贝到上面建的 index.js 同级目录下。  
+yarn build 操作后，将 dist 文件夹拷贝到上面建的 index.js 同级目录下。
 
 启动服务： `node index.js`
 
-浏览器访问：`http://localhost:3000/admin-vb/`  
+浏览器访问：`http://localhost:3000/admin-vb/`
 **注**：`/admin-vb/` 以 `vue.config.js 文件下的 baseUrl 字段对应的值为准`
 
 此时一切显示正常，也可以尝试切换路由。但是刷新浏览器会 `404` 错误。
@@ -164,9 +164,9 @@ yarn build 操作后，将 dist 文件夹拷贝到上面建的 index.js 同级�
 
 **解决 `history` 模式，刷新浏览器 `404` 问题**
 
-- :heart: [官宣方案][1_3] :heart:  
+- :heart: [官宣方案][1_3] :heart:
 
-- 我们刚刚自己创建的 `node` 服务如何解决呢？  
+- 我们刚刚自己创建的 `node` 服务如何解决呢？
 具体思路，当前端向后端请求页面时，找不到页面则返回 `index.html` 页面。直接上代码，如下：
 ```js
 const Koa = require('koa')
@@ -201,7 +201,11 @@ console.log('listening on port 3000')
 ```
 
 
-**广告植入：:loudspeaker: :loudspeaker: :loudspeaker: 如果喜欢，欢迎 :star:、watch**
+欢迎关注**无广告文章**公众号：**学前端**
+
+![](https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg)
+
+
 
 
 
