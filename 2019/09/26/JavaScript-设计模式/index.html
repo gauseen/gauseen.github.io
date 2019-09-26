@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,design,patterns," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="单例模式（Singleton Pattern）描述： 只对外暴露一个对象 12345678910111213141516171819202122232425// 只创建一个实例const mySingleton = (function () &amp;#123;  let instance = null  // 初始化方法  let init = () =&amp;gt; &amp;#123;    console.lo">
+<meta name="keywords" content="js,design,patterns">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 设计模式">
+<meta property="og:url" content="http://yoursite.com/2019/09/26/JavaScript-设计模式/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="单例模式（Singleton Pattern）描述： 只对外暴露一个对象 12345678910111213141516171819202122232425// 只创建一个实例const mySingleton = (function () &amp;#123;  let instance = null  // 初始化方法  let init = () =&amp;gt; &amp;#123;    console.lo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/observe-vs-publisher-subscriber.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/adapter.jpg">
+<meta property="og:updated_time" content="2019-09-26T04:30:56.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 设计模式">
+<meta name="twitter:description" content="单例模式（Singleton Pattern）描述： 只对外暴露一个对象 12345678910111213141516171819202122232425// 只创建一个实例const mySingleton = (function () &amp;#123;  let instance = null  // 初始化方法  let init = () =&amp;gt; &amp;#123;    console.lo">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/observe-vs-publisher-subscriber.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/26/JavaScript-设计模式/"/>
+
+
+
+
+
+  <title>JavaScript 设计模式 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/26/JavaScript-设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript 设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-26T12:29:00+00:00">
+                2019-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/26/JavaScript-设计模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/09/26/JavaScript-设计模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="单例模式（Singleton-Pattern）"><a href="#单例模式（Singleton-Pattern）" class="headerlink" title="单例模式（Singleton Pattern）"></a>单例模式（<code>Singleton Pattern</code>）</h3><p><strong>描述：</strong></p>
+<p>只对外暴露一个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只创建一个实例</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mySingleton = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> instance = <span class="literal">null</span></span><br><span class="line">  <span class="comment">// 初始化方法</span></span><br><span class="line">  <span class="keyword">let</span> init = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'init logic'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      someThing () &#123;</span><br><span class="line">        alert(<span class="string">'hello world'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getInstance () &#123;</span><br><span class="line">      <span class="comment">// 不存在 instance 创建新的，已存在则直接返回（只创建一次）</span></span><br><span class="line">      <span class="keyword">if</span> (!instance) &#123;</span><br><span class="line">        instance = init()</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> instance</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每次都创建一个新的实例</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myBadSingleton = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> instance = <span class="literal">null</span></span><br><span class="line">  <span class="comment">// 初始化方法</span></span><br><span class="line">  <span class="keyword">let</span> init = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'init logic'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      someThing () &#123;</span><br><span class="line">        alert(<span class="string">'hello world'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    getInstance () &#123;</span><br><span class="line">      <span class="comment">// 每次都创建一个新的实例（创建多次）</span></span><br><span class="line">      instance = init()</span><br><span class="line">      <span class="keyword">return</span> instance</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h3 id="观察者模式（Observer-Pattern）"><a href="#观察者模式（Observer-Pattern）" class="headerlink" title="观察者模式（Observer Pattern）"></a>观察者模式（<code>Observer Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>以公众号为例，有些人订阅（关注）了某公众号，当公众号发布新的消息时，订阅者就会收到该消息的推送</p>
+<p><strong>描述：</strong></p>
+<p>定义对象之间的依赖关系，每当对象更改状态时，都会通知所有依赖项</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 观察者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 每个观察者都有一个 smile 事件</span></span><br><span class="line">  update () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is updated`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主体</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="comment">// 观察者列表</span></span><br><span class="line">    <span class="keyword">this</span>.observers = []</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 添加观察者到主体的观察者列表</span></span><br><span class="line">  subscribe (observer) &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.push(observer)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 通知所有观察者</span></span><br><span class="line">  notify () &#123;</span><br><span class="line">    <span class="keyword">this</span>.observers.forEach(<span class="function"><span class="params">observerItem</span> =&gt;</span> &#123;</span><br><span class="line">      observerItem.update()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建主体实例</span></span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> Subject()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有 2 个观察者 observer01、observer02</span></span><br><span class="line"><span class="keyword">const</span> observer01 = <span class="keyword">new</span> Observer(<span class="string">'observer_01'</span>)</span><br><span class="line"><span class="keyword">const</span> observer02 = <span class="keyword">new</span> Observer(<span class="string">'observer_02'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察者订阅主体</span></span><br><span class="line">subject.subscribe(observer01)</span><br><span class="line">subject.subscribe(observer02)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通知所有观察者</span></span><br><span class="line">subject.notify()</span><br></pre></td></tr></table></figure>
+<h3 id="发布-订阅模式（Publish-Subscribe-Pattern）"><a href="#发布-订阅模式（Publish-Subscribe-Pattern）" class="headerlink" title="发布-订阅模式（Publish/Subscribe Pattern）"></a>发布-订阅模式（<code>Publish/Subscribe Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>报社将报纸发送给邮局，邮局按照订阅关系将报纸发送给对应的人</p>
+<p><strong>描述：</strong></p>
+<p>消息的发送者（称为发布者）不会将消息直接发送给特定的接收者（称为订阅者）。而是将发布的消息分为不同的类别，无需了解哪些订阅者。同样的，订阅者可以订阅一个或多个类别，只接收感兴趣的消息，无需了解哪些发布者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订阅者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subscriber</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 每个观察者都有一个 smile 事件</span></span><br><span class="line">  update () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is updated`</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调度中心</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventHub</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="comment">// 订阅主题</span></span><br><span class="line">    <span class="keyword">this</span>.topics = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 订阅</span></span><br><span class="line">  subscribe (topicType, subscriber) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.topics[topicType]) &#123;</span><br><span class="line">      <span class="keyword">this</span>.topics[topicType] = []</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.topics[topicType].push(subscriber)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 给对应主题下的订阅者发布内容</span></span><br><span class="line">  publish (topicType) &#123;</span><br><span class="line">    <span class="keyword">let</span> topicList = <span class="keyword">this</span>.topics[topicType]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!topicList) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    topicList.forEach(<span class="function"><span class="params">subscriberItem</span> =&gt;</span> &#123;</span><br><span class="line">      subscriberItem.update()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个“调度中心”</span></span><br><span class="line"><span class="keyword">let</span> eventHub = <span class="keyword">new</span> EventHub()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建 3 个订阅者 subscriber01、subscriber02、subscriber03</span></span><br><span class="line"><span class="keyword">let</span> subscriber01 = <span class="keyword">new</span> Subscriber(<span class="string">'subscriber_01'</span>)</span><br><span class="line"><span class="keyword">let</span> subscriber02 = <span class="keyword">new</span> Subscriber(<span class="string">'subscriber_02'</span>)</span><br><span class="line"><span class="keyword">let</span> subscriber03 = <span class="keyword">new</span> Subscriber(<span class="string">'subscriber_03'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅者注册“调度中心”</span></span><br><span class="line">eventHub.subscribe(<span class="string">'typeA'</span>, subscriber01)</span><br><span class="line">eventHub.subscribe(<span class="string">'typeA'</span>, subscriber02)</span><br><span class="line">eventHub.subscribe(<span class="string">'typeB'</span>, subscriber03)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布者对 typeA 主题发布内容</span></span><br><span class="line">eventHub.publish(<span class="string">'typeA'</span>)</span><br><span class="line"><span class="comment">// subscriber_01 is updated</span></span><br><span class="line"><span class="comment">// subscriber_02 is updated</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布者对 typeB 主题发布内容</span></span><br><span class="line">eventHub.publish(<span class="string">'typeA'</span>)</span><br><span class="line"><span class="comment">// subscriber_03 is updated</span></span><br></pre></td></tr></table></figure>
+<h3 id="观察者模式-vs-发布-订阅模式"><a href="#观察者模式-vs-发布-订阅模式" class="headerlink" title="观察者模式 vs 发布-订阅模式"></a>观察者模式 vs 发布-订阅模式</h3><p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/observe-vs-publisher-subscriber.png" alt=""></p>
+<p>如上图</p>
+<ul>
+<li>观察者模式中，主体（<code>Subject</code>）和观察者（<code>Observer</code>）是强耦合，有直接的联系，相互知道对方的存在。</li>
+<li>发布-订阅模式中，主体（<code>Subject</code>）和观察者（<code>Observer</code>）是松耦合，没有直接的联系，是通过“事件通道”（调度中心）建立联系，互相不知道对方存在。</li>
+</ul>
+<p>奇葩解释：观察者模式，没中间商赚差价；发布-订阅模式，有中间商赚差价 :laughing:</p>
+<h3 id="工厂模式（Factory-Pattern）"><a href="#工厂模式（Factory-Pattern）" class="headerlink" title="工厂模式（Factory Pattern）"></a>工厂模式（<code>Factory Pattern</code>）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarA</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (model, color) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'CarA'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarB</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (model, color) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'CarB'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CarFactory</span> </span>&#123;</span><br><span class="line">  carA () &#123; <span class="keyword">return</span> CarA &#125;</span><br><span class="line">  carB () &#123; <span class="keyword">return</span> CarB &#125;</span><br><span class="line"></span><br><span class="line">  create (type) &#123;</span><br><span class="line">    <span class="keyword">let</span> CarClass = <span class="keyword">this</span>[type]()</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CarClass()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> carFactory = <span class="keyword">new</span> CarFactory()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过 carFactory 创建不同的 car</span></span><br><span class="line"><span class="keyword">let</span> carA = carFactory.create(<span class="string">'carA'</span>)</span><br><span class="line"><span class="keyword">let</span> carB = carFactory.create(<span class="string">'carB'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="适配器模式（Adapter-Pattern）"><a href="#适配器模式（Adapter-Pattern）" class="headerlink" title="适配器模式（Adapter Pattern）"></a>适配器模式（<code>Adapter Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>现在好多智能手机都去掉了 <code>3.5mm</code> 的耳机孔，取而代之的是 <code>Type-C</code> 接口耳机。但是你还想在新手机中使用 <code>3.5mm</code> 的老式耳机怎么办？</p>
+<p>没错，那就需要用适配器，<code>Type-C</code> 转 <code>3.5mm</code> 的适配器。如下图 :laughing:：</p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/adapter.jpg" alt=""></p>
+<p><strong>描述：</strong></p>
+<p>可以将其他不兼容的对象包装在适配器中，使它与另一个类兼容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Type-C 耳机</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TypecHeadset</span> </span>&#123;</span><br><span class="line">  typeC () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Type-C 耳机已插入'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.5 毫米耳机</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dot35mmHeadset</span> </span>&#123;</span><br><span class="line">  dot35mm () &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'3.5mm 耳机已插入'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 适配器（3.5 毫米 --&gt; Type-C）</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dot35mmToTypecAdapter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (dot35mmHeadset) &#123;</span><br><span class="line">    <span class="keyword">this</span>.dot35mmHeadset = dot35mmHeadset</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  typeC () &#123;</span><br><span class="line">    <span class="keyword">this</span>.dot35mmHeadset.dot35mm()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 手机类（该手机只支持 Type-C 耳机）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 插入耳机孔</span></span><br><span class="line">  insertTypeC (headset) &#123;</span><br><span class="line">    headset.typeC()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> phone = <span class="keyword">new</span> Phone()</span><br><span class="line"><span class="comment">// Type-C 耳机</span></span><br><span class="line"><span class="keyword">let</span> typecHeadset = <span class="keyword">new</span> TypecHeadset()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.5 毫米耳机</span></span><br><span class="line"><span class="keyword">let</span> dot35mmHeadset = <span class="keyword">new</span> Dot35mmHeadset()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 耳机适配器（3.5 毫米 --&gt; Type-C）</span></span><br><span class="line"><span class="keyword">let</span> dot35mmToTypecAdapter = <span class="keyword">new</span> Dot35mmToTypecAdapter(dot35mmHeadset)</span><br><span class="line"></span><br><span class="line">phone.insertTypeC(typecHeadset) <span class="comment">// Type-C 耳机已插入</span></span><br><span class="line">phone.insertTypeC(dot35mmToTypecAdapter) <span class="comment">// 3.5mm 耳机已插入</span></span><br></pre></td></tr></table></figure>
+<h3 id="装饰者模式（Decorator-Pattern）"><a href="#装饰者模式（Decorator-Pattern）" class="headerlink" title="装饰者模式（Decorator Pattern）"></a>装饰者模式（<code>Decorator Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>先建一个基础版本的手机，经过再加工对手机进行装饰润色，</p>
+<p><strong>描述：</strong></p>
+<p>装饰者模式，允许你通过将对象包装在装饰器类的对象中，来动态更改对象在运行时的表现行为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础 car 类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleCar</span> </span>&#123;</span><br><span class="line">  getCost () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">10</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getDescription () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'Simple car'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 奥迪</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AudiCar</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (car) &#123;</span><br><span class="line">    <span class="keyword">this</span>.car = car</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getCost () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.car.getCost() + <span class="number">6</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getDescription () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.car.getDescription() + <span class="string">', Audi'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 宝马</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BMWCar</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (car) &#123;</span><br><span class="line">    <span class="keyword">this</span>.car = car</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getCost () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.car.getCost() + <span class="number">8</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getDescription () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.car.getDescription() + <span class="string">', BMW'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基础车信息</span></span><br><span class="line"><span class="keyword">let</span> simpleCar = <span class="keyword">new</span> SimpleCar()</span><br><span class="line">simpleCar.getCost() <span class="comment">// 10</span></span><br><span class="line">simpleCar.getDescription() <span class="comment">// Simple car</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 奥迪车信息</span></span><br><span class="line"><span class="keyword">let</span> audiCar = <span class="keyword">new</span> AudiCar(simpleCar)</span><br><span class="line">audiCar.getCost() <span class="comment">// 16</span></span><br><span class="line">audiCar.getDescription() <span class="comment">// Simple car, Audi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 宝马车信息</span></span><br><span class="line"><span class="keyword">let</span> bmwCar = <span class="keyword">new</span> BMWCar(simpleCar)</span><br><span class="line">bmwCar.getCost() <span class="comment">// 18</span></span><br><span class="line">bmwCar.getDescription() <span class="comment">// Simple car, BMW</span></span><br></pre></td></tr></table></figure>
+<h3 id="外观模式（Facade-Pattern）"><a href="#外观模式（Facade-Pattern）" class="headerlink" title="外观模式（Facade Pattern）"></a>外观模式（<code>Facade Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>如何让手机开机？很简单，“长按电源键”即可开机。实际上手机内部处理了很多逻辑才能实现它。这就是所谓的外观模式，将复杂转为简洁。</p>
+<p>例如，开发时常用于浏览器兼容性处理的代码。</p>
+<p><strong>描述：</strong></p>
+<p>为复杂的子系统提供了简化统一的界面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// DOM 绑定事件的兼容性处理</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEventFacade</span> (<span class="params">el, eve, fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (el.addEventListener) &#123;</span><br><span class="line">    el.addEventListener(eve, fn, <span class="literal">false</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (el.attachEvent) &#123;</span><br><span class="line">    el.attachEvent(<span class="string">'on'</span> + eve, fn)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    el[<span class="string">'on'</span> + eve] = fn</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代理模式（Proxy-Pattern）"><a href="#代理模式（Proxy-Pattern）" class="headerlink" title="代理模式（Proxy Pattern）"></a>代理模式（<code>Proxy Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>你可以直接去专卖店买手机（某海外品牌），也可以通过<strong>代购</strong>帮你买手机（这样价格会便宜些）。让<strong>代购</strong>买手机这种方式，就是所谓的<strong>代理模式</strong>。</p>
+<p><code>js</code> 原生也支持代理模式 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener">Proxy</a></p>
+<p><strong>描述：</strong></p>
+<p>用一个对象来表示另一个对象的功能</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="keyword">this</span>.phoneName = <span class="string">'Mate 90'</span> <span class="comment">// 手机名</span></span><br><span class="line">    <span class="keyword">this</span>.screen = <span class="string">'6.21'</span> <span class="comment">// 尺寸</span></span><br><span class="line">    <span class="keyword">this</span>.color = <span class="string">'black'</span> <span class="comment">// 颜色</span></span><br><span class="line">    <span class="keyword">this</span>.chip = <span class="string">'kirin'</span> <span class="comment">// 芯片</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyPerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(target) &#123;</span><br><span class="line">    <span class="keyword">this</span>.target = target</span><br><span class="line">  &#125;</span><br><span class="line">  buyPhone (phoneModel) &#123;</span><br><span class="line">    <span class="keyword">this</span>.target.buyPhone(phoneModel)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  buyPhone (phoneModel) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'哈哈，买到了: '</span>, phoneModel.phoneName)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> proxyPerson = <span class="keyword">new</span> ProxyPerson(<span class="keyword">new</span> Person())</span><br><span class="line">proxyPerson.buyPhone(<span class="keyword">new</span> Phone()) <span class="comment">// 哈哈，买到了: Meta 90</span></span><br></pre></td></tr></table></figure>
+<h3 id="策略模式（Strategy-Pattern）"><a href="#策略模式（Strategy-Pattern）" class="headerlink" title="策略模式（Strategy Pattern）"></a>策略模式（<code>Strategy Pattern</code>）</h3><p><strong>真实场景：</strong></p>
+<p>商店打折促销，某商品买 <code>1</code> 件原价，<code>2</code> 件 <code>8</code> 折，<code>3</code> 件 <code>7</code> 折</p>
+<p><strong>描述：</strong></p>
+<p>在代码运行时，根据不同情况切换不同的策略（方法）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 策略组</span></span><br><span class="line"><span class="keyword">const</span> strategies = &#123;</span><br><span class="line">  num1 (price) &#123;</span><br><span class="line">    <span class="keyword">return</span> price * <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  num2 (price) &#123;</span><br><span class="line">    <span class="keyword">return</span> price * <span class="number">0.8</span></span><br><span class="line">  &#125;,</span><br><span class="line">  num3 (price) &#123;</span><br><span class="line">    <span class="keyword">return</span> price * <span class="number">0.7</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取折后总价</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDiscountPrice</span> (<span class="params">n, price</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> _key = <span class="string">`num<span class="subst">$&#123;n&#125;</span>`</span></span><br><span class="line">  <span class="keyword">let</span> discountedForItem = strategies[_key](price)</span><br><span class="line">  <span class="keyword">return</span> discountedForItem * n</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getDiscountPrice(<span class="number">1</span>, <span class="number">10</span>) <span class="comment">// 10</span></span><br><span class="line">getDiscountPrice(<span class="number">2</span>, <span class="number">10</span>) <span class="comment">// 16</span></span><br><span class="line">getDiscountPrice(<span class="number">3</span>, <span class="number">10</span>) <span class="comment">// 21</span></span><br></pre></td></tr></table></figure>
+<h3 id="状态模式（State-Pattern）"><a href="#状态模式（State-Pattern）" class="headerlink" title="状态模式（State Pattern）"></a>状态模式（<code>State Pattern</code>）</h3><p><strong>描述：</strong></p>
+<p>在状态更改时更改类的行为（方法）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Discount</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="comment">// 当前状态</span></span><br><span class="line">    <span class="keyword">this</span>.currentState = <span class="string">''</span></span><br><span class="line">    <span class="comment">// 所有状态</span></span><br><span class="line">    <span class="keyword">this</span>.states = &#123;</span><br><span class="line">      typeA () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'typeA 1'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      typeB () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'typeB 0.8'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      typeC () &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'typeC 0.7'</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 更新当前状态</span></span><br><span class="line">  setState (_currentState) &#123;</span><br><span class="line">    <span class="keyword">this</span>.currentState = _currentState</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 开始计算</span></span><br><span class="line">  compute () &#123;</span><br><span class="line">    <span class="keyword">let</span> currentStateHandler = <span class="keyword">this</span>.states[<span class="keyword">this</span>.currentState]</span><br><span class="line">    currentStateHandler &amp;&amp; currentStateHandler()</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> discount = <span class="keyword">new</span> Discount()</span><br><span class="line"></span><br><span class="line">discount</span><br><span class="line">  .setState(<span class="string">'typeA'</span>)</span><br><span class="line">  .compute() <span class="comment">// typeA 1</span></span><br><span class="line">  .setState(<span class="string">'typeC'</span>)</span><br><span class="line">  .compute() <span class="comment">// typeC 0.7</span></span><br><span class="line">  .setState(<span class="string">'typeB'</span>)</span><br><span class="line">  .compute() <span class="comment">// typeB 0.8</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book" target="_blank" rel="noopener">Learning JavaScript Design Patterns</a></li>
+<li><a href="https://github.com/sohamkamani/javascript-design-patterns-for-humans" target="_blank" rel="noopener">javascript-design-patterns-for-humans</a></li>
+<li><a href="https://juejin.im/post/5a14e9edf265da4312808d86" target="_blank" rel="noopener">观察者模式 vs 发布-订阅模式</a></li>
+<li><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/25" target="_blank" rel="noopener">观察者模式和订阅-发布模式的区别</a></li>
+<li><a href="https://www.cnblogs.com/TomXu/archive/2011/12/15/2288411.html" target="_blank" rel="noopener">汤姆大叔的博客</a></li>
+</ul>
+<!-- 链接 -->
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/design/" rel="tag"><i class="fa fa-tag"></i> design</a>
+          
+            <a href="/tags/patterns/" rel="tag"><i class="fa fa-tag"></i> patterns</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/26/test/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/09/26/JavaScript-设计模式/"
+           data-title="JavaScript 设计模式" data-url="http://yoursite.com/2019/09/26/JavaScript-设计模式/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例模式（Singleton-Pattern）"><span class="nav-number">1.</span> <span class="nav-text">单例模式（Singleton Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者模式（Observer-Pattern）"><span class="nav-number">2.</span> <span class="nav-text">观察者模式（Observer Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布-订阅模式（Publish-Subscribe-Pattern）"><span class="nav-number">3.</span> <span class="nav-text">发布-订阅模式（Publish/Subscribe Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#观察者模式-vs-发布-订阅模式"><span class="nav-number">4.</span> <span class="nav-text">观察者模式 vs 发布-订阅模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂模式（Factory-Pattern）"><span class="nav-number">5.</span> <span class="nav-text">工厂模式（Factory Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#适配器模式（Adapter-Pattern）"><span class="nav-number">6.</span> <span class="nav-text">适配器模式（Adapter Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式（Decorator-Pattern）"><span class="nav-number">7.</span> <span class="nav-text">装饰者模式（Decorator Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外观模式（Facade-Pattern）"><span class="nav-number">8.</span> <span class="nav-text">外观模式（Facade Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式（Proxy-Pattern）"><span class="nav-number">9.</span> <span class="nav-text">代理模式（Proxy Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式（Strategy-Pattern）"><span class="nav-number">10.</span> <span class="nav-text">策略模式（Strategy Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态模式（State-Pattern）"><span class="nav-number">11.</span> <span class="nav-text">状态模式（State Pattern）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">12.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共24.1k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
