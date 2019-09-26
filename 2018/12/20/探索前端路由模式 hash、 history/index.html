@@ -111,10 +111,12 @@
 <meta property="og:site_name" content="A new way to explore the world">
 <meta property="og:description" content="一、概念当前单页面应用路由模式有2种，hash 和 history 模式  hash 模式  样式比较丑，不太符合人的 “审美” 浏览器地址栏 URL 有 # (如：http://localhost:3000/#/a) # 后面的内容不会传给服务端 改变浏览器地址栏 URL # 后面的值，不会网页重载   history 模式  HTML5 新特性，样式比较优雅 浏览器地址没有 # (如：http">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-26T04:30:56.579Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
+<meta property="og:updated_time" content="2019-09-26T07:25:08.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="探索前端路由模式 hash、 history">
 <meta name="twitter:description" content="一、概念当前单页面应用路由模式有2种，hash 和 history 模式  hash 模式  样式比较丑，不太符合人的 “审美” 浏览器地址栏 URL 有 # (如：http://localhost:3000/#/a) # 后面的内容不会传给服务端 改变浏览器地址栏 URL # 后面的值，不会网页重载   history 模式  HTML5 新特性，样式比较优雅 浏览器地址没有 # (如：http">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
 
 
 
@@ -426,28 +428,29 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 </li>
 </ul>
 <p>此时终端有一条访问记录<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx:  http://localhost:3000/ 1</span><br></pre></td></tr></table></figure></p>
-<p><strong>情景一</strong>：分别点击 <code>hash</code> 模式下的 <code>a, b, c/d</code> 文字，可以看到浏览器地址栏改变，但是终端访问记录依然不变。  </p>
+<p><strong>情景一</strong>：分别点击 <code>hash</code> 模式下的 <code>a, b, c/d</code> 文字，可以看到浏览器地址栏改变，但是终端访问记录依然不变。</p>
 <p><strong>说明</strong>：浏览器地址栏 <code>hash</code> 改变，<strong>并不会</strong>向后端发起请求</p>
 <hr>
 <p><strong>情景二</strong>：点击 <code>history</code> 模式下的 <code>a</code> 文字，可以看到浏览器地址栏改变，同时终端访问记录也会增加 <code>1</code> 条<br>如下所示：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ctx:  http://localhost:3000/ 1</span><br><span class="line">ctx:  http://localhost:3000/a 2</span><br></pre></td></tr></table></figure></p>
-<p>但是浏览器报 <code>404</code> 错误，这是因为浏览器地址改变时，它会向服务器发送一条 <code>GET</code> 请求，默认寻找 <code>http://localhost:3000 服务下 a 文件夹下的 index.html 、 index.htm、index.jsp 文件</code> </p>
+<p>但是浏览器报 <code>404</code> 错误，这是因为浏览器地址改变时，它会向服务器发送一条 <code>GET</code> 请求，默认寻找 <code>http://localhost:3000 服务下 a 文件夹下的 index.html 、 index.htm、index.jsp 文件</code></p>
 <p><strong>说明</strong>：<code>history</code> 模式下，浏览器地址栏改变，<strong>会</strong>向后端发起请求</p>
 <h3 id="四、理论结合实践-chestnut"><a href="#四、理论结合实践-chestnut" class="headerlink" title="四、理论结合实践 :chestnut:"></a>四、理论结合实践 :chestnut:</h3><p>我们以 <code>Vue 2.x</code> 框架为例，其他框架也是同样的道理，详细代码请看<a href="https://github.com/feseed/admin-vb" target="_blank" rel="noopener">这里</a>，<code>git clone</code> 下来之后<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line"></span><br><span class="line">yarn install</span><br><span class="line"><span class="comment"># OR</span></span><br><span class="line">npm run install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动本地服务</span></span><br><span class="line">yarn dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 产出代码（可放在生产环境）</span></span><br><span class="line">yarn build</span><br></pre></td></tr></table></figure></p>
 <p>这里默认 <code>vue router</code> 路由模式为 <code>history</code>，<code>hash</code> 模式无此问题，不再赘述</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/router/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  mode: <span class="string">'history'</span>, <span class="comment">// 路由模式设置</span></span><br><span class="line">  base: process.env.BASE_URL,</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>yarn build 操作后，将 dist 文件夹拷贝到上面建的 index.js 同级目录下。  </p>
+<p>yarn build 操作后，将 dist 文件夹拷贝到上面建的 index.js 同级目录下。</p>
 <p>启动服务： <code>node index.js</code></p>
 <p>浏览器访问：<code>http://localhost:3000/admin-vb/</code><br><strong>注</strong>：<code>/admin-vb/</code> 以 <code>vue.config.js 文件下的 baseUrl 字段对应的值为准</code></p>
 <p>此时一切显示正常，也可以尝试切换路由。但是刷新浏览器会 <code>404</code> 错误。<br>这是因为，在刷新浏览器之前，访问的路由受前端 <code>vue router</code> 代码控制。当我们刷新浏览器后，浏览器就会尝试访问当前路径下的 <code>index.html、index.htm、index.jsp</code> 文件，很遗憾，当前路径下没有该文件，所以就会报错 <code>404</code> 找不到该文件。</p>
 <p><strong>解决 <code>history</code> 模式，刷新浏览器 <code>404</code> 问题</strong></p>
 <ul>
-<li><p>:heart: <a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90" target="_blank" rel="noopener">官宣方案</a> :heart:  </p>
+<li><p>:heart: <a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90" target="_blank" rel="noopener">官宣方案</a> :heart:</p>
 </li>
 <li><p>我们刚刚自己创建的 <code>node</code> 服务如何解决呢？<br>具体思路，当前端向后端请求页面时，找不到页面则返回 <code>index.html</code> 页面。直接上代码，如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> koaStatic = <span class="built_in">require</span>(<span class="string">'koa-static'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"><span class="comment">// 解决刷新 404 问题</span></span><br><span class="line"><span class="keyword">const</span> historyApiFallback = <span class="built_in">require</span>(<span class="string">'koa2-connect-history-api-fallback'</span>)</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> root = path.join(__dirname, <span class="string">'./'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 记录访问服务次数</span></span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间件，记录请求</span></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'ctx: '</span>, ctx.href, ++count)</span><br><span class="line">  <span class="keyword">await</span> next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解决刷新 404 问题</span></span><br><span class="line">app.use(historyApiFallback(&#123;</span><br><span class="line">  index: <span class="string">'/admin-vb/index.html'</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在文件夹根目录，创建静态服务</span></span><br><span class="line">app.use(koaStatic(root))</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>广告植入：:loudspeaker: :loudspeaker: :loudspeaker: 如果喜欢，欢迎 :star:、watch</strong></p>
+<p>欢迎关注<strong>无广告文章</strong>公众号：<strong>学前端</strong></p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg" alt=""></p>
 
       
     </div>
@@ -496,8 +499,8 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/08/js 代码运行机制，宏任务、微任务/" rel="next" title="js 代码运行机制，宏任务、微任务">
-                <i class="fa fa-chevron-left"></i> js 代码运行机制，宏任务、微任务
+              <a href="/2018/12/08/从 Chrome 的开发者工具调试 Android 微信 Web 网页/" rel="next" title="从 Chrome 的开发者工具调试 Android 微信 Web 网页">
+                <i class="fa fa-chevron-left"></i> 从 Chrome 的开发者工具调试 Android 微信 Web 网页
               </a>
             
           </div>
