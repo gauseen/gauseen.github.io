@@ -5,7 +5,7 @@ tags: [js,promise/A+,原理,实现]
 author: gauseen
 ---
 
-`Promises/A+` 规范可在[这里][promise]查看
+`Promises/A+` 规范可在[这里](https://promisesaplus.com)查看
 
 `promise` 有 `3` 个状态，分别为 `pending`, `fulfilled` 和 `rejected`
 
@@ -48,7 +48,7 @@ function MyPromise (fn) {
 }
 ```
 
-状态迁移方法，即掉用了 `fn(resolve, reject)` 中的 `resolve, reject` 方法后，需要改变 `promise` 状态：
+状态迁移方法，即调用了 `fn(resolve, reject)` 中的 `resolve, reject` 方法后，需要改变 `promise` 状态：
 
 `pending --> fulfilled`
 
@@ -171,7 +171,7 @@ MyPromise.prototype.catch = function (onRejected) {
 }
 ```
 
-如上，简实现了 `promise`，支持链式掉用 `then 和 catch`
+如上，简单实现了 `promise`，支持链式调用 `then 和 catch`
 
 
 
@@ -190,7 +190,3 @@ MyPromise.prototype.catch = function (onRejected) {
 ### 参考
 
 [promise-aplus-impl](https://github.com/Lucifier129/promise-aplus-impl)
-
-
-
-[promise]: https://promisesaplus.com
