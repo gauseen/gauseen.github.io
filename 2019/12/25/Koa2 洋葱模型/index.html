@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,node,Koa2,洋葱模型,原理,实现," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供一下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta name="keywords" content="js,node,Koa2,洋葱模型,原理,实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大白话讲 Koa2 洋葱模型">
+<meta property="og:url" content="http://yoursite.com/2019/12/25/Koa2 洋葱模型/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供一下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/koa-middlewares-onion.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
+<meta property="og:updated_time" content="2019-12-24T09:17:31.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大白话讲 Koa2 洋葱模型">
+<meta name="twitter:description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供一下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/koa-middlewares-onion.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/25/Koa2 洋葱模型/"/>
+
+
+
+
+
+  <title>大白话讲 Koa2 洋葱模型 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/25/Koa2 洋葱模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">大白话讲 Koa2 洋葱模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T17:28:11+00:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/12/25/Koa2 洋葱模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/12/25/Koa2 洋葱模型/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Koa-js"><a href="#Koa-js" class="headerlink" title="Koa.js"></a>Koa.js</h2><p><code>Koa.js</code> 是一个极其精简的 Web 服务框架，主要提供一下功能：</p>
+<ul>
+<li><code>HTTP</code> 服务：主要处理 <code>request</code> 和 <code>response</code></li>
+<li>中间件数据处理机制（洋葱模型）</li>
+</ul>
+<h2 id="什么是-AOP？"><a href="#什么是-AOP？" class="headerlink" title="什么是 AOP？"></a>什么是 AOP？</h2><p><code>AOP</code> 为 Aspect Oriented Programming 的缩写，中文意思为：<strong>面向切面编程</strong>，它是<a href="https://www.zhihu.com/question/28292740" target="_blank" rel="noopener"><strong>函数式编程</strong></a>的一种衍生范式</p>
+<p>举个栗子 :chestnut: ：</p>
+<p>假如我想把一个<strong>苹果</strong>（源数据）处理成<strong>果盘</strong>（最终数据）我该怎么做？</p>
+<p>① 苹果（源数据） —-&gt;&gt;<br>② 洗苹果 —-&gt;&gt;<br>③ 切苹果 —-&gt;&gt;<br>④ 放入盘子 —-&gt;&gt;<br>⑤ 果盘（最终数据）</p>
+<p>共有 5 个步骤，如果我想升级一下果盘，打算在切苹果之前先<strong>削皮</strong>，放入盘子后<strong>摆成五角星形状</strong>那么我的步骤应该如下：</p>
+<p>① 苹果（源数据） —-&gt;&gt;<br>② 洗苹果 —-&gt;&gt;<br>③ 削皮 —-&gt;&gt;<br>④ 切苹果 —-&gt;&gt;<br>⑤ 放入盘子 —-&gt;&gt;<br>⑥ 摆成五角星形状 —-&gt;&gt;<br>⑦ 果盘（最终数据）—-&gt;&gt;</p>
+<p>上面每个步骤都可以看成相应的方法，步骤 ③ 和 ⑥ 加入与否都不影响我制作出果盘这个结果，可以看出这样是非常灵活的</p>
+<p>其实就是生活中<strong>面向切面编程</strong>的例子，<br>换句话说，就是在现有程序中，加入或减去一些功能不影响原有的代码功能。</p>
+<h2 id="什么是-Koa-js-洋葱模型？"><a href="#什么是-Koa-js-洋葱模型？" class="headerlink" title="什么是 Koa.js 洋葱模型？"></a>什么是 <code>Koa.js</code> 洋葱模型？</h2><p>洋葱模型其实就是中间件处理的流程，中间件生命周期大致有：</p>
+<ul>
+<li>前期处理</li>
+<li>交给并等待其它中间件处理</li>
+<li>后期处理</li>
+</ul>
+<p>多个中间件处理，就形成了所谓的<strong>洋葱模型</strong>，它是 <code>AOP</code> 面向切面编程的一种应用。</p>
+<p>结合一下上面的果盘例子可知，在 Koa.js 中，苹果（源数据）就是 请求数据 <code>request</code>，果盘（最终数据）就是 响应数据 <code>response</code>，中间处理的过程就是 Koa2.js 的中间件函数处理的过程</p>
+<p>一张经典的洋葱切面图如下：</p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/koa-middlewares-onion.jpg" alt=""></p>
+<p>先回顾一下，Koa2.js 中下面代码打印输出顺序为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>)</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 start'</span>)</span><br><span class="line">  <span class="keyword">await</span> next()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 start'</span>)</span><br><span class="line">  <span class="keyword">await</span> next()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 start'</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浏览器访问：http://localhost:3000</span></span><br><span class="line"><span class="comment">// 输出顺序为：</span></span><br><span class="line"></span><br><span class="line">middleware_01 start</span><br><span class="line">middleware_02 start</span><br><span class="line">middleware_03 start</span><br><span class="line">middleware_03 end</span><br><span class="line">middleware_02 end</span><br><span class="line">middleware_01 end</span><br></pre></td></tr></table></figure>
+<h3 id="如何实现洋葱模型（中间件处理流程）"><a href="#如何实现洋葱模型（中间件处理流程）" class="headerlink" title="如何实现洋葱模型（中间件处理流程）"></a>如何实现洋葱模型（中间件处理流程）</h3><p>想一想，怎样才能实现 Koa.js 中间件处理机制呢？</p>
+<h4 id="最简单版，如下代码："><a href="#最简单版，如下代码：" class="headerlink" title="最简单版，如下代码："></a>最简单版，如下代码：</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数处理的数据</span></span><br><span class="line"><span class="keyword">let</span> context = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">middleware_01</span> (<span class="params">cxt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 start'</span>)</span><br><span class="line">  middleware_02(cxt)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">middleware_02</span> (<span class="params">cxt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 start'</span>)</span><br><span class="line">  middleware_03(cxt)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">middleware_03</span> (<span class="params">cxt</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 start'</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用中间件 compose 函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compose</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 默认调用第一个中间件</span></span><br><span class="line">  middleware_01(context)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">compose()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果如下，与上面中间件一致：</span></span><br><span class="line"></span><br><span class="line">middleware_01 start</span><br><span class="line">middleware_02 start</span><br><span class="line">middleware_03 start</span><br><span class="line">middleware_03 end</span><br><span class="line">middleware_02 end</span><br><span class="line">middleware_01 end</span><br></pre></td></tr></table></figure>
+<p>上面代码虽然实现了，但是有不足点，如：</p>
+<ul>
+<li>要显示指明要调用的函数名称，不够灵活</li>
+</ul>
+<h4 id="升级版"><a href="#升级版" class="headerlink" title="升级版"></a>升级版</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 中间件公共的处理数据</span></span><br><span class="line">  <span class="keyword">let</span> context = &#123;&#125;</span><br><span class="line">  <span class="comment">// 中间件队列</span></span><br><span class="line">  <span class="keyword">let</span> middlewares = []</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 将中间件放入队列中</span></span><br><span class="line">    use (fn) &#123;</span><br><span class="line">      middlewares.push(fn)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 调用中间件</span></span><br><span class="line">    callback () &#123;</span><br><span class="line">      <span class="comment">// 初始调用 middlewares 队列中的第 1 个中间件</span></span><br><span class="line">      <span class="keyword">return</span> dispatch(<span class="number">0</span>)</span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">dispatch</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 获取要执行的中间件函数</span></span><br><span class="line">        <span class="keyword">let</span> fn = middlewares[i]</span><br><span class="line">        <span class="comment">// 执行中间件函数，回调参数是：公共数据、调用下一个中间件函数</span></span><br><span class="line">        <span class="comment">// 返回一个 Promise 实例</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(</span><br><span class="line">          fn(context, <span class="function"><span class="keyword">function</span> <span class="title">next</span> (<span class="params"></span>) </span>&#123; dispatch(i + <span class="number">1</span>) &#125;)</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码，在不考虑特殊边界情况下，就完成了 Koa2.js 中简易版中间件的封装，让我们来测试一下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> app = App()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 start'</span>)</span><br><span class="line">  <span class="keyword">await</span> next()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_01 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 start'</span>)</span><br><span class="line">  <span class="keyword">await</span> next()</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_02 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (cxt, next) =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 start'</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'middleware_03 end'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Koa2.js 源码中，放在 http.createServer(callback) 回调中调用</span></span><br><span class="line"><span class="comment">// 这里我们直接调用</span></span><br><span class="line">app.callback()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出如下：</span></span><br><span class="line"></span><br><span class="line">middleware_01 start</span><br><span class="line">middleware_02 start</span><br><span class="line">middleware_03 start</span><br><span class="line">middleware_03 end</span><br><span class="line">middleware_02 end</span><br><span class="line">middleware_01 end</span><br></pre></td></tr></table></figure>
+<p>想更深入的了解 Koa2.js 洋葱模型可在<a href="https://github.com/koajs/koa" target="_blank" rel="noopener">这里看源码</a></p>
+<hr>
+<p>欢迎关注<strong>无广告文章</strong>公众号：<strong>学前端</strong></p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg" alt=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://github.com/chenshenhai/koajs-design-note" target="_blank" rel="noopener">Koa.js 设计模式-学习笔记</a></li>
+<li><a href="https://www.zhihu.com/question/24863332" target="_blank" rel="noopener">什么是面向切面编程 AOP？</a></li>
+</ul>
+<!-- 引用 -->
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/node/" rel="tag"><i class="fa fa-tag"></i> node</a>
+          
+            <a href="/tags/Koa2/" rel="tag"><i class="fa fa-tag"></i> Koa2</a>
+          
+            <a href="/tags/洋葱模型/" rel="tag"><i class="fa fa-tag"></i> 洋葱模型</a>
+          
+            <a href="/tags/原理/" rel="tag"><i class="fa fa-tag"></i> 原理</a>
+          
+            <a href="/tags/实现/" rel="tag"><i class="fa fa-tag"></i> 实现</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/18/前端工程化/" rel="next" title="前端工程化">
+                <i class="fa fa-chevron-left"></i> 前端工程化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/12/25/Koa2 洋葱模型/"
+           data-title="大白话讲 Koa2 洋葱模型" data-url="http://yoursite.com/2019/12/25/Koa2 洋葱模型/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Koa-js"><span class="nav-number">1.</span> <span class="nav-text">Koa.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-AOP？"><span class="nav-number">2.</span> <span class="nav-text">什么是 AOP？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-Koa-js-洋葱模型？"><span class="nav-number">3.</span> <span class="nav-text">什么是 Koa.js 洋葱模型？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何实现洋葱模型（中间件处理流程）"><span class="nav-number">3.1.</span> <span class="nav-text">如何实现洋葱模型（中间件处理流程）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最简单版，如下代码："><span class="nav-number">3.1.1.</span> <span class="nav-text">最简单版，如下代码：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#升级版"><span class="nav-number">3.1.2.</span> <span class="nav-text">升级版</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共28.6k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
