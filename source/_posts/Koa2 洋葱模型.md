@@ -7,7 +7,7 @@ author: gauseen
 
 ## Koa.js
 
-`Koa.js` 是一个极其精简的 Web 服务框架，主要提供一下功能：
+`Koa.js` 是一个极其精简的 Web 服务框架，主要提供以下功能：
 
 - `HTTP` 服务：主要处理 `request` 和 `response`
 - 中间件数据处理机制（洋葱模型）
