@@ -5,6 +5,9 @@ tags: [js,node,Koa2,洋葱模型,原理,实现]
 author: gauseen
 ---
 
+> 作者：[gauseen](https://github.com/gauseen)
+> 原文：[https://github.com/gauseen/blog](https://github.com/gauseen/blog)
+
 ### Koa.js
 
 `Koa.js` 是一个极其精简的 Web 服务框架，主要提供以下功能：
