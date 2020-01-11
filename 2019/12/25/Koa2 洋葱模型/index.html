@@ -103,20 +103,20 @@
 
 
 
-<meta name="description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta name="description" content="作者：gauseen原文：https://github.com/gauseen/blog  Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函">
 <meta name="keywords" content="js,node,Koa2,洋葱模型,原理,实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大白话讲解 Koa2 洋葱模型">
 <meta property="og:url" content="http://yoursite.com/2019/12/25/Koa2 洋葱模型/index.html">
 <meta property="og:site_name" content="A new way to explore the world">
-<meta property="og:description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta property="og:description" content="作者：gauseen原文：https://github.com/gauseen/blog  Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/koa-middlewares-onion.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
-<meta property="og:updated_time" content="2019-12-25T03:53:53.645Z">
+<meta property="og:updated_time" content="2020-01-11T08:38:13.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大白话讲解 Koa2 洋葱模型">
-<meta name="twitter:description" content="Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函数式编程的一种衍生范式 举个栗子 :chestnut: ： 假如我想把一个苹果（源数据）处理成">
+<meta name="twitter:description" content="作者：gauseen原文：https://github.com/gauseen/blog  Koa.jsKoa.js 是一个极其精简的 Web 服务框架，主要提供以下功能：  HTTP 服务：主要处理 request 和 response 中间件数据处理机制（洋葱模型）  什么是 AOP？AOP 为 Aspect Oriented Programming 的缩写，中文意思为：面向切面编程，它是函">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/koa-middlewares-onion.jpg">
 
 
@@ -381,7 +381,10 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
       
 
       
-        <h3 id="Koa-js"><a href="#Koa-js" class="headerlink" title="Koa.js"></a>Koa.js</h3><p><code>Koa.js</code> 是一个极其精简的 Web 服务框架，主要提供以下功能：</p>
+        <blockquote>
+<p>作者：<a href="https://github.com/gauseen" target="_blank" rel="noopener">gauseen</a><br>原文：<a href="https://github.com/gauseen/blog" target="_blank" rel="noopener">https://github.com/gauseen/blog</a></p>
+</blockquote>
+<h3 id="Koa-js"><a href="#Koa-js" class="headerlink" title="Koa.js"></a>Koa.js</h3><p><code>Koa.js</code> 是一个极其精简的 Web 服务框架，主要提供以下功能：</p>
 <ul>
 <li><code>HTTP</code> 服务：主要处理 <code>request</code> 和 <code>response</code></li>
 <li>中间件数据处理机制（洋葱模型）</li>
@@ -485,6 +488,10 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/01/03/实现本地跨域存储/" rel="prev" title="实现本地跨域存储">
+                实现本地跨域存储 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -571,7 +578,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -584,7 +591,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -679,7 +686,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
       <div class="footer-inner">
         <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -695,7 +702,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
       本站总访问量<span id="busuanzi_value_site_pv"></span>次
     </span>
     | 
-    <span class="post-count">博客全站共28.6k字</span>
+    <span class="post-count">博客全站共30.3k字</span>
  </div>
 
 

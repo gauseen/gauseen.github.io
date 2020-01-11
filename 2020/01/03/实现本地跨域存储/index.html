@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="js,跨域,浏览器,localStorage,本地存储," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="作者：gauseen原文: https://github.com/gauseen/blog  什么是跨域？先看一下 URL 有哪些部分组成，如下： 1234https://github.com:80/gauseen/blog?issues=1#note\___/  \________/ \_/ \_________/ \______/ \___/  |         |      |">
+<meta name="keywords" content="js,跨域,浏览器,localStorage,本地存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实现本地跨域存储">
+<meta property="og:url" content="http://yoursite.com/2020/01/03/实现本地跨域存储/index.html">
+<meta property="og:site_name" content="A new way to explore the world">
+<meta property="og:description" content="作者：gauseen原文: https://github.com/gauseen/blog  什么是跨域？先看一下 URL 有哪些部分组成，如下： 1234https://github.com:80/gauseen/blog?issues=1#note\___/  \________/ \_/ \_________/ \______/ \___/  |         |      |">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/cross-storage.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/cross-storage-zip.gif">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
+<meta property="og:updated_time" content="2020-01-11T08:38:13.588Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="实现本地跨域存储">
+<meta name="twitter:description" content="作者：gauseen原文: https://github.com/gauseen/blog  什么是跨域？先看一下 URL 有哪些部分组成，如下： 1234https://github.com:80/gauseen/blog?issues=1#note\___/  \________/ \_/ \_________/ \______/ \___/  |         |      |">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/cross-storage.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/03/实现本地跨域存储/"/>
+
+
+
+
+
+  <title>实现本地跨域存储 | A new way to explore the world</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    var trElement = document.getElementById('hexo-helper-live2d');
+    trElement.parentNode.removeChild(trElement);
+    return;
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/hijiki.model.json", 0.5);});
+})();
+</script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+    
+    <a href="https://github.com/gauseen"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner">
+  <div class="site-brand-wrapper">
+    <div class="site-meta ">
+      
+
+      <div class="custom-logo-site-title">
+        <a href="/"  class="brand" rel="start">
+          <span class="logo-line-before"><i></i></span>
+          <span class="site-title">A new way to explore the world</span>
+          <span class="logo-line-after"><i></i></span>
+        </a>
+      </div>
+        
+          <p class="site-subtitle"></p>
+        
+    </div>
+
+    <div class="site-nav-toggle">
+      <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+      </button>
+    </div>
+  </div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/实现本地跨域存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="gauseen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A new way to explore the world">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">实现本地跨域存储</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-03T18:28:03+00:00">
+                2020-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+          
+            <span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-user-o"></i>
+                </span>
+                原作者 gauseen
+            </span>
+          
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/03/实现本地跨域存储/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2020/01/03/实现本地跨域存储/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>作者：<a href="https://github.com/gauseen" title="gauseen" target="_blank" rel="noopener">gauseen</a><br>原文: <a href="https://github.com/gauseen/blog" target="_blank" rel="noopener">https://github.com/gauseen/blog</a></p>
+</blockquote>
+<h3 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h3><p>先看一下 <code>URL</code> 有哪些部分组成，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://github.com:80/gauseen/blog?issues=1#note</span><br><span class="line">\___/  \________/ \_/ \_________/ \______/ \___/</span><br><span class="line">  |         |      |       |          |      |</span><br><span class="line">protocol   host   port  pathname    search  hash</span><br></pre></td></tr></table></figure>
+<p><strong>protocol（协议）、host（域名）、port（端口）有一个地方不同都会产生跨域现象，也被称为客户端同源策略</strong></p>
+<h3 id="本地存储受同源策略限制"><a href="#本地存储受同源策略限制" class="headerlink" title="本地存储受同源策略限制"></a>本地存储受同源策略限制</h3><p>客户端（浏览器）出于安全性考虑，无论是 <code>localStorage</code> 还是 <code>sessionStorage</code> 都会受到同源策略限制。</p>
+<p>那么如何实现<strong>跨域存储</strong>呢？</p>
+<h3 id="window-postMessage"><a href="#window-postMessage" class="headerlink" title="window.postMessage()"></a>window.postMessage()</h3><p>想要实现<strong>跨域存储</strong>，先找到一种可跨域通信的机制，没错，就是 <code>postMessage</code>，它可以安全的实现跨域通信，不受同源策略限制。</p>
+<p>语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otherWindow.postMessage(<span class="string">'message'</span>, targetOrigin, [transfer])</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>otherWindow</code> 窗口的一个引用，如：<code>iframe</code> 的 <code>contentWindow</code> 属性，当前 <code>window</code> 对象，<code>window.open</code> 返回的窗口对象等</li>
+<li><code>message</code> 将要发送到 <code>otherWindow</code> 的数据</li>
+<li><code>targetOrigin</code> 通过窗口的 <code>targetOrigin</code> 属性来指定哪些窗口能接收到消息事件，其值可以是字符串 <code>&quot;*&quot;</code>（表示无限制）</li>
+</ul>
+<h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>用 <code>postMessage</code> 可跨域特性，来实现跨域存储。因为多个不同域下的页面无法共享本地存储数据，我们需要找个“中转页面”来统一处理其它页面的存储数据。为了方便理解，画了张时序图，如下：</p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/cross-storage.png" alt="跨域存储时序图"></p>
+<h3 id="场景模拟"><a href="#场景模拟" class="headerlink" title="场景模拟"></a>场景模拟</h3><p><strong>需求：</strong></p>
+<p>有两个不同的域名（<code>http://localhost:6001</code> 和 <code>http://localhost:6002</code>）想共用本地存储中的同一个 <code>token</code></p>
+<p><strong>假设：</strong></p>
+<p><a href="http://localhost:6001" target="_blank" rel="noopener">http://localhost:6001</a> 对应 client1.html 页面<br><a href="http://localhost:6002" target="_blank" rel="noopener">http://localhost:6002</a> 对应 client2.html 页面<br><a href="http://localhost:6003" target="_blank" rel="noopener">http://localhost:6003</a> 对应 hub.html 中转页面</p>
+<p><strong>启动服务：</strong></p>
+<p>使用 <a href="https://github.com/http-party/http-server" target="_blank" rel="noopener"><code>http-server</code></a> 启动 3 个本地服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm -g install http-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 3 个不同端口的服务，模拟跨域现象</span></span><br><span class="line">http-server -p 6001</span><br><span class="line">http-server -p 6002</span><br><span class="line">http-server -p 6003</span><br></pre></td></tr></table></figure>
+<h3 id="简单实现版本"><a href="#简单实现版本" class="headerlink" title="简单实现版本"></a>简单实现版本</h3><p><strong>client1.html 页面代码</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 开始存储事件 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleSetItem()"</span>&gt;</span>client1-setItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- iframe 嵌套“中转页面” hub.html --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://localhost:6003/hub.html"</span> <span class="attr">frameborder</span>=<span class="string">"0"</span> <span class="attr">id</span>=<span class="string">"hub"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> $ = <span class="function"><span class="params">id</span> =&gt;</span> <span class="built_in">document</span>.querySelector(id)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 获取 iframe window 对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> ifameWin = $(<span class="string">'#hub'</span>).contentWindow</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> count = <span class="number">0</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleSetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> request = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 存储的方法</span></span></span><br><span class="line"><span class="javascript">        method: <span class="string">'setItem'</span>,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 存储的 key</span></span></span><br><span class="line"><span class="javascript">        key: <span class="string">'someKey'</span>,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 需要存储的数据值</span></span></span><br><span class="line"><span class="javascript">        value: <span class="string">`来自 client-1 消息：<span class="subst">$&#123;count++&#125;</span>`</span>,</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 向 iframe “中转页面”发送消息</span></span></span><br><span class="line"><span class="javascript">      ifameWin.postMessage(request, <span class="string">'*'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>hub.html 中转页面代码</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 映射关系</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> map = &#123;</span></span><br><span class="line"><span class="javascript">      setItem: <span class="function">(<span class="params">key, value</span>) =&gt;</span> <span class="built_in">window</span>.localStorage[<span class="string">'setItem'</span>](key, value),</span></span><br><span class="line"><span class="javascript">      getItem: <span class="function">(<span class="params">key</span>) =&gt;</span> <span class="built_in">window</span>.localStorage[<span class="string">'getItem'</span>](key),</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// “中转页面”监听 ifameWin.postMessage() 事件</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> &#123; method, key, value &#125; = e.data</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 处理对应的存储方法</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> result = map[method](key, value)</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 返回给当前 client 的数据</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> response = &#123;</span></span><br><span class="line"><span class="undefined">        result,</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 把获取的数据，传递给 client 窗口</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.parent.postMessage(response, <span class="string">'*'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>client2.html 页面代码</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 获取本地存储数据 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleGetItem()"</span>&gt;</span>client2-getItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- iframe 嵌套“中转页面” hub.html --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"http://localhost:6003/hub.html"</span> <span class="attr">frameborder</span>=<span class="string">"0"</span> <span class="attr">id</span>=<span class="string">"hub"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> $ = <span class="function"><span class="params">id</span> =&gt;</span> <span class="built_in">document</span>.querySelector(id)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 获取 iframe window 对象</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> ifameWin = $(<span class="string">'#hub'</span>).contentWindow</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleGetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">let</span> request = &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 存储的方法（获取）</span></span></span><br><span class="line"><span class="javascript">        method: <span class="string">'getItem'</span>,</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 获取的 key</span></span></span><br><span class="line"><span class="javascript">        key: <span class="string">'someKey'</span>,</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="javascript">      <span class="comment">// 向 iframe “中转页面”发送消息</span></span></span><br><span class="line"><span class="javascript">      ifameWin.postMessage(request, <span class="string">'*'</span>)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 监听 iframe “中转页面”返回的消息</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">'client 2 获取到数据啦：'</span>, e.data)</span></span><br><span class="line"><span class="undefined">    &#125;)</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>浏览器打开如下地址：</strong></p>
+<ul>
+<li><a href="http://localhost:6001/client1.html" target="_blank" rel="noopener">http://localhost:6001/client1.html</a></li>
+<li><a href="http://localhost:6002/client2.html" target="_blank" rel="noopener">http://localhost:6002/client2.html</a></li>
+</ul>
+<p><strong>具体效果如下：</strong></p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/cross-storage-zip.gif" alt="跨域存储 Demo 演示"></p>
+<h3 id="改进版本"><a href="#改进版本" class="headerlink" title="改进版本"></a>改进版本</h3><p>分成 2 个 js 文件，一个是客户端页面使用 <code>client.js</code>，另一个是中转页面使用 <code>hub.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// client.js</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (hubUrl) &#123;</span><br><span class="line">    <span class="keyword">this</span>.hubUrl = hubUrl</span><br><span class="line">    <span class="comment">// 所有请求的 id 值（累加）</span></span><br><span class="line">    <span class="keyword">this</span>.id = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 所有请求消息映射</span></span><br><span class="line">    <span class="keyword">this</span>._requests = &#123;&#125;</span><br><span class="line">    <span class="comment">// 获取 iframe window 对象</span></span><br><span class="line">    <span class="keyword">this</span>._iframeWin = <span class="keyword">this</span>._createIframe(<span class="keyword">this</span>.hubUrl).contentWindow</span><br><span class="line">    <span class="keyword">this</span>._initListener()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  getItem (key, callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>._requestFn(<span class="string">'getItem'</span>, &#123;</span><br><span class="line">      key,</span><br><span class="line">      callback,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  setItem (key, value, callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>._requestFn(<span class="string">'setItem'</span>, &#123;</span><br><span class="line">      key,</span><br><span class="line">      value,</span><br><span class="line">      callback,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  _requestFn (method, &#123; key, value, callback &#125;) &#123;</span><br><span class="line">    <span class="comment">// 发消息时，请求对象格式</span></span><br><span class="line">    <span class="keyword">let</span> req = &#123;</span><br><span class="line">      id: <span class="keyword">this</span>.id++,</span><br><span class="line">      method,</span><br><span class="line">      key,</span><br><span class="line">      value,</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 请求 id 和回调函数的映射</span></span><br><span class="line">    <span class="keyword">this</span>._requests[req.id] = callback</span><br><span class="line">    <span class="comment">// 向 iframe “中转页面”发送消息</span></span><br><span class="line">    <span class="keyword">this</span>._iframeWin.postMessage(req, <span class="string">'*'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 初始化监听函数</span></span><br><span class="line">  _initListener () &#123;</span><br><span class="line">    <span class="comment">// 监听 iframe “中转页面”返回的消息</span></span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> &#123; id, result &#125; = e.data</span><br><span class="line">      <span class="comment">// 找到“中转页面”的消息对应的回调函数</span></span><br><span class="line">      <span class="keyword">let</span> currentCallback = <span class="keyword">this</span>._requests[id]</span><br><span class="line">      <span class="keyword">if</span> (!currentCallback) <span class="keyword">return</span></span><br><span class="line">      <span class="comment">// 调用并返回数据</span></span><br><span class="line">      currentCallback(result)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 创建 iframe 标签</span></span><br><span class="line">  _createIframe (hubUrl) &#123;</span><br><span class="line">    <span class="keyword">const</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">'iframe'</span>)</span><br><span class="line">    iframe.src = hubUrl</span><br><span class="line">    iframe.style = <span class="string">'display: none;'</span></span><br><span class="line">    <span class="built_in">window</span>.document.body.appendChild(iframe)</span><br><span class="line">    <span class="keyword">return</span> iframe</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hub.js</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Hub</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="keyword">this</span>._initListener()</span><br><span class="line">    <span class="keyword">this</span>.map = &#123;</span><br><span class="line">      setItem: <span class="function">(<span class="params">key, value</span>) =&gt;</span> <span class="built_in">window</span>.localStorage[<span class="string">'setItem'</span>](key, value),</span><br><span class="line">      getItem: <span class="function">(<span class="params">key</span>) =&gt;</span> <span class="built_in">window</span>.localStorage[<span class="string">'getItem'</span>](key),</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 监听 client ifameWin.postMessage() 事件</span></span><br><span class="line">  _initListener () &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'message'</span>, (e) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> &#123; method, key, value, id &#125; = e.data</span><br><span class="line">      <span class="comment">// 处理对应的存储方法</span></span><br><span class="line">      <span class="keyword">let</span> result = <span class="keyword">this</span>.map[method](key, value)</span><br><span class="line">      <span class="comment">// 返回给当前 client 的数据</span></span><br><span class="line">      <span class="keyword">let</span> response = &#123;</span><br><span class="line">        id,</span><br><span class="line">        result,</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 把获取的数据，发送给 client 窗口</span></span><br><span class="line">      <span class="built_in">window</span>.parent.postMessage(response, <span class="string">'*'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>页面使用：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- client1 页面代码 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleGetItem()"</span>&gt;</span>client1-GetItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleSetItem()"</span>&gt;</span>client1-SetItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./lib/client.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> crossStorage = <span class="keyword">new</span> Client(<span class="string">'http://localhost:6003/hub.html'</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 在 client1 中，获取 client2 存储的数据</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleGetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      crossStorage.getItem(<span class="string">'client2Key'</span>, (result) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'client-1 getItem result: '</span>, result)</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// client1 本地存储</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleSetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      crossStorage.setItem(<span class="string">'client1Key'</span>, <span class="string">'client-1 value'</span>, (result) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'client-1 完成本地存储'</span>)</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- hub 页面代码 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./lib/hub.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> hub = <span class="keyword">new</span> Hub()</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- client2 页面代码 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleGetItem()"</span>&gt;</span>client2-GetItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"handleSetItem()"</span>&gt;</span>client2-SetItem<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./lib/client.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> crossStorage = <span class="keyword">new</span> Client(<span class="string">'http://localhost:6003/hub.html'</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 在 client2 中，获取 client1 存储的数据</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleGetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      crossStorage.getItem(<span class="string">'client1Key'</span>, (result) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">       <span class="built_in">console</span>.log(<span class="string">'client-2 getItem result: '</span>, result)</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// client2 本地存储</span></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleSetItem</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      crossStorage.setItem(<span class="string">'client2Key'</span>, <span class="string">'client-2 value'</span>, (result) =&gt; &#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">'client-2 完成本地存储'</span>)</span></span><br><span class="line"><span class="undefined">      &#125;)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就实现了跨域存储，也是 <a href="https://github.com/zendesk/cross-storage" target="_blank" rel="noopener">cross-storage</a> 开源库的原理。<br>通过 <code>window.postMessage()</code> api 跨域特性，再配合一个 “中转页面”，来完成所谓的“跨域存储”，实际上并没有真正的在浏览器端实现跨域存储，<br>这是浏览器的限制，我们无法打破，只能用“曲线救国”的方式，变向来共享存储数据。</p>
+<p>所有源码在这里：<a href="https://github.com/gauseen/notes/tree/master/%E8%B7%A8%E5%9F%9F%E5%AD%98%E5%82%A8/v2" target="_blank" rel="noopener">跨域存储源码</a></p>
+<p>欢迎关注<strong>无广告文章</strong>公众号：<strong>学前端</strong></p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg" alt=""></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://github.com/zendesk/cross-storage" target="_blank" rel="noopener">cross-storage</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage" target="_blank" rel="noopener">postMessage MDN</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线哒-------------</div>
+    
+</div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"><i class="fa fa-tag"></i> js</a>
+          
+            <a href="/tags/跨域/" rel="tag"><i class="fa fa-tag"></i> 跨域</a>
+          
+            <a href="/tags/浏览器/" rel="tag"><i class="fa fa-tag"></i> 浏览器</a>
+          
+            <a href="/tags/localStorage/" rel="tag"><i class="fa fa-tag"></i> localStorage</a>
+          
+            <a href="/tags/本地存储/" rel="tag"><i class="fa fa-tag"></i> 本地存储</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/25/Koa2 洋葱模型/" rel="next" title="大白话讲解 Koa2 洋葱模型">
+                <i class="fa fa-chevron-left"></i> 大白话讲解 Koa2 洋葱模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2020/01/03/实现本地跨域存储/"
+           data-title="实现本地跨域存储" data-url="http://yoursite.com/2020/01/03/实现本地跨域存储/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="gauseen" />
+            
+              <p class="site-author-name" itemprop="name">gauseen</p>
+              <p class="site-description motion-element" itemprop="description">Dream is possible</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/gauseen" target="_blank" title="github">
+                    
+                      <i class="fa fa-fw fa-github"></i>github</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://www.cnblogs.com/gavin007" target="_blank" title="博客园">
+                    
+                      <i class="fa fa-fw fa-thumb-tack"></i>博客园</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.jianshu.com/users/7f42cfb5faa3/timeline" target="_blank" title="简书">
+                    
+                      <i class="fa fa-fw fa-pencil"></i>简书</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://juejin.im/timeline" target="_blank" title="掘金">
+                    
+                      <i class="fa fa-fw fa-digg"></i>掘金</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/gauseen" target="_blank" title="segmentfault">
+                    
+                      <i class="fa fa-fw fa-envira"></i>segmentfault</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.npmjs.com/~gauseen" target="_blank" title="npm">
+                    
+                      <i class="fa fa-fw fa-database"></i>npm</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是跨域？"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地存储受同源策略限制"><span class="nav-number">2.</span> <span class="nav-text">本地存储受同源策略限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-postMessage"><span class="nav-number">3.</span> <span class="nav-text">window.postMessage()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现思路"><span class="nav-number">4.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景模拟"><span class="nav-number">5.</span> <span class="nav-text">场景模拟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单实现版本"><span class="nav-number">6.</span> <span class="nav-text">简单实现版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进版本"><span class="nav-number">7.</span> <span class="nav-text">改进版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gauseen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_pv">
+      本站总访问量<span id="busuanzi_value_site_pv"></span>次
+    </span>
+    | 
+    <span class="post-count">博客全站共30.3k字</span>
+ </div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
