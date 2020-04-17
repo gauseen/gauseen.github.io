@@ -5,6 +5,9 @@ tags: [js,time,UTC,GMT,Date 兼容,时区]
 author: gauseen
 ---
 
+> 作者：[gauseen](https://github.com/gauseen)
+> 原文：[https://github.com/gauseen/blog](https://github.com/gauseen/blog)
+
 ### new Date()
 
 获取当前日期相信大家都知道，如下：
@@ -116,7 +119,9 @@ function getDate (dateStr) {
 ---------------------------------------------
 欢迎关注**无广告文章**公众号：**学前端**
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/jpMAO8eFhorGjVHAfdgNsFQgo5TVO1qA5KwSy4xa6Pwocicn0M0XwMgmM6b2Zytqh5WHKMkcicRev3QQjonQ41BQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+![](https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg)
+
+
 
 
 ### 参考
