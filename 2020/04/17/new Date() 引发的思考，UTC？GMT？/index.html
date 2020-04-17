@@ -103,20 +103,20 @@
 
 
 
-<meta name="description" content="new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是什么意思？又是如何计算的呢？ GMT 和 UTC 概念格林尼治平均时间（GMT） 格林尼治平均">
+<meta name="description" content="作者：gauseen原文：https://github.com/gauseen/blog  new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是">
 <meta name="keywords" content="js,time,UTC,GMT,Date 兼容,时区">
 <meta property="og:type" content="article">
 <meta property="og:title" content="new Date() 引发的思考，UTC？GMT？">
 <meta property="og:url" content="http://yoursite.com/2020/04/17/new Date() 引发的思考，UTC？GMT？/index.html">
 <meta property="og:site_name" content="A new way to explore the world">
-<meta property="og:description" content="new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是什么意思？又是如何计算的呢？ GMT 和 UTC 概念格林尼治平均时间（GMT） 格林尼治平均">
+<meta property="og:description" content="作者：gauseen原文：https://github.com/gauseen/blog  new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/%E6%97%B6%E5%8C%BA%E5%9B%BE.jpg">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/jpMAO8eFhorGjVHAfdgNsFQgo5TVO1qA5KwSy4xa6Pwocicn0M0XwMgmM6b2Zytqh5WHKMkcicRev3QQjonQ41BQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2020-04-17T03:35:18.416Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg">
+<meta property="og:updated_time" content="2020-04-17T03:54:20.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="new Date() 引发的思考，UTC？GMT？">
-<meta name="twitter:description" content="new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是什么意思？又是如何计算的呢？ GMT 和 UTC 概念格林尼治平均时间（GMT） 格林尼治平均">
+<meta name="twitter:description" content="作者：gauseen原文：https://github.com/gauseen/blog  new Date()获取当前日期相信大家都知道，如下： 1234// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象new Date()Thu Apr 16 2020 13:55:25 GMT+0800 (中国标准时间) 是否注意到 GMT+0800 标识是">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/gauseen/images-bed/master/blog/%E6%97%B6%E5%8C%BA%E5%9B%BE.jpg">
 
 
@@ -381,7 +381,10 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
       
 
       
-        <h3 id="new-Date"><a href="#new-Date" class="headerlink" title="new Date()"></a>new Date()</h3><p>获取当前日期相信大家都知道，如下：</p>
+        <blockquote>
+<p>作者：<a href="https://github.com/gauseen" target="_blank" rel="noopener">gauseen</a><br>原文：<a href="https://github.com/gauseen/blog" target="_blank" rel="noopener">https://github.com/gauseen/blog</a></p>
+</blockquote>
+<h3 id="new-Date"><a href="#new-Date" class="headerlink" title="new Date()"></a>new Date()</h3><p>获取当前日期相信大家都知道，如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果没有输入任何参数，则 Date 的构造器会依据系统设置的当前时间来创建一个 Date 对象</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line"></span><br><span class="line">Thu Apr <span class="number">16</span> <span class="number">2020</span> <span class="number">13</span>:<span class="number">55</span>:<span class="number">25</span> GMT+<span class="number">0800</span> (中国标准时间)</span><br></pre></td></tr></table></figure>
 <p>是否注意到 <code>GMT+0800</code> 标识是什么意思？又是如何计算的呢？</p>
 <h3 id="GMT-和-UTC-概念"><a href="#GMT-和-UTC-概念" class="headerlink" title="GMT 和 UTC 概念"></a>GMT 和 UTC 概念</h3><p><strong>格林尼治平均时间（GMT）</strong></p>
@@ -417,7 +420,7 @@ const loadScript = function loadScript(c,b){var a=document.createElement("script
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getDate</span> (<span class="params">dateStr</span>) </span>&#123;</span><br><span class="line">  dateStr = dateStr.replace(<span class="regexp">/-/g</span>, <span class="string">'/'</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(dateStr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>欢迎关注<strong>无广告文章</strong>公众号：<strong>学前端</strong></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/jpMAO8eFhorGjVHAfdgNsFQgo5TVO1qA5KwSy4xa6Pwocicn0M0XwMgmM6b2Zytqh5WHKMkcicRev3QQjonQ41BQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/gauseen/images-bed/master/learn-fe.jpg" alt=""></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%9E%97%E5%B0%BC%E6%B2%BB%E6%A8%99%E6%BA%96%E6%99%82%E9%96%93" title="格林尼治标准时间" target="_blank" rel="noopener">格林尼治标准时间</a></li>
 <li><a href="https://www.zhihu.com/question/27052407" title="UTC 和 GMT 什么关系？" target="_blank" rel="noopener">UTC 和 GMT 什么关系？</a></li>
